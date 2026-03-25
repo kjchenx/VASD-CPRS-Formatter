@@ -170,6 +170,8 @@
 		var urineData = "";
 		var pleuralData = "";
 		var peritonealData = "";
+		var stoolData = "";
+		var stoolExclude = "||";
 		var cexclude = "||";
 		var uexclude = "||";
 		var csfData = "";
@@ -654,7 +656,55 @@
 		replaceArray["HEPATITIS Be Ag"] = "Hep B Ag";
 		replaceArray["HEPATITIS Be Ab"] = "Hep B Ab";
 		replaceArray["GIARDIA AG"] = "Giardia Ag";
+		replaceArray["GIARDIA ANTIGEN,STOOL"] = "Giardia Ag";
+		replaceArray["GIARDIA ANTIGEN, STOOL"] = "Giardia Ag";
+		replaceArray["GIARDIA ANTIGEN EIA"] = "Giardia Ag";
 		replaceArray["CRYPTOSPORIDIUM AG"] = "Cryptosporidium Ag";
+		replaceArray["CRYPTOSPORIDIUM ANTIGEN,STOOL"] = "Cryptosporidium Ag";
+		replaceArray["CRYPTOSPORIDIUM ANTIGEN, STOOL"] = "Cryptosporidium Ag";
+
+		//Stool / GI / Parasitology (labs reported on FECES specimen)
+		replaceArray["MICROSPORIDIA SPORE STAIN"] = "Microsporidia Spore Stain";
+		replaceArray["MODIFIED TRICHROME STAIN"] = "Microsporidia Spore Stain";
+		replaceArray["MICROSPORIDIA,STOOL"] = "Microsporidia Spore Stain";
+		replaceArray["MICROSPORIDIA"] = "Microsporidia Spore Stain";
+		replaceArray["OVA AND PARASITES,CONC"] = "O&P Concentrate Exam";
+		replaceArray["OVA AND PARASITES, CONC"] = "O&P Concentrate Exam";
+		replaceArray["OVA AND PARASITES,TRICHROME"] = "O&P Trichrome Exam";
+		replaceArray["OVA AND PARASITES, TRICHROME"] = "O&P Trichrome Exam";
+		replaceArray["O AND P CONCENTRATE EXAM"] = "O&P Concentrate Exam";
+		replaceArray["O AND P TRICHROME EXAM"] = "O&P Trichrome Exam";
+		replaceArray["O&P CONCENTRATE"] = "O&P Concentrate Exam";
+		replaceArray["O&P TRICHROME"] = "O&P Trichrome Exam";
+		replaceArray["O&P CONCENTRATE EXAM"] = "O&P Concentrate Exam";
+		replaceArray["O&P TRICHROME EXAM"] = "O&P Trichrome Exam";
+		replaceArray["FECAL LEUKOCYTES"] = "Fecal Leukocytes";
+		replaceArray["FECAL LEUKOCYTE"] = "Fecal Leukocytes";
+		replaceArray["FECAL WBC"] = "Fecal WBC";
+		replaceArray["FECAL WBC'S"] = "Fecal WBC";
+		replaceArray["WBC,STOOL"] = "Fecal WBC";
+		replaceArray["C.DIFFICILE TOX A/B"] = "C. diff Tox A/B";
+		replaceArray["C.DIFFICILE TOXIN A/B"] = "C. diff Tox A/B";
+		replaceArray["C. DIFFICILE TOXIN A/B"] = "C. diff Tox A/B";
+		replaceArray["CLOSTRIDIUM DIFFICILE TOXIN A/B"] = "C. diff Tox A/B";
+		replaceArray["C DIFF TOX A/B"] = "C. diff Tox A/B";
+		replaceArray["CLOSTRIDIOIDES DIFFICILE PCR"] = "C. diff PCR";
+		replaceArray["C.DIFFICILE NAAT"] = "C. diff PCR";
+		replaceArray["C DIFF NAAT"] = "C. diff PCR";
+		replaceArray["CLOSTRIDIUM DIFFICILE PCR"] = "C. diff PCR";
+		replaceArray["GI PATHOGEN PANEL"] = "GI Pathogen Panel";
+		replaceArray["BIOFIRE GI PANEL"] = "GI Pathogen Panel";
+		replaceArray["LACTOFERRIN,FECAL"] = "Fecal Lactoferrin";
+		replaceArray["CALPROTECTIN,FECAL"] = "Fecal Calprotectin";
+		replaceArray["FECAL CALPROTECTIN"] = "Fecal Calprotectin";
+		replaceArray["ROTAVIRUS ANTIGEN"] = "Rotavirus Ag";
+		replaceArray["NOROVIRUS,PCR"] = "Norovirus PCR";
+		replaceArray["SHIGA TOXIN"] = "Shiga Toxin";
+		replaceArray["SHIGA TOXIN PRODUCING E COLI"] = "STEC";
+		replaceArray["E.COLI O157:H7 AG"] = "E. coli O157 Ag";
+		replaceArray["E.COLI O157 ANTIGEN"] = "E. coli O157 Ag";
+		replaceArray["HELICOBACTER PYLORI AG,STOOL"] = "H. Pylori Ag";
+		replaceArray["HELICOBACTER PYLORI ANTIGEN,STOOL"] = "H. Pylori Ag";
 		replaceArray["HBV B DNA,COPIES"] = "HBV DNA Copies";
 		replaceArray["HBV B DNA,UNITS"] = "HBV DNA Log";
 		replaceArray["COCCIDIOIDES CF,SERUM"] = "Coccidioides CF";
@@ -816,10 +866,10 @@
 
 
 
-		var listTrends = ["CBC", "Diff", "Smear", "Chem", "Cardiac", "Iron", "Liver", "Coags", "Lipid-a1c", "Glucose", "UA", "UDS", "ABG"];
-		var listElements = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["PMN", "Lymph", "Mono", "Eos", "Baso", "Bands", "Promyelocytes", "Myelocytes", "Metamyelocytes", "Blasts"], ["SMEAR"], ["SODIUM", "POTASSIUM", "CHLORIDE", "CO2", "ANION GAP", "UREA NITROGEN", "Creatinine", "Calcium", "Mag", "Phos"], ["Trop I", "CK-MB", "CK", "BNP"], ["Iron", "TIBC", "Iron sat", "Ferritin"], ["AST", "ALT", "ALK", "TBil", "DBil", "Albumin", "Protein", "Ammonia"], ["PT", "INR", "PTT", "Fibrinogen", "D-dimer"], ["A1c", "Spot Albumin/Cr ratio", "CHOL", "LDL", "LDL,DIRECT", "HDL", "TG", "VLDL"], ["Glucose"], ["SPECIFIC GRAVITY", "URINE pH", "URINE BLOOD", "LEUKOCYTE ESTERASE", "NITRITE, URINE", "URINE PROTEIN", "URINE GLUCOSE", "URINE KETONES", "URINE BILIRUBIN", "UROBILINOGEN"], ["AMPHETAMINES SCREEN", "BARBITURATES SCREEN", "BENZODIAZEPI SCREEN", "CANNABINOIDS SCREEN", "COCAINE SCREEN", "OPIATES SCREEN", "METHADONE SCREEN", "OXYCODONE SCREEN", "BUPRENORPHINE SCREEN", "FENTANYL SCREEN", "Ethyl Glucuronide"], ["ABG"]];
-		var listNames = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["PMN", "Lymph", "Mono", "Eos", "Baso", "Bands", "Promy", "Myelo", "Metam", "Blast"], ["SMEAR"], ["Na", "K", "Cl", "CO2", "AG", "BUN", "Cr", "Ca", "Mg", "PO4"], ["Troponin I", "CK-MB", "CPK", "BNP"], ["Iron", "TIBC", "TSat", "Ferritin"], ["AST", "ALT", "AlkP", "TBil", "DBil", "Alb", "Prtn", "NH4"], ["PT", "INR", "PTT", "Fibrinogen", "D-dimer"], ["A1c", "Alb/Cr", "Chol", "LDL    ", "LDL Direct", "HDL", "TG", "VLDL"], ["Glucose"], ["SG", "pH", "Blood", "LE", "Nitr", "Prtn", "Gluc", "Keto", "Bili", "Urobi"], ["AMP", "BAR", "BZD", "CBD", "COC", "OPI", "MTD", "OXY", "BUP", "FEN", "ETG"], ["ABG"]];
-		var listTrendSpecimens = ["||BLOOD||", "||BLOOD||", "||BLOOD||", "||SERUM||PLASMA||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||URINE||", "||SERUM||PLASMA||BLOOD||", "||URINE||", "||URINE||", "||ARTERIAL BLOOD||"];
+		var listTrends = ["CBC", "Diff", "Smear", "Chem", "Cardiac", "Iron", "Liver", "Coags", "Lipid-a1c", "Glucose", "UA", "UDS", "ABG", "GI"];
+		var listElements = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["PMN", "Lymph", "Mono", "Eos", "Baso", "Bands", "Promyelocytes", "Myelocytes", "Metamyelocytes", "Blasts"], ["SMEAR"], ["SODIUM", "POTASSIUM", "CHLORIDE", "CO2", "ANION GAP", "UREA NITROGEN", "Creatinine", "Calcium", "Mag", "Phos"], ["Trop I", "CK-MB", "CK", "BNP"], ["Iron", "TIBC", "Iron sat", "Ferritin"], ["AST", "ALT", "ALK", "TBil", "DBil", "Albumin", "Protein", "Ammonia"], ["PT", "INR", "PTT", "Fibrinogen", "D-dimer"], ["A1c", "Spot Albumin/Cr ratio", "CHOL", "LDL", "LDL,DIRECT", "HDL", "TG", "VLDL"], ["Glucose"], ["SPECIFIC GRAVITY", "URINE pH", "URINE BLOOD", "LEUKOCYTE ESTERASE", "NITRITE, URINE", "URINE PROTEIN", "URINE GLUCOSE", "URINE KETONES", "URINE BILIRUBIN", "UROBILINOGEN"], ["AMPHETAMINES SCREEN", "BARBITURATES SCREEN", "BENZODIAZEPI SCREEN", "CANNABINOIDS SCREEN", "COCAINE SCREEN", "OPIATES SCREEN", "METHADONE SCREEN", "OXYCODONE SCREEN", "BUPRENORPHINE SCREEN", "FENTANYL SCREEN", "Ethyl Glucuronide"], ["ABG"], ["Giardia Ag", "Cryptosporidium Ag", "O&P Concentrate Exam", "O&P Trichrome Exam", "Microsporidia Spore Stain", "Fecal Leukocytes", "C. diff Tox A/B", "C Diff Tox B PCR", "C. diff PCR", "H. Pylori Ag"]];
+		var listNames = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["PMN", "Lymph", "Mono", "Eos", "Baso", "Bands", "Promy", "Myelo", "Metam", "Blast"], ["SMEAR"], ["Na", "K", "Cl", "CO2", "AG", "BUN", "Cr", "Ca", "Mg", "PO4"], ["Troponin I", "CK-MB", "CPK", "BNP"], ["Iron", "TIBC", "TSat", "Ferritin"], ["AST", "ALT", "AlkP", "TBil", "DBil", "Alb", "Prtn", "NH4"], ["PT", "INR", "PTT", "Fibrinogen", "D-dimer"], ["A1c", "Alb/Cr", "Chol", "LDL    ", "LDL Direct", "HDL", "TG", "VLDL"], ["Glucose"], ["SG", "pH", "Blood", "LE", "Nitr", "Prtn", "Gluc", "Keto", "Bili", "Urobi"], ["AMP", "BAR", "BZD", "CBD", "COC", "OPI", "MTD", "OXY", "BUP", "FEN", "ETG"], ["ABG"], ["Giardia", "Crypto", "O&P-Conc", "O&P-Tri", "Micro-Spore", "Fecal-WBC", "C.diff-Tox", "C.diff-PCR(B)", "C.diff-PCR", "H.pylori"]];
+		var listTrendSpecimens = ["||BLOOD||", "||BLOOD||", "||BLOOD||", "||SERUM||PLASMA||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||URINE||", "||SERUM||PLASMA||BLOOD||", "||URINE||", "||URINE||", "||ARTERIAL BLOOD||", "||FECES||STOOL||"];
 
 		var listMedID = new Array();
 
@@ -1007,6 +1057,68 @@
 			};
 		}
 
+		/**
+		 * ARCHITECTURE OVERVIEW
+		 * ======================
+		 * This is a single-page application. All logic lives in this file.
+		 *
+		 * Data flow:
+		 *   1. User pastes raw CPRS lab text into the textarea (#clipb).
+		 *   2. opf() is called → clears output, then calls fs(), fr(), ff() in order.
+		 *   3. fs()  — PARSER: reads clipb.value line-by-line, populates the global
+		 *              parallel arrays (listVals, listTime, listSpecimen, …) keyed by
+		 *              normalized lab name.  Microbiology narrative sections go into
+		 *              listMicro / listMicroSpec instead of the numeric arrays.
+		 *   4. fr()  — FORMATTER: reads the parsed arrays and builds formatted text
+		 *              strings for each section (CBC fishbone, BMP fishbone, UA, Stool,
+		 *              Pleural, Peritoneal, CSF, Other).  Sets cbcData, chemistryData,
+		 *              urineData, stoolData, pleuralData, peritonealData, csfData, otherData.
+		 *   5. ff()  — TREND/OUTPUT: assembles the final display string from the
+		 *              formatted sections, appends the MICRO: narrative block, calculates
+		 *              "significant changes", generates trend tables, and writes to #edtData.
+		 *
+		 * Key global state:
+		 *   listVals[lab]     – array of value strings per lab (most-recent first after sort)
+		 *   listTime[lab]     – parallel array of "Mon DD, YYYY@HH:MM" strings
+		 *   listSpecimen[lab] – parallel array of specimen strings (SERUM, BLOOD, FECES, …)
+		 *   listCrit[lab]     – parallel array of "H" / "L" / "N" flag strings
+		 *   listUH[lab]       – display value with H/L suffix and bold HTML markup
+		 *   listComment[lab]  – any Comment: block text associated with each result
+		 *   listMicro[]       – narrative text blocks for microbiology results
+		 *   listMicroSpec[]   – "<specimen> @ <time>" labels matching listMicro
+		 *
+		 * Lab name normalization:
+		 *   replaceArray["RAW CPRS NAME"] = "Canonical Name"
+		 *   The parser looks up each extracted lab name in replaceArray and replaces it
+		 *   before storing, so downstream rendering code uses stable canonical names.
+		 *
+		 * Parser detection logic (inside fs()):
+		 *   A line is treated as a result row when EITHER:
+		 *     a) it contains a site-code pattern / \[([0-9]{3,4})\]/ (e.g., [664]), OR
+		 *     b) curTime is very old/unset AND the line starts with a known replaceArray key
+		 *        (this is a fallback for edge cases where site codes are absent).
+		 *   Lab name: left side up to the first double-space.
+		 *   Value:    first token after the double-space gap, using regex /\S[.A-Za-z0-9,_+:\/\-=]* /
+		 *   Multi-word values (Not Detected, NONE OBSERVED, etc.) are handled by
+		 *   special branches that capture the second word, then normalized to Neg/Pos/etc.
+		 *
+		 * Trend tables (generateTrendText):
+		 *   listTrends[]          – category names (CBC, Chem, GI, …)
+		 *   listElements[i][]     – canonical lab names that belong to category i
+		 *   listNames[i][]        – short display labels for trend columns
+		 *   listTrendSpecimens[i] – pipe-delimited accepted specimen strings for category i
+		 *
+		 * Adding support for a new lab:
+		 *   1. Add its CPRS name → canonical name mapping in replaceArray.
+		 *   2. If it has a non-standard specimen, ensure fr() has a printData() call for it.
+		 *   3. Optionally add it to listElements for trending.
+		 */
+
+		/**
+		 * opf() — Main entry point called by the "Format" button.
+		 * Clears the output div, then runs the three-phase pipeline asynchronously
+		 * (setTimeout ensures the DOM clears before the heavy JS runs).
+		 */
 		function opf() {
 			edtData.innerText = "";
 			setTimeout(function () {
@@ -1364,6 +1476,34 @@
 			return "";
 		}
 
+		/**
+		 * fs() — PARSER
+		 * Reads the raw CPRS lab text from #clipb and populates the global parallel arrays.
+		 *
+		 * Detection heuristics:
+		 *   • A line is a result row if it contains / \[([0-9]{3,4})\]/ (VA site code).
+		 *   • Fallback: if curTime is very old/unset, any line starting with a known
+		 *     replaceArray key is also accepted as a result row.
+		 *
+		 * Section keywords parsed from narrative micro blocks:
+		 *   "Collection date:"          → starts a new listMicro entry
+		 *   "CULTURE RESULTS:"          → appends culture narrative to current listMicro entry
+		 *   "GRAM STAIN:"               → appends gram stain text
+		 *   "ACID FAST BACILLI:" / "AFB STAIN:" → appends AFB stain text
+		 *   "Remark(s):"                → appends lab remark
+		 *   "Fungus/Yeast:"             → appends fungal result
+		 *   "ANTIBIOTIC SUSCEPTIBILITY TEST RESULTS:" → captured but hidden in MICRO display
+		 *
+		 * Limitations / assumptions:
+		 *   • Lab name is the text to the left of the first double-space on the line.
+		 *   • Value is the first whitespace-delimited token after that gap.
+		 *   • Multi-word values (Not Detected, NONE OBSERVED, < 0.5, etc.) are handled
+		 *     by explicit prefix branches (val=="Not", val=="NONE", val=="<", …).
+		 *   • H/L flags are detected by looking for the value followed by " H" or " L".
+		 *   • Timestamps must match CPRS format: "Mon DD, YYYY@HH:MM".
+		 *   • Only the most recent result per lab/specimen is shown in main views;
+		 *     all results are available in the trending tables.
+		 */
 		/* Main function that splits array into discrete lab elements, then generates text */
 		function fs() {
 			if (typeof String.prototype.trim !== 'function') {
@@ -1484,6 +1624,12 @@
 					} else if (val == "Non" || val == "NON") {
 						var tempVal = temp.replace("Non ", " ").replace("NON ", " ");
 						val = "Non " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));
+					} else if (val == "NONE" || val == "None") {
+						// "NONE DETECTED", "NONE OBSERVED", etc. — capture the second word
+						var tempVal = temp.replace("NONE ", " ").replace("None ", " ");
+						var nv = valsearch.exec(tempVal.substring(temp.indexOf("  ")));
+						// If a second word was found, combine; otherwise treat bare "NONE" as negative
+						val = nv ? "None " + nv : "Neg";
 					} else if (val == "OCCASIONAL" || val == "Occasional") {
 						var tempVal = temp.replace("OCCASIONAL ", " ").replace("Occasional ", " ");
 						val = "Occasional " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));
@@ -1491,7 +1637,20 @@
 						var tempVal = temp.replace("SLIGHT ", " ").replace("Slight ", " ");
 						val = "Slight " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));
 					}
-					if (val == "NEGATIVE" || val == "NEG" || val == "NON-REACTIVE" || val == "negative" || val == "Non Reactive" || val == "Not Reactive" || val == "nonreactive" || val == "Nonreactive" || val == "Not DETECTED") {
+					// Normalize common negative/positive result phrases using a lookup set.
+					// Ensure val is a plain string (valsearch.exec() returns a RegExpExecArray;
+					// == coerces it but Set.has() does not).
+					val = val + "";
+					var negPatterns = new Set([
+						"NEGATIVE", "NEG", "NON-REACTIVE", "negative",
+						"Non Reactive", "Not Reactive", "nonreactive", "Nonreactive",
+						"Not DETECTED", "Not Detected", "NOT DETECTED",
+						"NONE DETECTED", "None DETECTED", "None Detected",
+						"NONE OBSERVED", "None OBSERVED",
+						"NONE SEEN", "None SEEN",
+						"NONE FOUND", "None FOUND"
+					]);
+					if (negPatterns.has(val)) {
 						val = "Neg";
 					} else if (val == "POSITIVE" || val == "POS" || val == "REACTIVE" || val == "Reactive" || val == "DETECTED") {
 						val = "Pos";
@@ -1672,11 +1831,47 @@
 					var onlyBlank = false;
 					while (!onlyBlank) {
 						i++;
-						if (vals[i].trim() == "") {
-							if (vals[i + 1].trim() == "" || vals[i + 1].indexOf("GRAM STAIN:") != -1 || vals[i + 1].indexOf("ANTIBIOTIC SUSCEPTIBILITY TEST RESULTS:") != -1 || vals[i + 1].indexOf("CULTURE RESULTS") != -1 || vals[i + 1].indexOf("=--=--=--=--=--=--=--=--=--=--=-") != -1)
+						if (i >= vals.length) {
+							onlyBlank = true;
+						} else if (vals[i].trim() == "") {
+							// Stop at double-blank or a recognized section header on the next line
+							var nextLine = (i + 1 < vals.length) ? vals[i + 1].trim() : "";
+							if (nextLine == "" ||
+								nextLine.indexOf("GRAM STAIN:") != -1 ||
+								nextLine.indexOf("ANTIBIOTIC SUSCEPTIBILITY TEST RESULTS:") != -1 ||
+								nextLine.indexOf("CULTURE RESULTS") != -1 ||
+								nextLine.indexOf("=--=--=--=--=--=--=--=--=--=--=-") != -1 ||
+								nextLine.indexOf("=====") != -1 ||
+								nextLine.indexOf("Collection date:") != -1 ||
+								nextLine.indexOf("Specimen Collection Date:") != -1)
 								onlyBlank = true;
+						} else if (vals[i].trim().indexOf("=====") == 0 || vals[i].trim().indexOf("=--=-") == 0) {
+							// Hit a separator line — stop without consuming it
+							i--;  // back up so the outer loop can re-process it
+							onlyBlank = true;
 						} else {
 							textS += vals[i].trim() + "\n";
+						}
+					}
+					var tlm = listMicro.pop();
+					if (tlm != "") {
+						listMicro.push(tlm + "\n" + textS);
+					} else {
+						listMicro.push(textS);
+					}
+				} else if (vals[i].indexOf("ACID FAST BACILLI:") != -1 || vals[i].indexOf("AFB STAIN:") != -1) {
+					// AFB / acid-fast stain results (e.g., Cryptosporidium modified acid-fast, TB AFB)
+					var keyword = vals[i].indexOf("ACID FAST BACILLI:") != -1 ? "ACID FAST BACILLI:" : "AFB STAIN:";
+					var textS = "AFB: " + vals[i].split(keyword)[1].trim();
+					var onlyBlank = false;
+					while (!onlyBlank) {
+						i++;
+						if (i >= vals.length) {
+							onlyBlank = true;
+						} else if (vals[i].trim() == "" || vals[i].trim().indexOf("=====") == 0 || vals[i].trim().indexOf("=--=-") == 0) {
+							onlyBlank = true;
+						} else {
+							textS += " " + vals[i].trim();
 						}
 					}
 					var tlm = listMicro.pop();
@@ -2224,12 +2419,31 @@
 			}
 		}
 
+		/**
+		 * fr() — FORMATTER
+		 * Reads parsed listVals / listTime / listSpecimen and builds formatted text
+		 * sections stored in module-level strings:
+		 *   cbcData        — CBC fishbone (BLOOD specimen)
+		 *   chemistryData  — BMP/CMP fishbone (SERUM or PLASMA specimen)
+		 *   urineData      — UA dipstick, urine micro, UDS, FENa/FEUrea
+		 *   stoolData      — Stool/GI studies (FECES or STOOL specimen)
+		 *   pleuralData    — Pleural fluid with Light's criteria
+		 *   peritonealData — Peritoneal fluid with SAAG
+		 *   csfData        — CSF studies
+		 *   otherData      — All remaining labs not matching any known specimen category
+		 *
+		 * cexclude / uexclude / stoolExclude — pipe-delimited lists of lab names that
+		 * have already been rendered in a dedicated section; the general loop skips them
+		 * to avoid duplicate display.
+		 */
 		function fr() {
 			cbcData = "";
 			chemistryData = "";
 			urineData = "";
 			pleuralData = "";
 			peritonealData = "";
+			stoolData = "";
+			stoolExclude = "||";
 			cexclude = "||";
 			cexclude += smearList.join("||") + "||";
 			cexclude += "HCO3||HGB POC||Na POC||K POC||Ca++ POC||Base Excess POC||PH||PCO2||PO2||BICARBONATE||O2,SAT||TEMPERATURE||";
@@ -2741,6 +2955,33 @@
 				var fena = 100 * parseFloat(crs[0]) * nau / (parseFloat(cru[0]) * parseFloat(nas[0]));
 				urineData += "FEUrea: " + fena.toFixed(2) + "% @ " + t1 + "\n";
 			}
+			// ---------------------------------------------------------------
+			// STOOL STUDIES — labs reported on FECES/STOOL specimen
+			// Covers parasite antigen tests, O&P, AFB stains, C. diff, etc.
+			// ---------------------------------------------------------------
+			var stoolOrderedList = [
+				"H. Pylori Ag",
+				"Giardia Ag", "Cryptosporidium Ag",
+				"O&P Concentrate Exam", "O&P Trichrome Exam",
+				"Microsporidia Spore Stain",
+				"Fecal Leukocytes", "Fecal WBC",
+				"Fecal fat", "Fecal Calprotectin", "Fecal Lactoferrin",
+				"C. diff Tox A/B", "C Diff Tox B PCR", "C. diff PCR",
+				"Shiga Toxin", "STEC", "E. coli O157 Ag",
+				"Rotavirus Ag", "Norovirus PCR", "GI Pathogen Panel",
+				"FOBTx1", "FOBT #1", "FOBT #2", "FOBT #3", "FIT",
+				"A1-Antitrypsin"
+			];
+			for (var si = 0; si < stoolOrderedList.length; si++) {
+				var sLab = stoolOrderedList[si];
+				if (sLab in listVals) {
+					stoolData += printData(sLab, "||FECES||STOOL||");
+					stoolExclude += sLab + "||";
+				}
+			}
+			if (stoolData != "")
+				stoolData = "STOOL STUDIES:\n" + stoolData + "\n";
+
 			if ("Protein" in listVals && "LDH" in listVals) {
 				var valList = ["Protein"];
 				var t1 = getNTime(valList, "PLEURAL FLUID", 0);
@@ -2898,6 +3139,9 @@
 				var prevList = "BLOOD||SERUM||PLASMA||URINE||ARTERIAL BLOOD||VENOUS BLOOD||PLEURAL FLUID||PERITONEAL FLUID||MIXED VENOUS BLOOD||24 HR||";
 				for (var j = 0; j < listVals[prop].length; j++) {
 					prevList = "BLOOD||SERUM||PLASMA||URINE||ARTERIAL BLOOD||VENOUS BLOOD||PLEURAL FLUID||PERITONEAL FLUID||MIXED VENOUS BLOOD||24 HR||";
+					// Skip labs already rendered in the dedicated Stool Studies section
+					if (stoolExclude.indexOf("||" + prop + "||") != -1 && (listSpecimen[prop][j] == "FECES" || listSpecimen[prop][j] == "STOOL"))
+						continue;
 					if (minV == -1 && prevList.indexOf(listSpecimen[prop][j] + "||") == -1 && listSpecimen[prop][j].indexOf("CEREBROSPINAL") == -1) {
 						minV = j;
 						var tmpProp = prop;
@@ -2967,6 +3211,19 @@
 		replace2array["AMORPHOUS CRYSTALS"] = "Amorphous crystals";
 		replace2array["URINE CRYSTALS"] = "Crystals";
 
+		/**
+		 * ff() — TREND / OUTPUT ASSEMBLY
+		 * Assembles the final text shown in #edtData:
+		 *   1. Significant changes block (>30% delta within 1 week / all time).
+		 *   2. All formatted section strings from fr() (cbcData, stoolData, …).
+		 *   3. MICRO: narrative block built from listMicro / listMicroSpec.
+		 *   4. TREND DATA: tables generated by generateTrendText() for each category.
+		 *   5. Medication list (outpatient) if present.
+		 *
+		 * generateTrendText(category) builds a column-per-lab trend table for one
+		 * category, filtering by the specimen types in listTrendSpecimens[category].
+		 * Radio buttons (single / week / all) control the time range shown.
+		 */
 		function ff() {
 			var changeData = "";
 			var qnum = 0;
@@ -3019,7 +3276,7 @@
 				trendData = "TREND DATA:" + "\n" + trendData + "\n\n";
 			if (changeData != "")
 				changeData = "SIGNIFICANT CHANGES:" + "\n" + changeData + "\n\n";
-			var tmpStr = changeData + cbcData + chemistryData + urineData + pleuralData + peritonealData + csfData + otherData + trendData;
+			var tmpStr = changeData + cbcData + chemistryData + urineData + stoolData + pleuralData + peritonealData + csfData + otherData + trendData;
 			var micro = "";
 
 

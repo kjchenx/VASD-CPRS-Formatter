@@ -1940,132 +1940,40 @@ replaceArray["CREATINE KINASE"] = "CK";
 		 * have already been rendered in a dedicated section; the general loop skips them
 		 * to avoid duplicate display.
 		 */
-		function fr() {
-			cbcData = "";
-			chemistryData = "";
-			urineData = "";
-			pleuralData = "";
-			peritonealData = "";
-			stoolData = "";
-			stoolExclude = "||";
-			cexclude = "||";
-			cexclude += smearList.join("||") + "||";
-			cexclude += "HCO3||HGB POC||Na POC||K POC||Ca++ POC||Base Excess POC||PH||PCO2||PO2||BICARBONATE||O2,SAT||TEMPERATURE||";
-			cexclude += "HCT(POC)||TCO2(POC)||O2,SAT(POC)||O2,SAT||TEMPERATURE||"
-			uexclude = "";
-			csfData = "";
+		var anemiaText = "";
 
-			if ("WBC" in listVals) {
-				var valList = ["WBC", "HGB", "HCT", "PLT"];
-				var t1 = getNTime(valList, "BLOOD", 0);
-				var t2 = getNTime(valList, "BLOOD", 1);
-				var t3 = getNTime(valList, "BLOOD", 2);
-				var cbc0 = timeFormat(t1);
-				var inList = getIndex(valList, t1, "BLOOD");
-				var wbc = getValList(listVals, "WBC", inList, "***");
-				var hgb = getValList(listVals, "HGB", inList, "***");
-				var hct = getValList(listVals, "HCT", inList, "***");
-				var plt = getValList(listVals, "PLT", inList, "***");
-				var anemiaFlag = false;
-				if (listCrit["HGB"][inList["HGB"]] == "L")
-					anemiaFlag = true;
-				var cbc1 = replicate(" ", wbc.toString().length) + "\\ " + valueCritRed(hgb, inList, "HGB") + " /";
-				var cbc2 = valueCritRed(wbc, inList, "WBC") + " ------ " + valueCritRed(plt, inList, "PLT");
-				var cbc3 = replicate(" ", wbc.toString().length) + "/ " + valueCritRed(hct, inList, "HCT") + " \\";
-				var mL = Math.max(replaceTags(cbc0).length, replaceTags(cbc1).length, replaceTags(cbc2).length, replaceTags(cbc3).length) + 4;
-				var wbc2 = "***";
-				var hgb2 = "***";
-				var plt2 = "***";
-				var hct2 = "***";
-				if (t2 != -1) {
-					inList = getIndex(valList, t2, "BLOOD");
-					wbc2 = getValList(listVals, "WBC", inList, "***");
-					hgb2 = getValList(listVals, "HGB", inList, "***");
-					hct2 = getValList(listVals, "HCT", inList, "***");
-					plt2 = getValList(listVals, "PLT", inList, "***");
-					cbc0 += replicate(" ", mL - replaceTags(cbc0).length);
-					cbc1 += replicate(" ", mL - replaceTags(cbc1).length);
-					cbc2 += replicate(" ", mL - replaceTags(cbc2).length);
-					cbc3 += replicate(" ", mL - replaceTags(cbc3).length);
-					cbc0 += timeFormat(t2);
-					cbc1 += replicate(" ", wbc2.toString().length) + "\\ " + valueCritRed(hgb2, inList, "HGB") + " /";
-					cbc2 += valueCritRed(wbc2, inList, "WBC") + " ------ " + valueCritRed(plt2, inList, "PLT");
-					cbc3 += replicate(" ", wbc2.toString().length) + "/ " + valueCritRed(hct2, inList, "HCT") + " \\";
-				}
-				if (t3 != -1) {
-					mL = Math.max(replaceTags(cbc0).length, replaceTags(cbc1).length, replaceTags(cbc2).length, replaceTags(cbc3).length) + 4;
-					var wbc3 = "***";
-					var hgb3 = "***";
-					var plt3 = "***";
-					var hct3 = "***";
-					inList = getIndex(valList, t3, "BLOOD");
-					wbc3 = getValList(listVals, "WBC", inList, "***");
-					hgb3 = getValList(listVals, "HGB", inList, "***");
-					hct3 = getValList(listVals, "HCT", inList, "***");
-					plt3 = getValList(listVals, "PLT", inList, "***");
-					cbc0 += replicate(" ", mL - replaceTags(cbc0).length);
-					cbc1 += replicate(" ", mL - replaceTags(cbc1).length);
-					cbc2 += replicate(" ", mL - replaceTags(cbc2).length);
-					cbc3 += replicate(" ", mL - replaceTags(cbc3).length);
-					cbc0 += timeFormat(t3);
-					cbc1 += replicate(" ", wbc3.toString().length) + "\\ " + valueCritRed(hgb3, inList, "HGB") + " /";
-					cbc2 += valueCritRed(wbc3, inList, "WBC") + " ------ " + valueCritRed(plt3, inList, "PLT");
-					cbc3 += replicate(" ", wbc3.toString().length) + "/ " + valueCritRed(hct3, inList, "HCT") + " \\";
-				}
-				if (wbc != "***" || wbc2 != "***") {
-					cexclude += "WBC||";
-				}
-				if (hgb != "***" || hgb2 != "***") {
-					cexclude += "HGB||";
-				}
-				if (hct != "***" || hct2 != "***") {
-					cexclude += "HCT||";
-				}
-				if (plt != "***" || plt2 != "***") {
-					cexclude += "PLT||";
-				}
-				valList = ["PMN", "Lymph", "Mono", "Eos", "Baso", "Bands", "ABSOLUTE NEUTROPHIL COUNT", "ABSOLUTE LYMPHOCYTE COUNT", "NRBC/100WBC"];
-				var tDiff = getNTime(valList, "BLOOD", 0);
-				inList = getIndex(valList, tDiff, "BLOOD");
+// Always show RBC indices (including MCV) in hematology section when present
+valList = ["RBC", "MCV", "RDW", "MCHC", "MCH"];
+var tIndices = getNTime(valList, "BLOOD", 0);
+if (tIndices != -1) {
+  inList = getIndex(valList, tIndices, "BLOOD");
 
-				var cbcDiff = getValListT(listPH, "PMN", inList, "", "PMN: ") + getValListT(listPH, "Lymph", inList, "", " LYMPH: ") + getValListT(listPH, "Mono", inList, "", " MONO: ") + getValListT(listPH, "Eos", inList, "", " EOS: ") + getValListT(listPH, "Baso", inList, "", "BASO: ") + getValListT(listPH, "Bands", inList, "", " BANDS: ");
-				var cbcExtras = getValListT(listUH, "ABSOLUTE NEUTROPHIL COUNT", inList, "", "ANC: ", " ", true) + getValListT(listUH, "ABSOLUTE LYMPHOCYTE COUNT", inList, "", "ALC: ", " ", true) + getValListT(listUH, "NRBC/100WBC", inList, "", "Nucleated RBCs: ", " ", true);
-				for (var i = 0; i < valList.length; i++)
-					cexclude += valList[i] + "||";
-				cexclude += "AMC||AEC||ABC||AIG||ANRBC||"
-				if (cbcDiff != "") {
-					if (tDiff != t1)
-						cbcDiff += " @ " + tDiff;
-					cbcDiff += "\n";
-				}
-				if (cbcExtras != "") {
-					if (tDiff != t1)
-						cbcExtras += " @ " + tDiff;
-					cbcExtras += "\n";
-				}
-				
-				hemeData += printData("MCV", "||BLOOD||WHOLE BLOOD||", null);
-				
-				var anemiaText = "";
-				if (anemiaFlag) {
-					valList = ["RBC", "MCV", "RDW", "MCHC", "MCH"];
-					var tAnemia = getNTime(valList, "BLOOD", 0);
-					inList = getIndex(valList, tAnemia, "BLOOD");
-					anemiaText += getValListT(listUH, "MCV", inList, "MCV: *** ", "MCV: ", " ") + getValListT(listUH, "RDW", inList, "", "RDW: ", " ") + getValListT(listUH, "MCHC", inList, "", "MCHC: ", " ", true) + getValListT(listUH, "MCH", inList, "", "MCH: ", " ", true) + getValListT(listUH, "RBC", inList, "", "RBC: ", "", true);
-					if (tAnemia != t1)
-						anemiaText += " @ " + tAnemia;
-					anemiaText += "\n";
-					if (listCrit["MCV"][inList["MCV"]] == "L" && inList["MCV"] != -1 && inList["RBC"] != -1) {
-						var mcv = listVals["MCV"][inList["MCV"]];
-						var rbc = listVals["RBC"][inList["RBC"]];
-						var mentI = mcv / rbc;
-						if (mentI > 13)
-							anemiaText += "Mentzer index of " + mentI.toFixed(2) + " (> 13, predictive of IDA)"
-						if (mentI < 13)
-							anemiaText += "Mentzer index of " + mentI.toFixed(2) + " (< 13, predictive of B-thal)"
-						anemiaText += "\n";
-					}
-				}
+  anemiaText +=
+    getValListT(listUH, "MCV",  inList, "MCV: *** ", "MCV: ", " ") +
+    getValListT(listUH, "RDW",  inList, "",         "RDW: ", " ") +
+    getValListT(listUH, "MCHC", inList, "",         "MCHC: ", " ", true) +
+    getValListT(listUH, "MCH",  inList, "",         "MCH: ", " ", true) +
+    getValListT(listUH, "RBC",  inList, "",         "RBC: ", "",  true);
+
+  if (tIndices != t1)
+    anemiaText += " @ " + tIndices;
+  anemiaText += "\n";
+}
+
+// Keep “anemia-specific interpretation” conditional if you want
+if (anemiaFlag) {
+  if (inList["MCV"] != -1 && inList["RBC"] != -1 && listCrit["MCV"][inList["MCV"]] == "L") {
+    var mcv = listVals["MCV"][inList["MCV"]];
+    var rbc = listVals["RBC"][inList["RBC"]];
+    var mentI = mcv / rbc;
+
+    if (mentI > 13)
+      anemiaText += "Mentzer index of " + mentI.toFixed(2) + " (> 13, predictive of IDA)";
+    if (mentI < 13)
+      anemiaText += "Mentzer index of " + mentI.toFixed(2) + " (< 13, predictive of B-thal)";
+    anemiaText += "\n";
+  }
+}
 				// WBC RISE
 				var wbcmin = getMinima("WBC", Date.now(), 10);
 				var wbcText = "";

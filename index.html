@@ -126,6 +126,12 @@
    ================================================== -->
 	<script language="javascript">
 
+		// ====================================================================
+		// SECTION 1 — CONFIGURATION & GLOBAL STATE
+		// Global variables, lab-name normalization tables, and trend-configuration
+		// arrays. All pipeline phases read from this shared state.
+		// ====================================================================
+
 		var vals = {};
 		var listVals = {};
 		var listCrit = {};
@@ -552,161 +558,46 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 
 		var listMedID = new Array();
 
-		function loadFunction() {
-			document.execCommand("AutoUrlDetect", false, false);
-			var ttHTML = "<tr><td>Trend:</td><td>Single</td><td>Week</td><td>&nbsp;All</td></tr>";
 
-			for (var i = 0; i < listTrends.length; i++) {
-				ttHTML += "<tr>";
-				ttHTML += "<td>" + listTrends[i] + "</td><td>";
-				ttHTML += "<input title ='Single " + listTrends[i] + "' onclick='ff()' type='radio' id='" + listTrends[i] + "single' name='" + listTrends[i] + "' checked></td><td>";
-				ttHTML += "<input title ='Week " + listTrends[i] + "' onclick='ff()' type='radio' id='" + listTrends[i] + "week' name='" + listTrends[i] + "'></td><td>"
-				ttHTML += "<input title ='All " + listTrends[i] + "' onclick='ff()' type='radio' id='" + listTrends[i] + "all'  name='" + listTrends[i] + "'></td>";
-				ttHTML += "</tr>";
-			}
-			trendTable.innerHTML = ttHTML;
-		}
-		function generateTrendText(tE) {
-			var ttHTML = "";
-			if (listTrends.indexOf(tE) != -1) {
-				var num = 0;
-				if (document.getElementById(tE + "week").checked)
-					num = 1;
-				if (document.getElementById(tE + "all").checked)
-					num = 2;
-				if (num != 0) {
-					var index = listTrends.indexOf(tE);
-					var ne = listElements[index].length;
-					var someTrue = false;
-					for (var i = 0; i < ne; i++) {
-						if (listElements[index][i] in listTime)
-							someTrue = true;
-					}
-					if (!someTrue)
-						return "";
-					ttHTML += "\n";
-					for (var i = 0; i < ne; i++) {
-						if (listElements[index][i] in listTime) {
-							ttHTML += listNames[index][i];
-							if (i != ne - 1 && listTrends[index] != "UDS")
-								ttHTML += replicate(" ", Math.max(6, listNames[index][i].length + 1) - listNames[index][i].length);
-							if (i != ne - 1 && listTrends[index] == "UDS")
-								ttHTML += replicate(" ", Math.max(5, listNames[index][i].length + 1) - listNames[index][i].length);
-						}
-					}
-					//need to select specimens in chronologic order:
-
-					ttHTML += "\n" + replicate("=", blankLength) + "\n";
-					var listTrendTimes = [];
-					for (var i = 0; i < ne; i++) {
-						var curE = listElements[index][i];
-						if (curE in listTime) {
-							for (var j = 0; j < listTime[curE].length; j++) {
-								if (listTrendSpecimens[index].indexOf("||" + listSpecimen[curE][j] + "||") != -1 && (listTrendTimes.indexOf(timeToDate(listTime[curE][j])) == -1)) {
-									if (num == 2 || timeToDate(listTime[curE][j]) > Date.now() - 7 * msDay)
-										listTrendTimes.push(timeToDate(listTime[curE][j]));
-								}
-							}
-						}
-					}
-					if (listTrendTimes.length == 0)
-						return "";
-					listTrendTimes.sort(function (a, b) { return b - a });
-					if (listTrends[index] == "Glucose") {
-						listGlucose = new Array(listTrendTimes.length);
-						for (var i = 0; i < listTrendTimes.length; i++) {
-							for (var j = 0; j < listTime["Glucose"].length; j++) {
-								if (listTrendSpecimens[index].indexOf("||" + listSpecimen["Glucose"][j] + "||") != -1 && listTrendTimes[i] == timeToDate(listTime["Glucose"][j])) {
-									listGlucose[i] = listVals["Glucose"][j];
-									listGlucose[i] += replicate(" ", 3 - listGlucose[i].length);
-									if (listCrit["Glucose"][i] != "N")
-										listGlucose[i] = "<span style='color: red; font-weight: bold'>" + listGlucose[i] + "</span>";
-								}
-							}
-						}
-						for (var i = 0; i < listTrendTimes.length; i++) {
-							var curString = "";
-							curString += listGlucose[i] + " " + msToMH(listTrendTimes[i]) + "";
-							var j = i + 1;
-							var exitLoop = false;
-							while (!exitLoop) {
-								if (j == listTrendTimes.length) {
-									exitLoop = true;
-								} else {
-									if (!compareDay(listTrendTimes[i], listTrendTimes[j])) {
-										exitLoop = true;
-									} else {
-										var c2s = "   ";
-										c2s += listGlucose[j] + " " + msToMH(listTrendTimes[j]) + "";
-										if (replaceTags(curString + c2s).length < blankLength) {
-											curString += c2s;
-											j++;
-										} else {
-											exitLoop = true;
-										}
-									}
-								}
-							}
-							ttHTML += curString + " @ " + msToDay(listTrendTimes[i]) + "\n";
-							i = j - 1;
-						}
-					} else {
-						for (var i = 0; i < listTrendTimes.length; i++) {
-							var curString = "";
-							for (var j = 0; j < ne; j++) {
-								var found = false;
-								var curE = listElements[index][j];
-								if (curE in listTime) {
-									for (var k = 0; k < listTime[curE].length; k++) {
-										if (!found && listTrendSpecimens[index].indexOf("||" + listSpecimen[curE][k] + "||") != -1 && listTrendTimes[i] == timeToDate(listTime[curE][k])) {
-											found = true;
-											var pre = "";
-											var post = "";
-											if (listCrit[curE][k] != "N") {
-												pre = "<span style='color: red; font-weight: bold'>";
-												post = "</span>";
-											}
-											var listCont = listVals[curE][k];
-											if (listCont == "comment")
-												listCont = "***";
-											if (listTrends[index] == "UA") {
-												if (listCont == "NEGATIVE" || listCont == "Neg." || listCont == "none" || listCont == "Neg") {
-													listCont = "-";
-												} else {
-													if (listCont == "POSITIVE")
-														listCont = "+";
-												}
-											}
-											if (listTrends[index] == "UDS") {
-												if (listCont.toLowerCase() == "none" || listCont.toLowerCase() == "neg" || listCont.toLowerCase() == "none-detected" || listCont.toLowerCase().includes("negative")) {
-													listCont = "-";
-												} else {
-													listCont = "<span style='color: red; font-weight: bold'>+</span>";
-												}
-												curString += pre + listCont + post + replicate(" ", Math.max(5, listNames[index][j].length + 1) - replaceTags(listCont).length);
-											} else {
-												curString += pre + listCont + post + replicate(" ", Math.max(6, listNames[index][j].length + 1) - replaceTags(listCont).length);
-											}
-										}
-									}
-									if (!found) {
-										if (listTrends[index] == "UDS") {
-											curString += replicate(" ", Math.max(5, listNames[index][j].length + 1));
-										} else {
-											curString += replicate(" ", Math.max(6, listNames[index][j].length + 1));
-										}
-									}
-								}
-							}
-							ttHTML += curString + " @ " + msToDate(listTrendTimes[i]) + "\n";
-						}
-					}
-				}
-			}
-			return ttHTML;
-		}
+		// Short display-label mappings used by the trend table generator.
+		var replace2array = new Array();
+		replace2array["SODIUM"] = "Na";
+		replace2array["POTASSIUM"] = "K";
+		replace2array["CHLORIDE"] = "Cl";
+		replace2array["CO2"] = "CO2";
+		replace2array["UREA NITROGEN"] = "BUN";
+		replace2array["CREATININE,SERUM"] = "Cr";
+		replace2array["ABSOLUTE NEUTROPHIL COUNT"] = "ANC";
+		replace2array["ABSOLUTE LYMPHOCYTE COUNT"] = "ALC";
+		replace2array["URINE WBC/HPF"] = "Urine WBC";
+		replace2array["URINE BACTERIA"] = "Urine Bacteria";
+		replace2array["URINE RBC/HPF"] = "Urine RBC";
+		replace2array["SQUAM EPITH CELLS"] = "Urine epis";
+		replace2array["URINE MUCUS"] = "Urine Mucus";
+		replace2array["HYALINE CASTS"] = "Hyaline casts";
+		replace2array["URINE WBC CASTS"] = "WBC casts";
+		replace2array["URINE RBC CASTS"] = "RBC casts";
+		replace2array["GRANULAR CASTS"] = "Granular casts";
+		replace2array["TRI PHOSPHATE CRYSTALS"] = "Triphosphate crystals";
+		replace2array["CA++ OXALATE CRYSTALS"] = "Ca oxalate crystals";
+		replace2array["URIC ACID CRYSTALS"] = "Uric acid crystals";
+		replace2array["URINE WBC CLUMPS"] = "WBC clumps";
+		replace2array["RENAL EPITH CELLS"] = "Renal epis";
+		replace2array["TRANSITIONAL CELLS"] = "Transitional cells";
+		replace2array["URINE SPERM"] = "Sperm";
+		replace2array["BUDDING YEAST"] = "Yeast";
+		replace2array["YEAST HYPHAE"] = "Hyphae";
+		replace2array["URINE EPITH CELLS"] = "Urine epis";
+		replace2array["URINE CASTS"] = "Casts";
+		replace2array["AMORPHOUS CRYSTALS"] = "Amorphous crystals";
+		replace2array["URINE CRYSTALS"] = "Crystals";
 
 
+		// ====================================================================
+		// SECTION 2 — POLYFILLS & UTILITY HELPERS
+		// Array polyfills, string/date utilities, data-access helpers, and the
+		// printData() output builder used by fr().
+		// ====================================================================
 
 		Array.prototype.remove = function (from, to) {
 			var rest = this.slice((to || from) + 1 || this.length);
@@ -732,77 +623,21 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			};
 		}
 
-		/**
-		 * ARCHITECTURE OVERVIEW
-		 * ======================
-		 * This is a single-page application. All logic lives in this file.
-		 *
-		 * Data flow:
-		 *   1. User pastes raw CPRS lab text into the textarea (#clipb).
-		 *   2. opf() is called → clears output, then calls fs(), fr(), ff() in order.
-		 *   3. fs()  — PARSER: reads clipb.value line-by-line, populates the global
-		 *              parallel arrays (listVals, listTime, listSpecimen, …) keyed by
-		 *              normalized lab name.  Microbiology narrative sections go into
-		 *              listMicro / listMicroSpec instead of the numeric arrays.
-		 *   4. fr()  — FORMATTER: reads the parsed arrays and builds formatted text
-		 *              strings for each section (CBC fishbone, BMP fishbone, UA, Stool,
-		 *              Pleural, Peritoneal, CSF, Other).  Sets cbcData, chemistryData,
-		 *              urineData, stoolData, pleuralData, peritonealData, csfData, otherData.
-		 *   5. ff()  — TREND/OUTPUT: assembles the final display string from the
-		 *              formatted sections, appends the MICRO: narrative block, calculates
-		 *              "significant changes", generates trend tables, and writes to #edtData.
-		 *
-		 * Key global state:
-		 *   listVals[lab]     – array of value strings per lab (most-recent first after sort)
-		 *   listTime[lab]     – parallel array of "Mon DD, YYYY@HH:MM" strings
-		 *   listSpecimen[lab] – parallel array of specimen strings (SERUM, BLOOD, FECES, …)
-		 *   listCrit[lab]     – parallel array of "H" / "L" / "N" flag strings
-		 *   listUH[lab]       – display value with H/L suffix and bold HTML markup
-		 *   listComment[lab]  – any Comment: block text associated with each result
-		 *   listMicro[]       – narrative text blocks for microbiology results
-		 *   listMicroSpec[]   – "<specimen> @ <time>" labels matching listMicro
-		 *
-		 * Lab name normalization:
-		 *   replaceArray["RAW CPRS NAME"] = "Canonical Name"
-		 *   The parser looks up each extracted lab name in replaceArray and replaces it
-		 *   before storing, so downstream rendering code uses stable canonical names.
-		 *
-		 * Parser detection logic (inside fs()):
-		 *   A line is treated as a result row when EITHER:
-		 *     a) it contains a site-code pattern / \[([0-9]{3,4})\]/ (e.g., [664]), OR
-		 *     b) curTime is very old/unset AND the line starts with a known replaceArray key
-		 *        (this is a fallback for edge cases where site codes are absent).
-		 *   Lab name: left side up to the first double-space.
-		 *   Value:    first token after the double-space gap, using regex /\S[.A-Za-z0-9,_+:\/\-=]* /
-		 *   Multi-word values (Not Detected, NONE OBSERVED, etc.) are handled by
-		 *   special branches that capture the second word, then normalized to Neg/Pos/etc.
-		 *
-		 * Trend tables (generateTrendText):
-		 *   listTrends[]          – category names (CBC, Chem, GI, …)
-		 *   listElements[i][]     – canonical lab names that belong to category i
-		 *   listNames[i][]        – short display labels for trend columns
-		 *   listTrendSpecimens[i] – pipe-delimited accepted specimen strings for category i
-		 *
-		 * Adding support for a new lab:
-		 *   1. Add its CPRS name → canonical name mapping in replaceArray.
-		 *   2. If it has a non-standard specimen, ensure fr() has a printData() call for it.
-		 *   3. Optionally add it to listElements for trending.
-		 */
 
-		/**
-		 * opf() — Main entry point called by the "Format" button.
-		 * Clears the output div, then runs the three-phase pipeline asynchronously
-		 * (setTimeout ensures the DOM clears before the heavy JS runs).
-		 */
-		function opf() {
-			edtData.innerText = "";
-			setTimeout(function () {
-				fs();
-				fr();
-				ff();
-				clipb.value = "";
-			});
+		function pad(str, num, char) {
+			if (char === undefined) { char = " "; }
+			return String(replicate(char, num) + str).slice(0 - num);
 		}
+
+		function replicate(char, num) {
+			if (num <= 0)
+				return "";
+			return new Array(num + 1).join(char);
+		}
+		function myTrim(x) {
+			return x.replace(/^\s+|\s+$/gm, '');
+		}
+
 
 		function msToDate(ts) {
 			var td = new Date(ts);
@@ -830,7 +665,7 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 		}
 		function msToMH(ts) {
 			var td = new Date(ts);
-			retSt = "";
+			var retSt = "";
 			if (td.getHours() < 10)
 				retSt += "0";
 			retSt += td.getHours() + ":";
@@ -838,6 +673,19 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 				retSt += "0";
 			return retSt + td.getMinutes();
 		}
+
+
+		function timeFormat(s) {
+			var d = new Date(timeToDate(s));
+			var ds = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " ";
+			if (d.getHours() < 10)
+				ds += "0";
+			ds += d.getHours() + ":";
+			if (d.getMinutes() < 10)
+				ds += "0";
+			return ds + d.getMinutes();
+		}
+
 
 		function inRange(a, b, c) //returns true if a and b are within c days of each other
 		{
@@ -849,6 +697,12 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 		function timeToDate(curTime) {
 			return Date.parse(curTime.replace("@", " "));
 		}
+
+
+		function isNumber(o) {
+			return !isNaN(o - 0) && o != null;
+		}
+
 
 		function getMaxima(lab, date, range) {
 			var maxIndex = 0;
@@ -873,6 +727,35 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			}
 			return minIndex;
 		}
+
+
+		function getTCV(lab, t1, specimen) {
+			var minDif = -1;
+			var minLoc = -1;
+			var tcv = -1;
+			if (lab in listTime) {
+				for (var j = 0; j < listTime[lab].length; j++) {
+					var diff = Math.abs(timeToDate(t1) - timeToDate(listTime[lab][j]));
+					if (!specimen) {
+						if (minDif == -1 || diff < minDif) {
+							minLoc = j;
+							minDif = diff;
+							tcv = listVals[lab][j];
+						}
+					} else {
+						if ((minDif == -1 || diff < minDif) && specimen.indexOf(listSpecimen[lab][j] + "||") != -1) {
+							minLoc = j;
+							minDif = diff;
+							tcv = listVals[lab][j];
+						}
+					}
+				}
+			}
+			if (tcv == -1)
+				return [-1, -1, -1];
+			return [tcv, listTime[lab][minLoc], minLoc];
+		}
+
 
 		//Given a specimen and date, get the index for the lab as a list
 		function getIndex(labs, date, spec) {
@@ -919,6 +802,7 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 
 		function getClosestIndex() {
 		}
+
 
 		function pgetValList(listVals, lab, index, blank) {
 			var prefix = "";
@@ -1010,43 +894,6 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			return getValList(listVals, lab, inList, prefix + "*** ", prefix) + " @ " + t1;
 		}
 
-		function getTCV(lab, t1, specimen) {
-			var minDif = -1;
-			var minLoc = -1;
-			var tcv = -1;
-			if (lab in listTime) {
-				for (var j = 0; j < listTime[lab].length; j++) {
-					var diff = Math.abs(timeToDate(t1) - timeToDate(listTime[lab][j]));
-					if (!specimen) {
-						if (minDif == -1 || diff < minDif) {
-							minLoc = j;
-							minDif = diff;
-							tcv = listVals[lab][j];
-						}
-					} else {
-						if ((minDif == -1 || diff < minDif) && specimen.indexOf(listSpecimen[lab][j] + "||") != -1) {
-							minLoc = j;
-							minDif = diff;
-							tcv = listVals[lab][j];
-						}
-					}
-				}
-			}
-			if (tcv == -1)
-				return [-1, -1, -1];
-			return [tcv, listTime[lab][minLoc], minLoc];
-		}
-
-		function timeFormat(s) {
-			var d = new Date(timeToDate(s));
-			var ds = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " ";
-			if (d.getHours() < 10)
-				ds += "0";
-			ds += d.getHours() + ":";
-			if (d.getMinutes() < 10)
-				ds += "0";
-			return ds + d.getMinutes();
-		}
 
 		function valueCritRed(val, inList, name) {
 			if (listCrit[name][inList[name]] != "N") {
@@ -1060,28 +907,6 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			//return s.replace(/\<ss\>/g,"").replace(/\<\/span\>/g,"");
 		}
 
-		function generateText(name, prop, specimen, id) {
-			var trendText = "";
-			for (var j = 0; j < listVals[prop].length; j++) {
-				if (listSpecimen[prop][j] === specimen) {
-					var pre = "";
-					var post = "";
-					if (listCrit[prop][j] != "N") {
-						pre = "<span style='color: red; font-weight: bold'>";
-						post = "</span>";
-					}
-					trendText += name + ": " + pre + listVals[prop][j] + post + " @ " + listTime[prop][j] + "\n";
-				}
-			}
-			return "<span id = '" + id + "' style='display:none'>" + trendText + "</span>";
-		}
-		function odc(id) {
-			if (document.getElementById(id).style.display == 'none') {
-				document.getElementById(id).style.display = "block";
-			} else {
-				document.getElementById(id).style.display = "none";
-			}
-		}
 
 		function templateSpecial(lab, base) {
 			if (!(lab in listVals)) {
@@ -1113,6 +938,7 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 				delete listComment[lab];
 			}
 		}
+
 
 		//Tagline can be added after property name (i.e. 24hr urine)
 		function printData(prop, specimenList, tagLine) {
@@ -1150,6 +976,138 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			}
 			return "";
 		}
+
+
+		function generateText(name, prop, specimen, id) {
+			var trendText = "";
+			for (var j = 0; j < listVals[prop].length; j++) {
+				if (listSpecimen[prop][j] === specimen) {
+					var pre = "";
+					var post = "";
+					if (listCrit[prop][j] != "N") {
+						pre = "<span style='color: red; font-weight: bold'>";
+						post = "</span>";
+					}
+					trendText += name + ": " + pre + listVals[prop][j] + post + " @ " + listTime[prop][j] + "\n";
+				}
+			}
+			return "<span id = '" + id + "' style='display:none'>" + trendText + "</span>";
+		}
+		function odc(id) {
+			if (document.getElementById(id).style.display == 'none') {
+				document.getElementById(id).style.display = "block";
+			} else {
+				document.getElementById(id).style.display = "none";
+			}
+		}
+
+
+		// ====================================================================
+		// SECTION 3 — UI INITIALIZATION
+		// loadFunction() runs once on page load and builds the trend radio-button
+		// table in the sidebar.
+		// ====================================================================
+
+		function loadFunction() {
+			document.execCommand("AutoUrlDetect", false, false);
+			var ttHTML = "<tr><td>Trend:</td><td>Single</td><td>Week</td><td>&nbsp;All</td></tr>";
+
+			for (var i = 0; i < listTrends.length; i++) {
+				ttHTML += "<tr>";
+				ttHTML += "<td>" + listTrends[i] + "</td><td>";
+				ttHTML += "<input title ='Single " + listTrends[i] + "' onclick='ff()' type='radio' id='" + listTrends[i] + "single' name='" + listTrends[i] + "' checked></td><td>";
+				ttHTML += "<input title ='Week " + listTrends[i] + "' onclick='ff()' type='radio' id='" + listTrends[i] + "week' name='" + listTrends[i] + "'></td><td>"
+				ttHTML += "<input title ='All " + listTrends[i] + "' onclick='ff()' type='radio' id='" + listTrends[i] + "all'  name='" + listTrends[i] + "'></td>";
+				ttHTML += "</tr>";
+			}
+			trendTable.innerHTML = ttHTML;
+		}
+
+
+		// ====================================================================
+		// SECTION 4 — ENTRY POINT
+		// opf() is called by the "Format" button and kicks off the three-phase
+		// pipeline: fs() → fr() → ff().
+		// ====================================================================
+
+		/**
+		 * ARCHITECTURE OVERVIEW
+		 * ======================
+		 * This is a single-page application. All logic lives in this file.
+		 *
+		 * Data flow:
+		 *   1. User pastes raw CPRS lab text into the textarea (#clipb).
+		 *   2. opf() is called → clears output, then calls fs(), fr(), ff() in order.
+		 *   3. fs()  — PARSER: reads clipb.value line-by-line, populates the global
+		 *              parallel arrays (listVals, listTime, listSpecimen, …) keyed by
+		 *              normalized lab name.  Microbiology narrative sections go into
+		 *              listMicro / listMicroSpec instead of the numeric arrays.
+		 *   4. fr()  — FORMATTER: reads the parsed arrays and builds formatted text
+		 *              strings for each section (CBC fishbone, BMP fishbone, UA, Stool,
+		 *              Pleural, Peritoneal, CSF, Other).  Sets cbcData, chemistryData,
+		 *              urineData, stoolData, pleuralData, peritonealData, csfData, otherData.
+		 *   5. ff()  — TREND/OUTPUT: assembles the final display string from the
+		 *              formatted sections, appends the MICRO: narrative block, calculates
+		 *              "significant changes", generates trend tables, and writes to #edtData.
+		 *
+		 * Key global state:
+		 *   listVals[lab]     – array of value strings per lab (most-recent first after sort)
+		 *   listTime[lab]     – parallel array of "Mon DD, YYYY@HH:MM" strings
+		 *   listSpecimen[lab] – parallel array of specimen strings (SERUM, BLOOD, FECES, …)
+		 *   listCrit[lab]     – parallel array of "H" / "L" / "N" flag strings
+		 *   listUH[lab]       – display value with H/L suffix and bold HTML markup
+		 *   listComment[lab]  – any Comment: block text associated with each result
+		 *   listMicro[]       – narrative text blocks for microbiology results
+		 *   listMicroSpec[]   – "<specimen> @ <time>" labels matching listMicro
+		 *
+		 * Lab name normalization:
+		 *   replaceArray["RAW CPRS NAME"] = "Canonical Name"
+		 *   The parser looks up each extracted lab name in replaceArray and replaces it
+		 *   before storing, so downstream rendering code uses stable canonical names.
+		 *
+		 * Parser detection logic (inside fs()):
+		 *   A line is treated as a result row when EITHER:
+		 *     a) it contains a site-code pattern / \[([0-9]{3,4})\]/ (e.g., [664]), OR
+		 *     b) curTime is very old/unset AND the line starts with a known replaceArray key
+		 *        (this is a fallback for edge cases where site codes are absent).
+		 *   Lab name: left side up to the first double-space.
+		 *   Value:    first token after the double-space gap, using regex /\S[.A-Za-z0-9,_+:\/\-=]* /
+		 *   Multi-word values (Not Detected, NONE OBSERVED, etc.) are handled by
+		 *   special branches that capture the second word, then normalized to Neg/Pos/etc.
+		 *
+		 * Trend tables (generateTrendText):
+		 *   listTrends[]          – category names (CBC, Chem, GI, …)
+		 *   listElements[i][]     – canonical lab names that belong to category i
+		 *   listNames[i][]        – short display labels for trend columns
+		 *   listTrendSpecimens[i] – pipe-delimited accepted specimen strings for category i
+		 *
+		 * Adding support for a new lab:
+		 *   1. Add its CPRS name → canonical name mapping in replaceArray.
+		 *   2. If it has a non-standard specimen, ensure fr() has a printData() call for it.
+		 *   3. Optionally add it to listElements for trending.
+		 */
+
+		/**
+		 * opf() — Main entry point called by the "Format" button.
+		 * Clears the output div, then runs the three-phase pipeline asynchronously
+		 * (setTimeout ensures the DOM clears before the heavy JS runs).
+		 */
+		function opf() {
+			edtData.innerText = "";
+			setTimeout(function () {
+				fs();
+				fr();
+				ff();
+				clipb.value = "";
+			});
+		}
+
+
+		// ====================================================================
+		// SECTION 5 — PHASE 1: PARSER  (fs)
+		// Reads raw CPRS text from #clipb, splits it line-by-line, and populates
+		// the global parallel arrays (listVals, listTime, listSpecimen, …).
+		// ====================================================================
 
 		/**
 		 * fs() — PARSER
@@ -2094,6 +2052,13 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			}
 		}
 
+
+		// ====================================================================
+		// SECTION 6 — PHASE 2: FORMATTER  (fr)
+		// Reads the parsed arrays and builds formatted text strings for each
+		// specimen section (cbcData, chemistryData, urineData, …).
+		// ====================================================================
+
 		/**
 		 * fr() — FORMATTER
 		 * Reads parsed listVals / listTime / listSpecimen and builds formatted text
@@ -2850,41 +2815,159 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 				otherData = "OTHER:" + "\n" + otherData + "";
 		}
 
-		function isNumber(o) {
-			return !isNaN(o - 0) && o != null;
+
+		// ====================================================================
+		// SECTION 7 — TREND TABLE GENERATOR  (generateTrendText)
+		// Builds a column-per-lab trend table for a given category; called by
+		// ff() in Section 8 below.
+		// ====================================================================
+
+		function generateTrendText(tE) {
+			var ttHTML = "";
+			if (listTrends.indexOf(tE) != -1) {
+				var num = 0;
+				if (document.getElementById(tE + "week").checked)
+					num = 1;
+				if (document.getElementById(tE + "all").checked)
+					num = 2;
+				if (num != 0) {
+					var index = listTrends.indexOf(tE);
+					var ne = listElements[index].length;
+					var someTrue = false;
+					for (var i = 0; i < ne; i++) {
+						if (listElements[index][i] in listTime)
+							someTrue = true;
+					}
+					if (!someTrue)
+						return "";
+					ttHTML += "\n";
+					for (var i = 0; i < ne; i++) {
+						if (listElements[index][i] in listTime) {
+							ttHTML += listNames[index][i];
+							if (i != ne - 1 && listTrends[index] != "UDS")
+								ttHTML += replicate(" ", Math.max(6, listNames[index][i].length + 1) - listNames[index][i].length);
+							if (i != ne - 1 && listTrends[index] == "UDS")
+								ttHTML += replicate(" ", Math.max(5, listNames[index][i].length + 1) - listNames[index][i].length);
+						}
+					}
+					//need to select specimens in chronologic order:
+
+					ttHTML += "\n" + replicate("=", blankLength) + "\n";
+					var listTrendTimes = [];
+					for (var i = 0; i < ne; i++) {
+						var curE = listElements[index][i];
+						if (curE in listTime) {
+							for (var j = 0; j < listTime[curE].length; j++) {
+								if (listTrendSpecimens[index].indexOf("||" + listSpecimen[curE][j] + "||") != -1 && (listTrendTimes.indexOf(timeToDate(listTime[curE][j])) == -1)) {
+									if (num == 2 || timeToDate(listTime[curE][j]) > Date.now() - 7 * msDay)
+										listTrendTimes.push(timeToDate(listTime[curE][j]));
+								}
+							}
+						}
+					}
+					if (listTrendTimes.length == 0)
+						return "";
+					listTrendTimes.sort(function (a, b) { return b - a });
+					if (listTrends[index] == "Glucose") {
+						listGlucose = new Array(listTrendTimes.length);
+						for (var i = 0; i < listTrendTimes.length; i++) {
+							for (var j = 0; j < listTime["Glucose"].length; j++) {
+								if (listTrendSpecimens[index].indexOf("||" + listSpecimen["Glucose"][j] + "||") != -1 && listTrendTimes[i] == timeToDate(listTime["Glucose"][j])) {
+									listGlucose[i] = listVals["Glucose"][j];
+									listGlucose[i] += replicate(" ", 3 - listGlucose[i].length);
+									if (listCrit["Glucose"][i] != "N")
+										listGlucose[i] = "<span style='color: red; font-weight: bold'>" + listGlucose[i] + "</span>";
+								}
+							}
+						}
+						for (var i = 0; i < listTrendTimes.length; i++) {
+							var curString = "";
+							curString += listGlucose[i] + " " + msToMH(listTrendTimes[i]) + "";
+							var j = i + 1;
+							var exitLoop = false;
+							while (!exitLoop) {
+								if (j == listTrendTimes.length) {
+									exitLoop = true;
+								} else {
+									if (!compareDay(listTrendTimes[i], listTrendTimes[j])) {
+										exitLoop = true;
+									} else {
+										var c2s = "   ";
+										c2s += listGlucose[j] + " " + msToMH(listTrendTimes[j]) + "";
+										if (replaceTags(curString + c2s).length < blankLength) {
+											curString += c2s;
+											j++;
+										} else {
+											exitLoop = true;
+										}
+									}
+								}
+							}
+							ttHTML += curString + " @ " + msToDay(listTrendTimes[i]) + "\n";
+							i = j - 1;
+						}
+					} else {
+						for (var i = 0; i < listTrendTimes.length; i++) {
+							var curString = "";
+							for (var j = 0; j < ne; j++) {
+								var found = false;
+								var curE = listElements[index][j];
+								if (curE in listTime) {
+									for (var k = 0; k < listTime[curE].length; k++) {
+										if (!found && listTrendSpecimens[index].indexOf("||" + listSpecimen[curE][k] + "||") != -1 && listTrendTimes[i] == timeToDate(listTime[curE][k])) {
+											found = true;
+											var pre = "";
+											var post = "";
+											if (listCrit[curE][k] != "N") {
+												pre = "<span style='color: red; font-weight: bold'>";
+												post = "</span>";
+											}
+											var listCont = listVals[curE][k];
+											if (listCont == "comment")
+												listCont = "***";
+											if (listTrends[index] == "UA") {
+												if (listCont == "NEGATIVE" || listCont == "Neg." || listCont == "none" || listCont == "Neg") {
+													listCont = "-";
+												} else {
+													if (listCont == "POSITIVE")
+														listCont = "+";
+												}
+											}
+											if (listTrends[index] == "UDS") {
+												if (listCont.toLowerCase() == "none" || listCont.toLowerCase() == "neg" || listCont.toLowerCase() == "none-detected" || listCont.toLowerCase().includes("negative")) {
+													listCont = "-";
+												} else {
+													listCont = "<span style='color: red; font-weight: bold'>+</span>";
+												}
+												curString += pre + listCont + post + replicate(" ", Math.max(5, listNames[index][j].length + 1) - replaceTags(listCont).length);
+											} else {
+												curString += pre + listCont + post + replicate(" ", Math.max(6, listNames[index][j].length + 1) - replaceTags(listCont).length);
+											}
+										}
+									}
+									if (!found) {
+										if (listTrends[index] == "UDS") {
+											curString += replicate(" ", Math.max(5, listNames[index][j].length + 1));
+										} else {
+											curString += replicate(" ", Math.max(6, listNames[index][j].length + 1));
+										}
+									}
+								}
+							}
+							ttHTML += curString + " @ " + msToDate(listTrendTimes[i]) + "\n";
+						}
+					}
+				}
+			}
+			return ttHTML;
 		}
 
-		var replace2array = new Array();
-		replace2array["SODIUM"] = "Na";
-		replace2array["POTASSIUM"] = "K";
-		replace2array["CHLORIDE"] = "Cl";
-		replace2array["CO2"] = "CO2";
-		replace2array["UREA NITROGEN"] = "BUN";
-		replace2array["CREATININE,SERUM"] = "Cr";
-		replace2array["ABSOLUTE NEUTROPHIL COUNT"] = "ANC";
-		replace2array["ABSOLUTE LYMPHOCYTE COUNT"] = "ALC";
-		replace2array["URINE WBC/HPF"] = "Urine WBC";
-		replace2array["URINE BACTERIA"] = "Urine Bacteria";
-		replace2array["URINE RBC/HPF"] = "Urine RBC";
-		replace2array["SQUAM EPITH CELLS"] = "Urine epis";
-		replace2array["URINE MUCUS"] = "Urine Mucus";
-		replace2array["HYALINE CASTS"] = "Hyaline casts";
-		replace2array["URINE WBC CASTS"] = "WBC casts";
-		replace2array["URINE RBC CASTS"] = "RBC casts";
-		replace2array["GRANULAR CASTS"] = "Granular casts";
-		replace2array["TRI PHOSPHATE CRYSTALS"] = "Triphosphate crystals";
-		replace2array["CA++ OXALATE CRYSTALS"] = "Ca oxalate crystals";
-		replace2array["URIC ACID CRYSTALS"] = "Uric acid crystals";
-		replace2array["URINE WBC CLUMPS"] = "WBC clumps";
-		replace2array["RENAL EPITH CELLS"] = "Renal epis";
-		replace2array["TRANSITIONAL CELLS"] = "Transitional cells";
-		replace2array["URINE SPERM"] = "Sperm";
-		replace2array["BUDDING YEAST"] = "Yeast";
-		replace2array["YEAST HYPHAE"] = "Hyphae";
-		replace2array["URINE EPITH CELLS"] = "Urine epis";
-		replace2array["URINE CASTS"] = "Casts";
-		replace2array["AMORPHOUS CRYSTALS"] = "Amorphous crystals";
-		replace2array["URINE CRYSTALS"] = "Crystals";
+
+		// ====================================================================
+		// SECTION 8 — PHASE 3: OUTPUT ASSEMBLY  (ff)
+		// Assembles all section strings, MICRO narratives, trend tables, and med
+		// list; writes the final HTML to #edtData.
+		// ====================================================================
 
 		/**
 		 * ff() — TREND / OUTPUT ASSEMBLY
@@ -3193,19 +3276,6 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 				xmlhttp.open("GET", url, true);
 				xmlhttp.send();
 			}
-		}
-		function pad(str, num, char) {
-			if (char === undefined) { char = " "; }
-			return String(replicate(char, num) + str).slice(0 - num);
-		}
-
-		function replicate(char, num) {
-			if (num <= 0)
-				return "";
-			return new Array(num + 1).join(char);
-		}
-		function myTrim(x) {
-			return x.replace(/^\s+|\s+$/gm, '');
 		}
 
 	</script>
@@ -3717,3 +3787,4 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 </body>
 
 </html>
+

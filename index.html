@@ -545,10 +545,10 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 		
 		var smearList = ["PLT (Estm)", "Anisocytosis", "Poikilocytosis", "Ovalocytes", "Acanthocytes", "Teardrops", "Target cells", "Smudge cells", "Polychromasia", "Hypochromia", "Normochromic", "Basophilic stippling", "Toxic granulation", "Schistocytes", "Spherocytes", "Stomatocytes", "Microcytosis", "Macrocytosis", "Normocytic", "Atypical Lymphs", "Atypical Monocytes", "Metamyelocytes", "Myelocytes", "Promyelocytes", "Blasts", "Other"];
 
-		var listTrends = ["CBC", "Chem", "Iron", "Liver", "Coags", "GI"];
-		var listElements = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["SODIUM", "POTASSIUM", "CHLORIDE", "CO2", "UREA NITROGEN", "Creatinine", "Calcium", "Mag", "Phos"], ["Iron", "TIBC", "Tsat", "Ferritin"], ["Protein", "Albumin", "TBil", "DBil", "AST", "ALT", "ALK"], ["PT", "INR", "PTT"], ["Anti-TTG IgA", "IgA", "Fecal Elastase", "Fecal Calprotectin"]];
-		var listNames = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["Na", "K", "Cl", "CO2", "BUN", "Cr", "Ca", "Mg", "PO4"], ["Iron", "TIBC", "Tsat", "Ferritin"], ["Prtn", "Alb", "TBil", "DBil", "AST", "ALT", "ALK"], ["PT", "INR", "PTT"], ["Anti-TTG IgA", "IgA", "Fecal Elastase", "FCP"];
-		var listTrendSpecimens = ["||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||STOOL||FECES||"];
+		var listTrends = ["CBC", "Chem", "Iron", "Liver", "Coags"];
+		var listElements = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["SODIUM", "POTASSIUM", "CHLORIDE", "CO2", "UREA NITROGEN", "Creatinine", "Calcium", "Mag", "Phos"], ["Iron", "TIBC", "Tsat", "Ferritin"], ["Protein", "Albumin", "TBil", "DBil", "AST", "ALT", "ALK"], ["PT", "INR", "PTT"]];
+		var listNames = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["Na", "K", "Cl", "CO2", "BUN", "Cr", "Ca", "Mg", "PO4"], ["Iron", "TIBC", "Tsat", "Ferritin"], ["Prtn", "Alb", "TBil", "DBil", "AST", "ALT", "ALK"], ["PT", "INR", "PTT"]];
+		var listTrendSpecimens = ["||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||"];
 
 		var listMedID = new Array();
 
@@ -3572,11 +3572,36 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 								<td><input title="All CBC" onclick="ff()" type="radio" id="CBCall" name="CBC"></td>
 							</tr>
 							<tr>
+								<td>Diff</td>
+								<td><input title="Single Diff" onclick="ff()" type="radio" id="Diffsingle" name="Diff"
+										checked=""></td>
+								<td><input title="Week Diff" onclick="ff()" type="radio" id="Diffweek" name="Diff"></td>
+								<td><input title="All Diff" onclick="ff()" type="radio" id="Diffall" name="Diff"></td>
+							</tr>
+							<tr>
+								<td>Smear</td>
+								<td><input title="Single Smear" onclick="ff()" type="radio" id="Smearsingle"
+										name="Smear" checked=""></td>
+								<td><input title="Week Smear" onclick="ff()" type="radio" id="Smearweek" name="Smear">
+								</td>
+								<td><input title="All Smear" onclick="ff()" type="radio" id="Smearall" name="Smear">
+								</td>
+							</tr>
+							<tr>
 								<td>Chem</td>
 								<td><input title="Single Chem" onclick="ff()" type="radio" id="Chemsingle" name="Chem"
 										checked=""></td>
 								<td><input title="Week Chem" onclick="ff()" type="radio" id="Chemweek" name="Chem"></td>
 								<td><input title="All Chem" onclick="ff()" type="radio" id="Chemall" name="Chem"></td>
+							</tr>
+							<tr>
+								<td>Cardiac</td>
+								<td><input title="Single Cardiac" onclick="ff()" type="radio" id="Cardiacsingle"
+										name="Cardiac" checked=""></td>
+								<td><input title="Week Cardiac" onclick="ff()" type="radio" id="Cardiacweek"
+										name="Cardiac"></td>
+								<td><input title="All Cardiac" onclick="ff()" type="radio" id="Cardiacall"
+										name="Cardiac"></td>
 							</tr>
 							<tr>
 								<td>Iron</td>
@@ -3604,13 +3629,50 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 								</td>
 							</tr>
 							<tr>
-								<td>GI</td>
-								<td><input title="Single GI" onclick="ff()" type="radio" id="GIsingle"
-										name="GI" checked=""></td>
-								<td><input title="Week GI" onclick="ff()" type="radio" id="GIweek" name="GI">
-								</td>
-								<td><input title="All GI" onclick="ff()" type="radio" id="GIall" name="GI">
-								</td>
+								<td>Lipid-a1c</td>
+								<td><input title="Single Lipid-a1c" onclick="ff()" type="radio" id="Lipid-a1csingle"
+										name="Lipid-a1c" checked=""></td>
+								<td><input title="Week Lipid-a1c" onclick="ff()" type="radio" id="Lipid-a1cweek"
+										name="Lipid-a1c"></td>
+								<td><input title="All Lipid-a1c" onclick="ff()" type="radio" id="Lipid-a1call"
+										name="Lipid-a1c"></td>
+							</tr>
+							<tr>
+								<td>Glucose</td>
+								<td><input title="Single Glucose" onclick="ff()" type="radio" id="Glucosesingle"
+										name="Glucose" checked=""></td>
+								<td><input title="Week Glucose" onclick="ff()" type="radio" id="Glucoseweek"
+										name="Glucose"></td>
+								<td><input title="All Glucose" onclick="ff()" type="radio" id="Glucoseall"
+										name="Glucose"></td>
+							</tr>
+							<tr>
+								<td>UA</td>
+								<td><input title="Single UA" onclick="ff()" type="radio" id="UAsingle" name="UA"
+										checked=""></td>
+								<td><input title="Week UA" onclick="ff()" type="radio" id="UAweek" name="UA"></td>
+								<td><input title="All UA" onclick="ff()" type="radio" id="UAall" name="UA"></td>
+							</tr>
+							<tr>
+								<td>UDS</td>
+								<td><input title="Single UDS" onclick="ff()" type="radio" id="UDSsingle" name="UDS"
+										checked=""></td>
+								<td><input title="Week UDS" onclick="ff()" type="radio" id="UDSweek" name="UDS"></td>
+								<td><input title="All UDS" onclick="ff()" type="radio" id="UDSall" name="UDS"></td>
+							</tr>
+							<tr>
+								<td>ABG</td>
+								<td><input title="Single ABG" onclick="ff()" type="radio" id="ABGsingle" name="ABG"
+										checked=""></td>
+								<td><input title="Week ABG" onclick="ff()" type="radio" id="ABGweek" name="ABG"></td>
+								<td><input title="All ABG" onclick="ff()" type="radio" id="ABGall" name="ABG"></td>
+							</tr>
+							<tr>
+								<td>Changes</td>
+								<td><input onclick="ff()" type="radio" id="viewchangessingle" name="viewchange"
+										checked=""></td>
+								<td><input onclick="ff()" type="radio" id="viewchangesweek" name="viewchange"></td>
+								<td><input onclick="ff()" type="radio" id="viewchangesall" name="viewchange"></td>
 							</tr>
 						</tbody>
 					</table>

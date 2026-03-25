@@ -84,36 +84,6 @@ Microbiology sections use free-text rather than tabular format. The parser captu
 | `Fungus/Yeast:` | Fungal culture result |
 | `ANTIBIOTIC SUSCEPTIBILITY TEST RESULTS:` | Susceptibility table (hidden in brief view) |
 
-## Supported stool/GI labs (new in this update)
-
-The following CPRS lab name variants are now recognized and displayed under **STOOL STUDIES:**:
-
-| Normalized name | CPRS name variants accepted |
-|---|---|
-| Giardia Ag | GIARDIA AG, GIARDIA ANTIGEN,STOOL |
-| Cryptosporidium Ag | CRYPTOSPORIDIUM AG, CRYPTOSPORIDIUM ANTIGEN,STOOL |
-| Microsporidia Spore Stain | MICROSPORIDIA SPORE STAIN, MODIFIED TRICHROME STAIN, MICROSPORIDIA |
-| O&P Concentrate Exam | OVA AND PARASITES,CONC, O&P CONCENTRATE EXAM, O AND P CONCENTRATE EXAM |
-| O&P Trichrome Exam | OVA AND PARASITES,TRICHROME, O&P TRICHROME EXAM |
-| Fecal Leukocytes | FECAL LEUKOCYTES, FECAL LEUKOCYTE |
-| Fecal WBC | FECAL WBC, FECAL WBC'S, WBC,STOOL |
-| C. diff Tox A/B | C DIFF TOX A/B, C.DIFFICILE TOX A/B, CLOSTRIDIUM DIFFICILE TOXIN A/B |
-| C. diff PCR | CLOSTRIDIOIDES DIFFICILE PCR, C.DIFFICILE NAAT, C DIFF NAAT |
-| H. Pylori Ag | HELICOBACTER PYLORI AG,STOOL, HELICOBACTOR PYLORI AG,STOOL |
-| Shiga Toxin | SHIGA TOXIN |
-| Fecal Calprotectin | FECAL CALPROTECTIN, CALPROTECTIN,FECAL |
-| Fecal Lactoferrin | LACTOFERRIN,FECAL |
-| Rotavirus Ag | ROTAVIRUS ANTIGEN |
-| GI Pathogen Panel | GI PATHOGEN PANEL, BIOFIRE GI PANEL |
-
-These labs also appear in the new **GI** trend category.
-
-Stool culture results (Salmonella, Shigella, Campylobacter, E. coli O157, Shiga toxin, etc.) that appear under `CULTURE RESULTS:` in CPRS are captured as microbiology narrative and shown in the **MICRO:** section.
-
-## Test fixture
-
-`fixtures/sample_input.txt` contains a representative sample of raw CPRS lab output covering stool/GI labs. Paste the content between `=== BEGIN PASTE ===` and `=== END PASTE ===` into the formatter to verify all stool labs appear correctly.
-
 ## Browser support
 
 Chrome and Microsoft Edge (Chromium). No non-standard APIs are used.

@@ -1034,8 +1034,8 @@ replaceArray["CREATINE KINASE"] = "CK";
 
 			// var str1 = clipb.value.replace(/\r\n?/g, "\n");
 			edtData.innerText = "";
-			// vals = str1.split("\n");
-			vals = str1.split(/\r?\n|\r/);
+			vals = str1.split("\n");
+			// vals = str1.split(/\r?\n|\r/);
 
 			listVals = {};
 			listCrit = {};
@@ -2468,13 +2468,13 @@ replaceArray["CREATINE KINASE"] = "CK";
 				"Giardia Ag", "Cryptosporidium Ag",
 				"O&P Concentrate Exam", "O&P Trichrome Exam",
 				"Microsporidia Spore Stain",
-				"Fecal Leukocytes", "Fecal WBC", "Fecal Elastase"
+				"Fecal Leukocytes", "Fecal WBC",
 				"Fecal fat", "Fecal Calprotectin", "Fecal Lactoferrin",
-				"C.diff Tox A/B", "C.diff Tox B PCR", "C.diff PCR",
+				"C. diff Tox A/B", "C Diff Tox B PCR", "C. diff PCR",
 				"Shiga Toxin", "STEC", "E. coli O157 Ag",
 				"Rotavirus Ag", "Norovirus PCR", "GI Pathogen Panel",
 				"FOBTx1", "FOBT #1", "FOBT #2", "FOBT #3", "FIT",
-				"A1AT"
+				"A1-Antitrypsin"
 			];
 			for (var si = 0; si < stoolOrderedList.length; si++) {
 				var sLab = stoolOrderedList[si];

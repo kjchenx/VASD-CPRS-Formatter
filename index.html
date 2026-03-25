@@ -1039,9 +1039,8 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			}
 		}
 		function replaceTags(s) {
-			return s.replace(/\<[^>]*\>/g, "").replace(/&#060;/g, " ").replace(/&#062;/g, " ");
-			//return s.replace(/\<ss\>/g,"").replace(/\<\/span\>/g,"");
-		}
+  return s.replace(/\<[^\>]*\>/g, "");
+}
 
 		function generateText(name, prop, specimen, id) {
 			var trendText = "";

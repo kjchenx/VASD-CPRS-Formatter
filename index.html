@@ -154,712 +154,383 @@
 		var numberMeds = 0;
 		var calledMeds = 0;
 		var medListOutpatient = false;
-		//UPMC CHANGES
-		replaceArray["CREATININE-e"] = "Creatinine";
-		replaceArray["TOTAL BILIRUBIN"] = "TBil";
-		replaceArray["DIRECT BILIRUBIN"] = "DBil";
-		replaceArray["ALP"] = "ALK";
-		replaceArray["TOTAL PROTEIN,SERUM"] = "Protein";
-		replaceArray["LIPASE (LX)"] = "Lipase";
-		replaceArray["HGB A1C"] = "A1c";
 
-		/*
-		AST                              61 H   IU/L       10 - 35          [664]
-		ALT                              43 H   IU/L       10 - 40          [664]
-		ALKALINE PHOSPHATASE             67     IU/L       38 - 126         [664]
-		BILIRUBIN TOTAL                 0.7     mg/dL      0.4 - 1.2        [664]
-		ALBUMIN LEVEL                   3.6     g/dL       3.2 - 4.6        [664]
 		
-		*/
+// =========================
+// CHEMISTRY
+// =========================
+replaceArray["SODIUM LEVEL"] = "SODIUM";
+replaceArray["POTASSIUM LEVEL"] = "POTASSIUM";
+replaceArray["CHLORIDE LEVEL"] = "CHLORIDE";
+replaceArray["CARBON DIOXIDE LEVEL"] = "CO2";
+replaceArray["CARBON DIOXIDE"] = "CO2";
 
-		// KAY CHEN CHANGES
-		replaceArray["SODIUM LEVEL"] = "SODIUM";
-		replaceArray["POTASSIUM LEVEL"] = "POTASSIUM";
-		replaceArray["CHLORIDE LEVEL"] = "CHLORIDE";
-		replaceArray["CARBON DIOXIDE LEVEL"] = "CO2";
-		replaceArray["ALBUMIN LEVEL"] = "Albumin";
-		replaceArray["GLUCOSE LEVEL, RANDOM"] = "Glucose";
-		replaceArray["CALCIUM LEVEL TOTAL"] = "Calcium Total";
-		replaceArray["CREATININE LEVEL"] = "Creatinine";
-		replaceArray["CALCIUM LEVEL"] = "Calcium";
-		replaceArray["BUN"] = "UREA NITROGEN";
-		replaceArray["PHOSPHORUS LEVEL"] = "Phos";
-		replaceArray["MAGNESIUM LEVEL"] = "Mag";
+replaceArray["GLUCOSE LEVEL, RANDOM"] = "Glucose";
+replaceArray["GLUCOSE"] = "Glucose";
 
-		replaceArray["BILIRUBIN TOTAL"] = "TBil";
-		replaceArray["DIRECT BILIRUBIN"] = "DBil";
+replaceArray["BUN"] = "UREA NITROGEN";
+replaceArray["CREATININE LEVEL"] = "Creatinine";
+replaceArray["CREATININE"] = "Creatinine";
+replaceArray["CREATININE,SERUM"] = "Creatinine";
 
-		replaceArray["PROTEIN, TOTAL"] = "Protein";
+replaceArray["CALCIUM LEVEL TOTAL"] = "Calcium";
+replaceArray["CALCIUM LEVEL"] = "Calcium";
+replaceArray["CALCIUM"] = "Calcium";
 
-		replaceArray["ALT"] = "ALT";
-		replaceArray["AST"] = "AST";
+replaceArray["PO4,SERUM"] = "Phos";
+replaceArray["PHOSPHORUS"] = "Phos";
+replaceArray["PHOSPHORUS LEVEL"] = "Phos";
 
-		//Chemistries
-		replaceArray["IRON"] = "Iron";
-		replaceArray["TIBC"] = "TIBC";
-		replaceArray["IRON SATURATION"] = "Iron sat";
-		replaceArray["FOLATE,SERUM"] = "Serum folate";
-		replaceArray["FOLATE,SERUM(pre 9-27-05)"] = replaceArray["FOLATE,SERUM"];
-		replaceArray["CALCIUM"] = "Calcium";
-		replaceArray["MAGNESIUM"] = "Mag";
-		replaceArray["PO4,SERUM"] = "Phos";
-		replaceArray["PHOSPHORUS"] = "Phos";
-		replaceArray["TROPONIN I"] = "Trop I";
-		replaceArray["FERRITIN"] = "Ferritin";
-		replaceArray["D-DIMER"] = "D-dimer";
-		replaceArray["ALPHA-FETOPROTEIN"] = "AFP";
-		replaceArray["PROSTATIC SPECIFIC ANTIGEN"] = "PSA";
-		replaceArray["METHYLMALONIC ACID (SERUM)"] = "Serum MMA";
-		replaceArray["HEMOGLOBIN A1C"] = "A1c";
-		replaceArray["EST.AVERAGE GLUCOSE"] = "Est Avg Glucose";
-		replaceArray["URIC ACID"] = "Uric Acid";
-		replaceArray["OSMOLALITY"] = "Osmolality";
-		replaceArray["PREALBUMIN"] = "Prealbumin";
-		replaceArray["B-HYDROXYBUTYRATE"] = "B-Hydroxybutyrate"
-		replaceArray["CALCIUM,FREE (WHAV)"] = "iCal";
-		replaceArray["ALBUMIN"] = "Albumin";
-		replaceArray["GLU POC"] = "Glucose";
-		replaceArray["GLUCOSE"] = "Glucose";
-		replaceArray["ANCILLARY GLUCOSE"] = "Glucose";
-		replaceArray["Hct (Quest)"] = "HCT";
-		replaceArray["HEMATOCRIT"] = "HCT";
-		replaceArray["zz-CPK (WHAV)pre4-24-01"] = "CPK";
-		replaceArray["FASTING GLUCOSE"] = "Fasting Glucose";
-		replaceArray["TROPONIN-I (10/1/99-11/5/00)"] = "Trop I";
-		replaceArray["TROPONIN-I (DC'D 7-26-10)"] = "Trop I";
-		replaceArray["LACTIC"] = "Lactate";
-		replaceArray["eGFR(IDMS)"] = "eGFR";
-		replaceArray["eGFR(DC'D 4-16-10)"] = "eGFR";
-		replaceArray["LACTIC ACID"] = "Lactate";
-		replaceArray["TROPONIN-I (11/6/00-11/6/01)"] = "Trop I";
-		replaceArray["bnp"] = "BNP";
-		replaceArray["MB-Ag"] = "CK-MB";
-		replaceArray["CALCIUM,FREE (NEWT)"] = "iCal";
-		replaceArray["PROCALCITONIN"] = "Procal";
-		replaceArray["MB-Ag(DC'D 10/3/16)"] = "MB-Ag";
-		replaceArray["(WRX) PROTEIN,SERUM"] = "Protein";
-		replaceArray["PROTEIN, TOTAL"] = "Protein";
-		replaceArray["ALBUMIN,ELECT."] = "Albumin";
-		replaceArray["DC'D PROCAL"] = "Procal";
-		replaceArray["URIC ACID,URINE RANDOM"] = "Uric acid, random";
-		replaceArray["TPMT"] = "TPMT";
-		replaceArray["LIPASE (WHAV)DC'd 7-13-99"];
-		replaceArray["CREATININE,SERUM"] = "Creatinine";
-		replaceArray["CREATININE"] = "Creatinine";
-		replaceArray["CARBON DIOXIDE"] = "CO2";
-		replaceArray["ALT(SGPT)"] = "ALT";
-		replaceArray["AST(SGOT)"] = "AST";
-		replaceArray["VITAMIN B-12"] = "B12";
-		//Urine
-		replaceArray["SODIUM,URINE"] = "Na";
-		replaceArray["CREATININE,URINE"] = "Creatinine";
-		replaceArray["PROTEIN,URINE"] = "Protein";
-		replaceArray["miCROALB./CREAT RATIO-SPOT"] = "Spot Albumin/Cr ratio";
-		replaceArray["UREA NITROGEN,URINE"] = "Urea nitrogen";
-		replaceArray["CREATININE, URINE RANDOM"] = "Creatinine";
-		replaceArray["POTASSIUM,URINE"] = "Potassium";
-		replaceArray["CHLORIDE,URINE"] = "Chloride";
-		replaceArray["CRYSTALS"] = "Crystals";
-		replaceArray["EOSINOPHILS,URINE"] = "Eosinophils";
-		replaceArray["miCROALBUMIN,24-HR"] = "24h Albumin";
-		replaceArray["miCROALB/CREAT RATIO-24 HR"] = "24h Albumin/Cr";
-		replaceArray["VOLUME"] = "Urine Volume";
-		replaceArray["CALCIUM,URINE"] = "Calcium";
-		replaceArray["MAGNESIUM,RANDOM UR"] = "Magnesium";
-		replaceArray["CREATININE,RANDOM UR"] = "Creatinine";
-		replaceArray["CREATININE (URINE,RANDOM)"] = "Creatinine";
-		replaceArray["AM PHOSPHATE CRYSTALS"] = "Phosphate Crystals"
+replaceArray["MAGNESIUM LEVEL"] = "Mag";
+replaceArray["MAGNESIUM"] = "Mag";
 
-		//Liver
-		replaceArray["GAMMA GLUTAMYLTRANSFERASE"] = "GGT";
-		replaceArray["AMMONIA"] = "Ammonia";
-		replaceArray["SMMUSC"] = "Anti-Smooth Muscle";
-		replaceArray["ANTI-LKM"] = "Anti-LKM";
-		replaceArray["SGOT (NEWT)pre 4-2-01"] = "AST";
-		replaceArray["SGPT (NEWT)pre 4-2-01"] = "ALT";
-		replaceArray["ALKALINE PHOSPHATASE"] = "ALK";
-		replaceArray["TOT. BILIRUBIN"] = "TBil";
-		replaceArray["BILIRUBIN, TOTAL"] = "TBil";
-		replaceArray["DIR. BILIRUBIN"] = "DBil";
-		replaceArray["SGOT (WHAV)pre 4-24-01"] = "AST";
-		replaceArray["SGPT (WHAV)pre 4-24-01"] = "ALT";
-		replaceArray["AMYLASE"] = "Amylase";
-		replaceArray["LIPASE"] = "Lipase";
-		replaceArray["LIPASE (WHAV) DC'd 4-23-01"] = replaceArray["LIPASE"];
-		replaceArray["ALK PHO"] = "ALK";
-		replaceArray["AMYLASE (WHAV) pre 4-23-01"] = replaceArray["AMYLASE"];
-		replaceArray["ALPHA-1 ANTITRYPSIN"] = "Alpha-1 antitrypsin";
-		replaceArray["AMMONIA (WHAV)pre 4-24-01"] = "Ammonia";
-		replaceArray["INTRINSIC FACTOR AB"] = "Intrinsic Factor Ab";
-		replaceArray["ENDOMYSIAL AB IGA"] = "Endomysial Ab IgA";
-		replaceArray["ENDOMYSIAL AB TITER"] = "Endomysial Ab Titer"
-		replaceArray["CD IN"] = "Celiac interp";
-		//Celiac panel: tissue transglutaminase antibodies and total IgA
-		replaceArray["TISSUE TRANSGLUTAMINASE IGA"] = "tTG Ab IgA";
-		replaceArray["TRANSGLUTAMINASE AB,IGA"] = "tTG Ab IgA";
-		replaceArray["TRANSGLUTAMINASE IGA"] = "tTG Ab IgA";
-		replaceArray["TTG IGA"] = "tTG Ab IgA";
-		replaceArray["ANTI-TISSUE TRANSGLUTAMINASE IGA"] = "tTG Ab IgA";
-		replaceArray["ANTI-TTG IGA"] = "tTG Ab IgA";
-		replaceArray["TISSUE TRANSGLUTAMINASE IGG"] = "tTG Ab IgG";
-		replaceArray["TRANSGLUTAMINASE AB,IGG"] = "tTG Ab IgG";
-		replaceArray["TRANSGLUTAMINASE IGG"] = "tTG Ab IgG";
-		replaceArray["TTG IGG"] = "tTG Ab IgG";
-		replaceArray["ANTI-TISSUE TRANSGLUTAMINASE IGG"] = "tTG Ab IgG";
-		replaceArray["ANTI-TTG IGG"] = "tTG Ab IgG";
-		replaceArray["IGA TOTAL"] = "IgA Total";
-		replaceArray["IGA,TOTAL"] = "IgA Total";
-		replaceArray["IMMUNOGLOBULIN A,SERUM"] = "IgA Total";
-		replaceArray["IMMUNOGLOBULIN A"] = "IgA Total";
-		replaceArray["CERULOPLASMIN"] = "Ceruloplasmin";
-		replaceArray["HFEgene"] = "HFE gene";
+replaceArray["URIC ACID"] = "Uric Acid";
+replaceArray["OSMOLALITY"] = "Osmolality";
 
-		//Endocrine
-		replaceArray["RENIN ACTIVITY(PRA)"] = "Renin activity";
-		replaceArray["ALDOSTERONE,PLASMA"] = "Aldosterone";
-		replaceArray["ALDOSTERONE/RENIN RATIO"] = "Aldosterone/renin";
-		replaceArray["NOREPINEPHRINE"] = "Norepinephrine";
-		replaceArray["DOPAMINE"] = "Dopamine";
-		replaceArray["EPINEPHRINE"] = "Epinephrine";
-		replaceArray["TOT.CATECHOLAMINES"] = "Catecholamines";
-		replaceArray["FRUCTOSAMINE"] = "Fructosamine";
-		replaceArray["shbg"] = "SHBG";
-		replaceArray["D TOT"] = "Total Vit D";
-		replaceArray["VITAMIN D,TOTAL(SCREEN)"] = "Total Vit D";
-		replaceArray["VITAMIN D TOTAL(SCREEN)"] = "Total Vit D";
-		replaceArray["VIT D 25-OH(WRJ)"] = "Total Vit D";
-		replaceArray["vIT D 25-OH,TOT(Rx Monitor)"] = "Total Vit D";
-		replaceArray["vIT D 25-0H,D2(Rx Monitor)"] = "Vit D2";
-		replaceArray["vIT D 25-OH,D3(Rx Monitor)"] = "Vit D3";
-		replaceArray["FREE T3"] = "Free T3";
-		replaceArray["C-PEPTIDE"] = "C-Peptide";
-		replaceArray["INSULIN AUTOANTIBODY"] = "Insulin autoantibody";
-		replaceArray["ANTI GAD 65"] = "Anti-GAD65";
-		replaceArray["PTH (INTACT) D'CD 3-30-15"] = "PTH";
-		replaceArray["PTH (INTACT)QUEST"] = "PTH";
-		replaceArray["PTH (INTACT)"] = "PTH";
-		replaceArray["ESTRONE"] = "Estrone";
-		replaceArray["CORTISOL PM"] = "Cortisol PM";
-		replaceArray["DHEA-S"] = "DHEA";
-		replaceArray["DHEA"] = "DHEA";
-		replaceArray["ACTH"] = "ACTH";
-		replaceArray["ALDO-S"] = "Aldosterone";
-		replaceArray["ZZTESTO"] = "Total Testosterone";
-		replaceArray["T4,FREE"] = "Free T4";
-		replaceArray["T-4"] = "T-4";
-		replaceArray["Testo,Tot Sendout"] = "Total Testosterone";
-		replaceArray["ESTRADIOL(pre 2-24-05)"] = "Estradiol";
-		replaceArray["ESTRADIOL"] = "Estradiol";
-		replaceArray["Testosterone, FREE(SENDOUT)"] = "Free Testosterone";
-		replaceArray["fR TEST"] = "Free Testosterone";
-		replaceArray["T%UPTAKE"] = "Thyroid uptake %";
-		replaceArray["T%UPTAKE(pre 4-16-01)"] = replaceArray["T%UPTAKE"];
-		replaceArray["tESTO F"] = "Free Testosterone";
-		replaceArray["FTI(pre 4-16-01)"] = "FTI";
-		replaceArray["tESTOSTERONE,TOTAL (12-1-97)"] = "Total Testosterone";
-		replaceArray["ALDOSTERONE,SERUM"] = "Aldosterone";
-		replaceArray["PROLACTIN"] = "Prolactin";
-		replaceArray["PTH (INTACT)pre 1-2-03"] = "PTH";
-		replaceArray["THYROID PEROXIDASE AB"] = "Thyroperoxidase Ab";
-		replaceArray["ANTI-THYROGLOBULIN AB"] = "Anti-Thyroglobulin Ab";
-		replaceArray["PTH RELATED PROTEIN"] = "PTHrP";
-		replaceArray["CALCITONIN"] = "Calcitonin";
-		replaceArray["CORTISOL AM"] = "Cortisol AM";
-		replaceArray["ERYTHROPOIETIN"] = "Epo";
+// =========================
+// CARDIAC / CRITICAL CARE
+// =========================
+replaceArray["TROPONIN I"] = "Trop I";
 
+replaceArray["bnp"] = "BNP";
+replaceArray["D-DIMER"] = "D-Dimer";
 
-		//Heme
-		replaceArray["PLT-AUTO"] = "PLT";
-		replaceArray["A/G RATIO(EP)"] = "A/G Ratio";
-		replaceArray["GAMMA GLOBULIN(EP)"] = "G Globulin";
-		replaceArray["BETA GLOBULIN(EP)"] = "B Globulin";
-		replaceArray["ALPHA2 GLOBULIN(EP)"] = "A2 Globulin";
-		replaceArray["ALPHA1 GLOBULIN(EP)"] = "A1 Globulin";
-		replaceArray["ALBUMIN(EP)"] = "Albumin";
-		replaceArray["PROTEIN,TOTAL(EP)"] = "Protein";
+replaceArray["LACTIC"] = "Lactate";
+replaceArray["LACTIC ACID"] = "Lactic Acid";
 
-		replaceArray["FREE K/L LC RATIO"] = "Free K/L Ratio";
-		replaceArray["FREE K/L RATIO(b)"] = "Free K/L Ratio";
-		replaceArray["KAPPA LC FREE SERUM"] = "Free Kappa LC";
-		replaceArray["KAPPA LC FREE SERUM(b)"] = "Free Kappa LC";
-		replaceArray["LAMBDA LC FREE SERUM"] = "Free Lambda LC";
-		replaceArray["LAMBDA LC FREE SERUM(b)"] = "Free Lambda LC";
-		replaceArray["KAPPA,SERUM QNT"] = "Total Kappa LC";
-		replaceArray["LAMBDA,SERUM QUANT"] = "Total Lambda LC";
-		replaceArray["KAPPA/LAMBDA RATIO,SERUM"] = "Total K/L Ratio";
-		replaceArray["IGA,SERUM"] = "IgA";
-		replaceArray["IGG,SERUM"] = "IgG";
-		replaceArray["IGM,SERUM"] = "IgM";
-		replaceArray["IGE,SERUM"] = "IgE";
+replaceArray["CREATINE KINASE"] = "CK";
 
-		replaceArray["BETA 2 GLYCOP,IGG"] = "B2 Glycoprotein IgG";
-		replaceArray["BETA 2 GLYCOP,IGM"] = "B2 Glycoprotein IgM";
-		replaceArray["BETA 2 GLYCOP,IGA"] = "B2 Glycoprotein IgA";
-		replaceArray["CAR IgG"] = "Cardiolipin IgG";
-		replaceArray["CAR IgM"] = "Cardiolipin IgM";
-		replaceArray["HAPTOGLOBIN"] = "Haptoglobin";
-		replaceArray["HEMOGLOBIN A"] = "HGB A";
-		replaceArray["HEMOGLOBIN F"] = "HGB F"
-		replaceArray["HEMOGLOBIN A2"] = "HGB A2"
-		replaceArray["HGB SCREEN"] = "HGB Screen";
-		replaceArray["HGB REVIEWER"] = "HGB Reviewer";
+replaceArray["PROCALCITONIN"] = "Procal";
 
-		replaceArray["SEROTONIN RELEASE ASSAY"] = "Serotonin release";
-		replaceArray["PATIENT OD"] = "HIT Ab OD";
-		replaceArray["BETA 2 MICROGLOBULIN,SERUM"] = "B2 Microglobulin";
-		replaceArray["RETICULATED PLATELET(YALE)"] = "Retic PLT";
-		replaceArray["WBC (FCM)"] = "WBC";
-		replaceArray["LYMPH % (FCM)"] = "Lymph";
-		replaceArray["ABS LYMPH (FCM)"] = "ABSOLUTE LYMPHOCYTE COUNT";
-		replaceArray["DC'D K/L"] = "Total K/L Ratio";
-		replaceArray["IGA"] = "IgA";
-		replaceArray["IGM"] = "IgM";
-		replaceArray["IGG"] = "IgG";
-		replaceArray["DC'D LAMBDA"] = "Total Lambda LC";
-		replaceArray["KAPPA QNT,SERUM DC'D 4/13/15"] = "Total Kappa LC";
-		replaceArray["RETICULOCYTES (%)"] = "Retic %";
-		replaceArray["ABSOLUTE RETIC COUNT"] = "Abs Retic #";
-		replaceArray["RETICULOCYTE HGB"] = "Retic Hgb";
-		replaceArray["IMMATURE RETIC FRACTION"] = "Imm Retic Frxn";
-		replaceArray["IMMATURE PLT FRACTION"] = "Imm plt";
-		replaceArray["NUCLEATED RBC/100WBC"] = "NRBC/100WBC";
-		replaceArray["NUCLEATED RED CELLS"] = "NRBC/100WBC";
-		replaceArray["ALPHA-1 FRACTION"] = "A1 Globulin";
-		replaceArray["ALPHA-2 FRACTION"] = "A2 Globulin";
-		replaceArray["BETA FRACTION"] = "B Globulin";
-		replaceArray["GAMMA FRACTION"] = "G Globulin";
-		replaceArray["GAMMA GLOBULIN"] = "G Globulin";
+// =========================
+// LIVER
+// =========================
+replaceArray["PROTEIN, TOTAL"] = "Protein";
+replaceArray["TOTAL PROTEIN,SERUM"] = "Protein";
 
-		replaceArray["ALPHA1 GLOBULIN(EP)(b)"] = "A1 Globulin";
-		replaceArray["ALPHA2 GLOBULIN(EP)(b)"] = "A2 Globulin";
-		replaceArray["BETA GLOBULIN(EP)(b)"] = "B Globulin";
-		replaceArray["GAMMA GLOBULIN(EP)(b)"] = "G Globulin";
-		replaceArray["A/G RATIO(EP)(b)"] = "A/G Ratio";
-		replaceArray["PROTEIN,TOTAL(EP)(b)"] = "Protein";
-		replaceArray["ALBUMIN(EP)(b)"] = "Albumin";
-		replaceArray["PROTEIN, SERUM TOTAL (B)"] = "Protein";
-		replaceArray["A/G RATIO,SERUM (DC'd)"] = "A/G Ratio";
-		replaceArray["IgA,Serum"] = "IgA";
-		replaceArray["PFA COLLAGEN/EPI"] = "PFA Collagen/Epi";
-		replaceArray["PFA COLLAGEN/ADP"] = "PFA Collagen/ADP";
-		replaceArray["JAK2 MUTATION"] = "JAK2 Mutation";
-		replaceArray["BCR-ABL1/ABL1%"] = "BCR-ABL1 %";
-		replaceArray["BCR-ABL1/ABL1% (IS)"] = "BCR-ABL1 % (IS)";
-		replaceArray["P190 BCR-ABL1"] = "P190 BCR-ABL1";
-		replaceArray["P210 BCR-ABL1"] = "P210 BCR-ABL1";
-		replaceArray["FLOW CYTOMETRY-YALE"] = "Flow Cytometry (Yale)";
-		replaceArray["CD3+ %"] = "CD3+ %";
-		replaceArray["CD3+ #"] = "CD3+ #";
-		replaceArray["CD3+,CD4+ %"] = "CD3+,CD4+ %";
-		replaceArray["CD3+,CD4+ #"] = "CD3+,CD4+ #";
-		replaceArray["CD3+,CD8+ %"] = "CD3+,CD8+ %";
-		replaceArray["CD3+,CD8+ #"] = "CD3+,CD8+ #";
-		replaceArray["CD4/CD8 RATIO"] = "CD4/CD8 Ratio";
-		replaceArray["CD19+ %"] = "CD19+ %";
-		replaceArray["CD19+ #"] = "CD19+ #";
-		replaceArray["CD56+/CD16+//CD3- %"] = "CD56+/CD16+/CD3- %";
-		replaceArray["CD56+/CD16+//CD3- #"] = "CD56+/CD16+/CD3- #";
+replaceArray["ALBUMIN LEVEL"] = "Albumin";
+replaceArray["ALBUMIN"] = "Albumin";
 
-		replaceArray["THROMBIN TIME"] = "Thrombin Time";
-		replaceArray["dRVVT MIX INTERPRET"] = "dRVVT interpret";
-		replaceArray["PTT-LA SCREEN"] = "PTT-LA";
-		replaceArray["HEXAGONAL PHASE CONFIRMATION"] = "Hexagonal phase confirm";
-		replaceArray["DRVVT SCREEN"] = "dRVVT Screen";
-		replaceArray["DRVVT CONFIRM"] = "dRVVT Confirm";
+replaceArray["BILIRUBIN TOTAL"] = "TBil";
+replaceArray["TOTAL BILIRUBIN"] = "TBil";
+replaceArray["TOT. BILIRUBIN"] = "TBil";
+replaceArray["BILIRUBIN, TOTAL"] = "TBil";
 
-		replaceArray["INTERLEUKIN-2 RECEPTOR"] = "IL-2 Receptor";
-		replaceArray["PT(YALE)"] = "PT";
-		replaceArray["PTT (YALE)"] = "PTT";
-		replaceArray["FACTOR VII ACT"] = "Factor VII Act";
-		replaceArray["FACTOR IX ACT,YALE"] = "Factor IX Act";
-		replaceArray["FACTOR II ACT"] = "Factor II Act";
-		replaceArray["FACTOR X ACT"] = "Factor X Act";
+replaceArray["DIRECT BILIRUBIN"] = "DBil";
+replaceArray["DIR. BILIRUBIN"] = "DBil";
 
-		replaceArray["PROTHROMBIN MUTATION"] = "Prothrombin Mutation";
-		replaceArray["FACTOR V LEIDEN"] = "Factor V Leiden";
-		replaceArray["PROTEIN C ANTIGEN"] = "Protein C Ag";
-		replaceArray["PROTEIN S ANTIGEN"] = "Protein S Ag";
-		replaceArray["PROTEIN S ACTIVITY"] = "Protein S Activity";
-		replaceArray["PROTEIN C ACTIVITY"] = "Protein C Activity";
-		replaceArray["ABSOLUTE GRANULOCYTES"] = "ABSOLUTE NEUTROPHIL COUNT";
-		replaceArray["ABSOLUTE LYMPHOCYTES"] = "ABSOLUTE LYMPHOCYTE COUNT";
-		replaceArray["ABSOLUTE EOS."] = "AEC";
-		replaceArray["ABSOLUTE BASOPHILS"] = "ABC";
-		replaceArray["ABSOLUTE MONOCYTES"] = "AMC";
-		replaceArray["ABSOLUTE IG"] = "AIG";
-		replaceArray["ABSOLUTE NRBC"] = "ANRBC";
-		replaceArray["EOS %"] = "Eos";
-		replaceArray["IG %"] = "Bands";
-		replaceArray["ESR(NEW)"] = "ESR";
-		replaceArray["CRP(INFLAMMATORY)"] = "CRP";
-		replaceArray["esr(dc'd 3/17)"] = "ESR";
-		replaceArray["CREATINE KINASE"] = "CK";
+replaceArray["ALT"] = "ALT";
+replaceArray["ALT(SGPT)"] = "ALT";
 
-		//Coags
-		replaceArray["FIBRINOGEN"] = "Fibrinogen";
-		replaceArray["PT"] = "PT";
-		replaceArray["pt"] = "PT";
-		replaceArray["PTT"] = "PTT";
-		replaceArray["INR"] = "INR";
-		replaceArray["CLINIC INR (POC)"] = "INR POC";
-		replaceArray["ANTI-Xa LMW HEPARIN"] = "Anti-Xa LMWH";
-		replaceArray["ANTI-Xa UF HEPARIN"] = "Anti-Xa UFH";
+replaceArray["AST"] = "AST";
+replaceArray["AST(SGOT)"] = "AST";
 
-		//Nutritional
-		replaceArray["COPPER,SERUM"] = "Copper";
-		replaceArray["ZINC,PLASMA"] = "Zinc";
-		replaceArray["ALUMINUM,PLASMA"] = "Aluminum";
-		replaceArray["CAROTENE"] = "Carotene";
-		replaceArray["VITAMIN B1"] = "Vit B1";
-		replaceArray["HOMOCYSTEINE,SERUM"] = "Homocysteine";
-		replaceArray["CHOLESTEROL"] = "CHOL";
-		replaceArray["TRIGLYCERIDE"] = "TG";
-		replaceArray["HDL"] = "HDL";
-		replaceArray["HDL CHOLESTEROL"] = "HDL";
-		replaceArray["LDL"] = "LDL";
-		replaceArray["LDL CHOLESTEROL (CALC)"] = "LDL";
-		replaceArray["LDL,DIRECT"] = "LDL Direct";
-		replaceArray["ZLIPOPROTEIN(A)pre 3-29-06"] = "Lipoprotein(A)";
-		replaceArray["VITAMIN B-6"] = "Vit B6";
+replaceArray["ALP"] = "ALK";
+replaceArray["ALK PHO"] = "ALK";
+replaceArray["ALKALINE PHOSPHATASE"] = "ALK";
 
-		//Rheum
-		replaceArray["ANGIOTENSIN CONV ENZ,SERUM"] = "ACE";
-		replaceArray["RHEUMATOID FACTOR"] = "RF";
-		replaceArray["RHEUMATOID FACTOR (B)"] = "RF";
-		replaceArray["CRYGLOBULIN,SERUM"] = "Cryoglobulin";
-		replaceArray["WEST. SED RATE"] = "ESR";
-		replaceArray["CRP,INFLAMMATION"] = "CRP";
-		replaceArray["CRPinfl"] = "CRP";
-		replaceArray["CRP,CARDIAC RISK"] = "Cardiac CRP";
-		replaceArray["ANA TITER"] = "ANA Titer";
-		replaceArray["ANA SCREEN (B)"] = "ANA";
-		replaceArray["ANTI-SCL-70"] = "Anti-SCL-70";
-		replaceArray["ANCA IFA SCREEN"] = "ANCA IFA Screen";
-		replaceArray["ANGIOTENSIN CONV ENZ,CSF"] = "ACE";
-		replaceArray["ESR(Manual/Westergren)"] = "ESR";
-		replaceArray["CENTROMERE"] = "Centromere";
-		replaceArray["PERIPHERAL"] = "Peripheral";
-		replaceArray["SPECKLED"] = "Speckled";
-		replaceArray["HOMOGENOUS"] = "Homogeneous";
-		replaceArray["HOMOGENEOUS"] = "Homogeneous";
-		replaceArray["NUCLEOLAR"] = "Nucleolar";
-		replaceArray["ANTI-JO-1"] = "Anti-Jo-1";
-		replaceArray["ANTI-SCL-70"] = "Anti-Scl-70";
-		replaceArray["ANTI-dsDNA"] = "Anti-dsDNA";
-		replaceArray["ANTI-SM/RNP"] = "Anti-Sm/RNP";
-		replaceArray["ANTI-CHROMATIN"] = "Anti-Chromatin";
-		replaceArray["PL-7 AUTO ABS"] = "Anti-PL-7";
-		replaceArray["PL-12 AUTO ABS"] = "Anti-PL-12";
-		replaceArray["MI-2 AUTO ABS"] = "Anti-Mi-2";
-		replaceArray["KU AUTO ABS"] = "Anti-Ku";
-		replaceArray["EJ AUTO ABS"] = "Anti-EJ";
-		replaceArray["OJ AUTO ABS"] = "Anti-OJ";
-		replaceArray["SRP AUTO ABS"] = "Anti-SRP";
-		replaceArray["JO-1 AUTO ABS"] = "Anti-Jo-1";
-		replaceArray["ANTI-SM"] = "Anti-Sm";
-		replaceArray["ANTI-RNP"] = "Anti-RNP";
-		replaceArray["ANTI-SSA"] = "Anti-SSA";
-		replaceArray["ANTI-SSB"] = "Anti-SSB";
-		replaceArray["ANTI DNA,DOUBLE-STRANDED"] = "Anti-dsDNA";
-		replaceArray["ANA INTERPRETATION"] = "ANA interp";
-		replaceArray["ANA TEST REMARKS"] = "ANA test remark";
-		replaceArray["antiCCP"] = "Anti-CCP";
-		replaceArray["HU,YO,RI AB'S W/ RFLX"] = "Anti-Hu,Yo,Ri";
-		replaceArray["RIBOSOMAL P AB"] = "Anti-Ribosomal P";
-		replaceArray["ANTI-HISTONE ANTIBODIES"] = "Anti-Histone";
-		replaceArray["ANTI-PROTEINASE-3 ANTIBODY"] = "Anti-PR3";
-		replaceArray["ANTI-MYELOPEROXIDASE"] = "Anti-MPO";
+replaceArray["GAMMA GLUTAMYLTRANSFERASE"] = "GGT";
+replaceArray["AMMONIA"] = "Ammonia";
 
-		//Micro
-		replaceArray["MRSA SURVL NARES AGAR"] = "MRSA DNA";
-		replaceArray["MRSA SURVL NARES DNA"] = "MRSA DNA";
-		replaceArray["HSV IGM AB SCREEN"] = "HSV IgM Screen";
-		replaceArray["HSV IGM AB TITER"] = "HSV IgM Titer";
-		replaceArray["RUBELLA AB"] = "Rubella Ab";
-		replaceArray["MUMPS AB SCREEN"] = "Mumps Ab Screen";
-		replaceArray["MEASLES-RUBEOLA Ab"] = "Measles Ab";
-		replaceArray["VARICELLA ZOSTER(VZ) IGG"] = "VZV IgG";
-		replaceArray["MONO TEST"] = "Mono Test";
-		replaceArray["VIRAL CAPSID IgG ANTIBODY"] = "EBV Capsid IgG";
-		replaceArray["VIRAL CAPSID IgM ANTIBODY"] = "EBV Capsid IgM";
-		replaceArray["ENBA"] = "EBV Nuc Ag";
-		replaceArray["WNV IGG,CSF"] = "WNV IgG CSF";
-		replaceArray["WNV IGM,CSSF"] = "WNV IgM CSF";
-		replaceArray["ENTEROVIRUS RNA, PCR"] = "Enterovirus PCR";
-		replaceArray["PARECHOVIRUS RNA, PCR"] = "Parechovirus PCR";
-		replaceArray["LYME IGG AB,CSF"] = "Lyme IgG CSF";
-		replaceArray["LYME IGM AB,CSF"] = "Lyme IgM CSF";
-		replaceArray["Zvdrl (D/C)"] = "VDRL";
-		replaceArray["GONORRHOEAE PCR"] = "Gonorrhea PCR";
-		replaceArray["M.PNEUMONIAE AB IGG"] = "M. pneumoniae IgG";
-		replaceArray["M.PNEUMONIAE AB IGM"] = "M. pneumoniae IgM";
-		replaceArray["HIV AB/ P24 AG COMBO"] = "HIV Ab/Ag Screen";
-		replaceArray["HIV-RNA,DETECTION"] = "HIV PCR Screen";
-		replaceArray["HIV-RNA,COPIES"] = "HIV Qnt";
-		replaceArray["HIV-RNA,LOG 10"] = "HIV Log10";
-		replaceArray["HIV-RNA PCR(DC'D 7-31-08)"] = "HIV PCR";
-		replaceArray["HEPATITIS A AB IGG"] = "Hep A IgG";
-		replaceArray["HEPATITIS A AB IGM"] = "Hep A IgM";
-		replaceArray["HAV TOT"] = "Hep A IgG/IgM";
-		replaceArray["HEP B SURF AG"] = "Hep B Surf Ag";
-		replaceArray["HEP B SURF AB"] = "Hep B Surf Ab";
-		replaceArray["HEP B CORE AB IgM"] = "Hep B Core IgM";
-		replaceArray["HEP B CORE,TOTAL"] = "Hep B Core, Total";
-		replaceArray["ZZHCV-PCR"] = "HCV PCR";
-		replaceArray["HCV-RNA,QNT"] = "HCV Qnt";
-		replaceArray["HCV-RNA,QNT(Log10)"] = "HCV Log10";
-		replaceArray["HCV-RNA,DETECTION"] = "HCV PCR Screen";
-		replaceArray["HEPATITIS C Ab"] = "HCV Ab";
-		replaceArray["HCVQNT"] = "HCV Qnt";
-		replaceArray["HIV GENOTYPE(DC'd 1-12-06)"] = "HCV Genotype";
-		replaceArray["HPSAG"] = "H. Pylori Ag";
-		replaceArray["TOXOPLASMA AB IGG"] = "Toxo IgG";
-		replaceArray["TOXOPLASMA AB IGM"] = "Toxo IgM";
-		replaceArray["Rpr (Syphilis)"] = "RPR";
-		replaceArray["BABESIA SMEAR"] = "Babesia smear";
-		replaceArray["EHRLICHIA SMEAR"] = "Ehrlichia smear";
-		replaceArray["LYME AB,SERUM"] = "Lyme ELISA";
-		replaceArray["LYME WEST. BLOT IGG"] = "Lyme IgG (Western)";
-		replaceArray["LYME WEST. BLOT IGM"] = "Lyme IgM (Western)";
-		replaceArray["LEGIONELLA ANTIGEN,URINE"] = "Legionella Ag";
-		replaceArray["CMV AB SCREEN(pre 8-17-04)"] = "CMV AB Screen";
-		replaceArray["CHLAMYDIA PCR"] = "Chlamydia PCR";
-		replaceArray["GONORRHOEAE PCR(COBAS COLLECTION KIT)"] = "Gonorrhoeae PCR";
-		replaceArray["N.GON"] = "Gonorrhoeae PCR";
-		replaceArray["QUANTIFERON-TB GOLD"] = "TB Quant Gold";
-		replaceArray["QF-NIL"] = "Quant Nil";
-		replaceArray["QF-MITOGEN-NIL"] = "Quant Mitogen Nil";
-		replaceArray["QF-TB-NIL"] = "Quant TB Nil";
-		replaceArray["QUANTIFERON(DC'D 4/22/14)"] = "TB Quant Gold";
-		replaceArray["RESPIRATORY SCREEN"] = "Resp Screen";
-		replaceArray["HCV GENOTYPE"] = "HCV Genotype";
-		replaceArray["CMV TITER(pre 8-17-04)"] = "CMV titer";
-		replaceArray["VDRL,CSF (WROX)"] = "VDRL";
-		replaceArray["CMV DNA,QUAL,PCR(CSF)"] = "CMV PCR";
-		replaceArray["EBV DNA,QN"] = "EBV PCR";
-		replaceArray["CRYPTOCOCCUS AG"] = "Crypto Ag";
-		replaceArray["HBV-DNA,DETECTION"] = "HBV DNA";
-		replaceArray["SYPHILIS ABs W/REFLEX"] = "Syphilis AB";
-		replaceArray["S.PNEUMO AG,URINE"] = "S. pneumo Ag";
-		replaceArray["C DIFF TOX B GENE PCR"] = "C Diff Tox B PCR";
-		replaceArray["LYME AB,SERUM(DC'D 9/27/16)"] = "Lyme Ab";
-		replaceArray["HEPATITIS Be Ag"] = "Hep B Ag";
-		replaceArray["HEPATITIS Be Ab"] = "Hep B Ab";
-		replaceArray["GIARDIA AG"] = "Giardia Ag";
-		replaceArray["GIARDIA ANTIGEN,STOOL"] = "Giardia Ag";
-		replaceArray["GIARDIA ANTIGEN, STOOL"] = "Giardia Ag";
-		replaceArray["GIARDIA ANTIGEN EIA"] = "Giardia Ag";
-		replaceArray["CRYPTOSPORIDIUM AG"] = "Cryptosporidium Ag";
-		replaceArray["CRYPTOSPORIDIUM ANTIGEN,STOOL"] = "Cryptosporidium Ag";
-		replaceArray["CRYPTOSPORIDIUM ANTIGEN, STOOL"] = "Cryptosporidium Ag";
+replaceArray["AMYLASE"] = "Amylase";
+replaceArray["LIPASE"] = "Lipase";
 
-		//Stool / GI / Parasitology (labs reported on FECES specimen)
-		replaceArray["MICROSPORIDIA SPORE STAIN"] = "Microsporidia Spore Stain";
-		replaceArray["MODIFIED TRICHROME STAIN"] = "Microsporidia Spore Stain";
-		replaceArray["MICROSPORIDIA,STOOL"] = "Microsporidia Spore Stain";
-		replaceArray["MICROSPORIDIA"] = "Microsporidia Spore Stain";
-		replaceArray["OVA AND PARASITES,CONC"] = "O&P Concentrate Exam";
-		replaceArray["OVA AND PARASITES, CONC"] = "O&P Concentrate Exam";
-		replaceArray["OVA AND PARASITES,TRICHROME"] = "O&P Trichrome Exam";
-		replaceArray["OVA AND PARASITES, TRICHROME"] = "O&P Trichrome Exam";
-		replaceArray["O AND P CONCENTRATE EXAM"] = "O&P Concentrate Exam";
-		replaceArray["O AND P TRICHROME EXAM"] = "O&P Trichrome Exam";
-		replaceArray["O&P CONCENTRATE"] = "O&P Concentrate Exam";
-		replaceArray["O&P TRICHROME"] = "O&P Trichrome Exam";
-		replaceArray["O&P CONCENTRATE EXAM"] = "O&P Concentrate Exam";
-		replaceArray["O&P TRICHROME EXAM"] = "O&P Trichrome Exam";
-		replaceArray["FECAL LEUKOCYTES"] = "Fecal Leukocytes";
-		replaceArray["FECAL LEUKOCYTE"] = "Fecal Leukocytes";
-		replaceArray["FECAL WBC"] = "Fecal WBC";
-		replaceArray["FECAL WBC'S"] = "Fecal WBC";
-		replaceArray["WBC,STOOL"] = "Fecal WBC";
-		replaceArray["C.DIFFICILE TOX A/B"] = "C. diff Tox A/B";
-		replaceArray["C.DIFFICILE TOXIN A/B"] = "C. diff Tox A/B";
-		replaceArray["C. DIFFICILE TOXIN A/B"] = "C. diff Tox A/B";
-		replaceArray["CLOSTRIDIUM DIFFICILE TOXIN A/B"] = "C. diff Tox A/B";
-		replaceArray["C DIFF TOX A/B"] = "C. diff Tox A/B";
-		replaceArray["CLOSTRIDIOIDES DIFFICILE PCR"] = "C. diff PCR";
-		replaceArray["C.DIFFICILE NAAT"] = "C. diff PCR";
-		replaceArray["C DIFF NAAT"] = "C. diff PCR";
-		replaceArray["CLOSTRIDIUM DIFFICILE PCR"] = "C. diff PCR";
-		replaceArray["GI PATHOGEN PANEL"] = "GI Pathogen Panel";
-		replaceArray["BIOFIRE GI PANEL"] = "GI Pathogen Panel";
-		replaceArray["LACTOFERRIN,FECAL"] = "Fecal Lactoferrin";
-		replaceArray["CALPROTECTIN,FECAL"] = "Fecal Calprotectin";
-		replaceArray["FECAL CALPROTECTIN"] = "Fecal Calprotectin";
-		replaceArray["ROTAVIRUS ANTIGEN"] = "Rotavirus Ag";
-		replaceArray["NOROVIRUS,PCR"] = "Norovirus PCR";
-		replaceArray["SHIGA TOXIN"] = "Shiga Toxin";
-		replaceArray["SHIGA TOXIN PRODUCING E COLI"] = "STEC";
-		replaceArray["E.COLI O157:H7 AG"] = "E. coli O157 Ag";
-		replaceArray["E.COLI O157 ANTIGEN"] = "E. coli O157 Ag";
-		replaceArray["HELICOBACTER PYLORI AG,STOOL"] = "H. Pylori Ag";
-		replaceArray["HELICOBACTER PYLORI ANTIGEN,STOOL"] = "H. Pylori Ag";
-		replaceArray["HBV B DNA,COPIES"] = "HBV DNA Copies";
-		replaceArray["HBV B DNA,UNITS"] = "HBV DNA Log";
-		replaceArray["COCCIDIOIDES CF,SERUM"] = "Coccidioides CF";
-		replaceArray["HISTOPLASMA AG"] = "Histoplasma Ag";
-		replaceArray["HISTOPLAS,SPECIMEN"] = "Histo Specimen";
-		replaceArray["HISTOPLASMA,INTERP"] = "Histo Interp";
-		replaceArray["ANAPLASMA PCR"] = "Anaplasma PCR";
-		replaceArray["ANAPLASMA SMEAR"] = "Anaplasma Smear";
-		replaceArray["B.HENSELAE IGG SCR"] = "B.Henselae IgG";
-		replaceArray["B.HENSELAE IGM SCR"] = "B.Henselae IgM";
-		replaceArray["Q-FEVER IGG PH1 SCR"] = "Q-Fever IgG Ph1";
-		replaceArray["Q-FEVER IGM PH1 SCR"] = "Q-Fever IgM Ph1";
-		replaceArray["Q-FEVER IGG PH2 SCR"] = "Q-Fever IgG Ph2";
-		replaceArray["Q-FEVER IGM PH2 SCR"] = "Q-Fever IgM Ph2";
-		replaceArray["BRUCELLA IGG"] = "Brucella IgG";
-		replaceArray["BRUCELLA IGM"] = "Brucella IgM";
-		replaceArray["HISTOPLASMA AB (ID)"] = "Histoplasma Ab";
+replaceArray["PREALBUMIN"] = "Prealbumin";
 
-		//Drug/Tox Levels
-		replaceArray["VANCOMYCIN,PEAK"] = "Vancomycin, peak";
-		replaceArray["PHENYTOIN"] = "Phenytoin";
-		replaceArray["CARBAMAZEPINE"] = "Carbamazepine";
-		replaceArray["VALPROIC ACID"] = "Valproic acid";
-		replaceArray["VANCOMYCIN,TROUGH"] = "Vanc trough";
-		replaceArray["VANCOMYCIN (TROUGH)"] = "Vanc trough";
-		replaceArray["TRICYCLIC SCREEN"] = "TCA Screen";
-		replaceArray["TRICYCL"] = "TCA Screen";
-		replaceArray["ETHANOL"] = "ETOH";
-		replaceArray["ACETAMINOPHEN"] = "Acetaminophen";
-		replaceArray["SALICYLATE"] = "Salicylate";
-		replaceArray["CYCLOSPORINE"] = "Cyclosporine";
-		replaceArray["MARIJUANA,SERUM"] = "Marijuana";
-		replaceArray["AMPHETAMINE,SERUM"] = "Amphetamine";
+replaceArray["CERULOPLASMIN"] = "Ceruloplasmin";
+replaceArray["HFEgene"] = "HFE gene";
+replaceArray["ALPHA-1 ANTITRYPSIN"] = "A1AT";
+replaceArray["INTRINSIC FACTOR AB"] = "Intrinsic Factor Ab";
 
-		replaceArray["AMPHETAMINE SCRN"] = "AMPHETAMINES SCREEN";
-		replaceArray["BENZODIAZEPINES SCREEN"] = "BENZODIAZEPI SCREEN";
-		replaceArray["CANNABINOID SCRN"] = "CANNABINOIDS SCREEN";
+// =========================
+// DIABETES / METABOLIC
+// =========================
+replaceArray["HGB A1C"] = "A1c";
+replaceArray["HEMOGLOBIN A1C"] = "A1c";
+replaceArray["FRUCTOSAMINE"] = "Fructosamine";
+replaceArray["B-HYDROXYBUTYRATE"] = "B-Hydroxybutyrate";
 
+// =========================
+// NUTRITION
+// =========================
+replaceArray["IRON LEVEL"] = "Iron";
+replaceArray["TIBC"] = "TIBC";
+replaceArray["IRON SATURATION (%)"] = "Tsat";
+replaceArray["FERRITIN"] = "Ferritin";
+replaceArray["FOLATE,SERUM"] = "Folate";
+replaceArray["FOLATE LEVEL"] = "Folate";
+replaceArray["VITAMIN B-12"] = "B12";
+replaceArray["VITAMIN B12 LEVEL"] = "B12";
+replaceArray["METHYLMALONIC ACID (SERUM)"] = "MMA";
+replaceArray["CAROTENE, SERUM"] = "Carotene";
+replaceArray["RETINOL"] = "Retinol";
+replaceArray["Alpha-Tocopherol (Vit E)"] = "Vit E";
+replaceArray["Vitamin K1"] = "Vit K";
+replaceArray["Zinc,RBC"] = "Zinc";
+replaceArray["COPPER, SERUM"] = "Copper";
 
-		replaceArray["BARBITURATE,SERUM"] = "Barbiturate";
-		replaceArray["BDZ,SERUM"] = "BZD";
-		replaceArray["COCAINE,SERUM"] = "Cocaine";
-		replaceArray["PHENCYCLIDINE,SERUM"] = "PCP";
-		replaceArray["OPIATES,SERUM"] = "Opiates";
-		replaceArray["METHADONE,SERUM"] = "Methadone";
-		replaceArray["PROPOXYPHENE,SERUM"] = "Propoxyphene";
-		replaceArray["DIGOXIN"] = "Digoxin";
-		replaceArray["GENTAMICIN"] = "Gentamicin";
-		replaceArray["FK506-RENAL-QUEST"] = "Tacrolimus";
-		replaceArray["LAMOTRIGINE"] = "Lamotrigine";
-		replaceArray["LITHIUM"] = "Lithium";
-		replaceArray["VANCOMYCIN,RANDOM"] = "Vancomycin (random)";
-		replaceArray["METHANOL(YALE)"] = "Methanol";
-		replaceArray["ACETONE(YALE)"] = "Acetone";
-		replaceArray["ETHANOL(YALE)"] = "Ethanol";
-		replaceArray["ISOPROPANOL(YALE)"] = "Isopropanol";
-		replaceArray["ETHYLENE GLYCOL"] = "Ethylene glycol";
-		replaceArray["PROPYLENE GLYCOL"] = "Propylene glycol";
-		replaceArray["FENT,SCREEN"] = "Fent screen";
-		replaceArray["ETHYL GLUCURONIDE SCRN"] = "Ethyl Glucuronide";
-		replaceArray["ETHYL GLUCURONIDE(wrj)"] = "Ethyl Glucuronide";
-		replaceArray["LEVETIRACETAM"] = "Keppra";
-		replaceArray["SPECIFIC GRAVITY DAU"] = "SPECIFIC GRAVITY"
+// =========================
+// ENDOCRINE / HORMONES
+// =========================
+replaceArray["FREE T3"] = "Free T3";
+replaceArray["T4,FREE"] = "Free T4";
+replaceArray["T-4"] = "T-4";
+replaceArray["PTH RELATED PROTEIN"] = "PTHrP";
+replaceArray["CALCITONIN"] = "Calcitonin";
+replaceArray["PROLACTIN"] = "Prolactin";
+replaceArray["ACTH"] = "ACTH";
+replaceArray["CORTISOL AM"] = "Cortisol AM";
+replaceArray["CORTISOL PM"] = "Cortisol PM";
+replaceArray["ERYTHROPOIETIN"] = "Epo";
 
-		//SMEAR
-		replaceArray["PLT (ESTM)"] = "PLT (Estm)";
-		replaceArray["ANISOCYTOSIS"] = "Anisocytosis";
-		replaceArray["POIKILOCYTOSIS"] = "Poikilocytosis";
-		replaceArray["OVALOCYTES"] = "Ovalocytes";
-		replaceArray["ACANTHOCYTES"] = "Acanthocytes";
-		replaceArray["TEARDROPS"] = "Teardrops";
-		replaceArray["TARGET CELLS"] = "Target cells";
-		replaceArray["POLYCHROMASIA"] = "Polychromasia";
-		replaceArray["HYPOCHROMIA"] = "Hypochromia";
-		replaceArray["NORMOCHROMIC"] = "Normochromic";
-		replaceArray["BASOPHILIC STIPPLING"] = "Basophilic stippling";
-		replaceArray["TOXIC GRANULATION"] = "Toxic granulation";
-		replaceArray["SCHISTOCYTES"] = "Schistocytes";
-		replaceArray["SPHEROCYTES"] = "Spherocytes";
-		replaceArray["STOMATOCYTES"] = "Stomatocytes";
-		replaceArray["MICROCYTOSIS"] = "Microcytosis";
-		replaceArray["MACROCYTOSIS"] = "Macrocytosis";
-		replaceArray["NORMOCYTIC"] = "Normocytic";
-		replaceArray["ATYPICAL LYMPHS"] = "Atypical Lymphs";
-		replaceArray["METAMYELOCYTES"] = "Metamyelocytes";
-		replaceArray["MYELOCYTES"] = "Myelocytes";
-		replaceArray["PROMYELOCYTES"] = "Promyelocytes";
-		replaceArray["BLASTS"] = "Blasts";
+// =========================
+// ONCOLOGY MARKERS
+// =========================
+replaceArray["ALPHA-FETOPROTEIN"] = "AFP";
+replaceArray["PROSTATIC SPECIFIC ANTIGEN"] = "PSA";
+		
+// =========================
+// URINE
+// =========================
+replaceArray["SODIUM,URINE"] = "Na";
+replaceArray["CREATININE,URINE"] = "Creatinine";
+replaceArray["CREATININE, URINE RANDOM"] = "Creatinine";
+replaceArray["CREATININE,RANDOM UR"] = "Creatinine";
+replaceArray["CREATININE (URINE,RANDOM)"] = "Creatinine";
 
-		replaceArray["NEUT %"] = "PMN";
-		replaceArray["SEGS"] = "PMN";
-		replaceArray["LYMPH %"] = "Lymph";
-		replaceArray["LYMPHS"] = "Lymph";
-		replaceArray["MONO %"] = "Mono";
-		replaceArray["MONOS"] = "Mono";
-		replaceArray["EOSIN %"] = "Eos";
-		replaceArray["EOSINOPHILS"] = "Eos";
-		replaceArray["BASO %"] = "Baso";
-		replaceArray["BASOPHILS"] = "Baso";
-		replaceArray["IMMATURE GRAN %"] = "Bands";
-		replaceArray["BANDS"] = "Bands";
-		replaceArray["OTHER"] = "Other"
-		replaceArray["SMUDGE CELLS"] = "Smudge cells"
-		replaceArray["ATYPICAL MONOCYTES"] = "Atypical Monocytes";
+replaceArray["PROTEIN,URINE"] = "Protein";
+
+replaceArray["miCROALB./CREAT RATIO-SPOT"] = "Spot Albumin/Cr";
+replaceArray["miCROALBUMIN,24-HR"] = "24h Albumin";
+replaceArray["miCROALB/CREAT RATIO-24 HR"] = "24h Albumin/Cr";
+
+replaceArray["UREA NITROGEN,URINE"] = "Urea Nitrogen";
+replaceArray["POTASSIUM,URINE"] = "Potassium";
+replaceArray["CHLORIDE,URINE"] = "Chloride";
+
+replaceArray["CALCIUM,URINE"] = "Calcium";
+replaceArray["MAGNESIUM,RANDOM UR"] = "Magnesium";
+
+replaceArray["CRYSTALS"] = "Crystals";
+replaceArray["EOSINOPHILS,URINE"] = "Eosinophils";
+replaceArray["VOLUME"] = "Urine Volume";
+
+replaceArray["URIC ACID,URINE RANDOM"] = "Random Uric Acid";
+replaceArray["AM PHOSPHATE CRYSTALS"] = "Phosphate Crystals";
+
+// =========================
+// GI
+// =========================
+replaceArray["FECAL LEUKOCYTES"] = "Fecal Leukocytes";
+replaceArray["FECAL LEUKOCYTE"] = "Fecal Leukocytes";
+replaceArray["FECAL WBC"] = "Fecal WBC";
+replaceArray["FECAL WBC'S"] = "Fecal WBC";
+replaceArray["LACTOFERRIN,FECAL"] = "Fecal Lactoferrin";
+replaceArray["C.DIFFICILE TOX A/B"] = "C.diff Tox A/B";
+replaceArray["C DIFF TOX A/B"] = "C.diff Tox A/B";
+replaceArray["CLOSTRIDIUM DIFFICILE PCR"] = "C.diff PCR";
+replaceArray["GI PATHOGEN PANEL"] = "GI Pathogen Panel";
+replaceArray["BIOFIRE GI PANEL"] = "GI Pathogen Panel";
+replaceArray["GIARDIA AG"] = "Giardia Ag";
+replaceArray["GIARDIA ANTIGEN,STOOL"] = "Giardia Ag";
+replaceArray["CRYPTOSPORIDIUM AG"] = "Cryptosporidium Ag";
+replaceArray["CRYPTOSPORIDIUM ANTIGEN,STOOL"] = "Cryptosporidium Ag";
+
+replaceArray["CALPROTECTIN,FECAL"] = "Fecal Calprotectin";
+replaceArray["FECAL CALPROTECTIN"] = "Fecal Calprotectin";
+replaceArray["CALPROTECTIN, STOOL"] = "Fecal Calprotectin";
+
+replaceArray["PANCREATIC ELASTASE-1, STOOL"] = "Fecal Elastase";
+replaceArray["FECAL FAT, QUALITATIVE"] = "Fecal Fat";
+
+replaceArray["OCCULT BLOOD (FIT) #1 OF 1"] = "FIT";
+
+replaceArray["TISSUE TRANSGLUTAMINASE IGA"] = "tTG Ab IgA";
+replaceArray["TRANSGLUTAMINASE AB,IGA"] = "tTG Ab IgA";
+replaceArray["TRANSGLUTAMINASE IGA"] = "tTG Ab IgA";
+replaceArray["TTG IGA"] = "tTG Ab IgA";
+replaceArray["ANTI-TISSUE TRANSGLUTAMINASE IGA"] = "tTG Ab IgA";
+replaceArray["ANTI-TTG IGA"] = "tTG Ab IgA";
+replaceArray["tTG Ab, IgA"] = "tTG Ab IgA";
+
+replaceArray["TISSUE TRANSGLUTAMINASE IGG"] = "tTG Ab IgG";
+replaceArray["TRANSGLUTAMINASE AB,IGG"] = "tTG Ab IgG";
+replaceArray["TRANSGLUTAMINASE IGG"] = "tTG Ab IgG";
+replaceArray["TTG IGG"] = "tTG Ab IgG";
+replaceArray["ANTI-TISSUE TRANSGLUTAMINASE IGG"] = "tTG Ab IgG";
+replaceArray["ANTI-TTG IGG"] = "tTG Ab IgG";
+
+replaceArray["IGA TOTAL"] = "IgA Total";
+replaceArray["IGA,TOTAL"] = "IgA Total";
+replaceArray["IMMUNOGLOBULIN A,SERUM"] = "IgA Total";
+replaceArray["IMMUNOGLOBULIN A"] = "IgA Total";
+
+// =========================
+// HEMATOLOGY
+// =========================
+replaceArray["PLT-AUTO"] = "PLT";
+replaceArray["Hct (Quest)"] = "HCT";
+replaceArray["HEMATOCRIT"] = "HCT";
+
+replaceArray["A/G RATIO(EP)"] = "A/G Ratio";
+replaceArray["PROTEIN,TOTAL(EP)"] = "Protein";
+replaceArray["ALBUMIN(EP)"] = "Albumin";
+
+replaceArray["ALPHA1 GLOBULIN(EP)"] = "A1 Globulin";
+replaceArray["ALPHA2 GLOBULIN(EP)"] = "A2 Globulin";
+replaceArray["BETA GLOBULIN(EP)"] = "B Globulin";
+replaceArray["GAMMA GLOBULIN(EP)"] = "G Globulin";
+
+replaceArray["FREE K/L LC RATIO"] = "Free K/L Ratio";
+replaceArray["FREE K/L RATIO(b)"] = "Free K/L Ratio";
+
+replaceArray["KAPPA LC FREE SERUM"] = "Free Kappa LC";
+replaceArray["KAPPA LC FREE SERUM(b)"] = "Free Kappa LC";
+replaceArray["LAMBDA LC FREE SERUM"] = "Free Lambda LC";
+replaceArray["LAMBDA LC FREE SERUM(b)"] = "Free Lambda LC";
+
+replaceArray["KAPPA,SERUM QNT"] = "Total Kappa LC";
+replaceArray["LAMBDA,SERUM QUANT"] = "Total Lambda LC";
+replaceArray["KAPPA/LAMBDA RATIO,SERUM"] = "Total K/L Ratio";
+
+replaceArray["IGA,SERUM"] = "IgA";
+replaceArray["IGG,SERUM"] = "IgG";
+replaceArray["IGM,SERUM"] = "IgM";
+replaceArray["IGE,SERUM"] = "IgE";
+
+replaceArray["IGA"] = "IgA";
+replaceArray["IGM"] = "IgM";
+replaceArray["IGG"] = "IgG";
+
+replaceArray["HAPTOGLOBIN"] = "Haptoglobin";
+
+replaceArray["RETICULOCYTES (%)"] = "Retic %";
+replaceArray["ABSOLUTE RETIC COUNT"] = "Abs Retic #";
+replaceArray["RETICULOCYTE HGB"] = "Retic Hgb";
+		
+replaceArray["PT"] = "PT";
+replaceArray["pt"] = "PT";
+replaceArray["PTT"] = "PTT";
+replaceArray["INR"] = "INR";
+replaceArray["CLINIC INR (POC)"] = "INR POC";
+replaceArray["FIBRINOGEN"] = "Fibrinogen";
+
+replaceArray["ANTI-Xa LMW HEPARIN"] = "Anti-Xa LMWH";
+replaceArray["ANTI-Xa UF HEPARIN"] = "Anti-Xa UFH";
+
+// =========================
+// RHEUM / AUTOIMMUNE
+// =========================
+replaceArray["RHEUMATOID FACTOR"] = "RF";
+replaceArray["RHEUMATOID FACTOR (B)"] = "RF";
+
+replaceArray["ANA SCREEN (B)"] = "ANA";
+replaceArray["ANA TITER"] = "ANA Titer";
+replaceArray["ANA INTERPRETATION"] = "ANA interp";
+
+replaceArray["ANTI-dsDNA"] = "Anti-dsDNA";
+replaceArray["ANTI-SM"] = "Anti-Sm";
+replaceArray["ANTI-RNP"] = "Anti-RNP";
+replaceArray["ANTI-SSA"] = "Anti-SSA";
+replaceArray["ANTI-SSB"] = "Anti-SSB";
+
+replaceArray["CRP(INFLAMMATORY)"] = "CRP";
+replaceArray["CRP,INFLAMMATION"] = "CRP";
+replaceArray["CRPinfl"] = "CRP";
+
+replaceArray["ESR(NEW)"] = "ESR";
+replaceArray["esr(dc'd 3/17)"] = "ESR";
+replaceArray["WEST. SED RATE"] = "ESR";
+
+// =========================
+// MICROBIOLOGY / INFECTIOUS
+// =========================
+replaceArray["HIV AB/ P24 AG COMBO"] = "HIV Ab/Ag Screen";
+replaceArray["HIV-RNA,DETECTION"] = "HIV PCR Screen";
+replaceArray["HIV-RNA,COPIES"] = "HIV Qnt";
+
+replaceArray["HEPATITIS C Ab"] = "HCV Ab";
+replaceArray["HCV-RNA,QNT"] = "HCV Qnt";
+replaceArray["HCV GENOTYPE"] = "HCV Genotype";
+
+replaceArray["HEP B SURF AG"] = "Hep B Surf Ag";
+replaceArray["HEP B SURF AB"] = "Hep B Surf Ab";
+
+replaceArray["LYME AB,SERUM"] = "Lyme ELISA";
+replaceArray["LYME WEST. BLOT IGG"] = "Lyme IgG (Western)";
+replaceArray["LYME WEST. BLOT IGM"] = "Lyme IgM (Western)";
+
+// =========================
+// DRUG LEVELS / TOX
+// =========================
+replaceArray["VANCOMYCIN,TROUGH"] = "Vanc trough";
+replaceArray["VANCOMYCIN (TROUGH)"] = "Vanc trough";
+replaceArray["VANCOMYCIN,PEAK"] = "Vancomycin, peak";
+
+replaceArray["PHENYTOIN"] = "Phenytoin";
+replaceArray["CARBAMAZEPINE"] = "Carbamazepine";
+replaceArray["VALPROIC ACID"] = "Valproic acid";
+
+replaceArray["DIGOXIN"] = "Digoxin";
+replaceArray["LITHIUM"] = "Lithium";
+
+replaceArray["ETHANOL"] = "ETOH";
+replaceArray["ACETAMINOPHEN"] = "Acetaminophen";
+replaceArray["SALICYLATE"] = "Salicylate";
+
+// =========================
+// SMEAR / MORPHOLOGY
+// =========================
+replaceArray["ANISOCYTOSIS"] = "Anisocytosis";
+replaceArray["POIKILOCYTOSIS"] = "Poikilocytosis";
+replaceArray["OVALOCYTES"] = "Ovalocytes";
+replaceArray["TARGET CELLS"] = "Target cells";
+replaceArray["SCHISTOCYTES"] = "Schistocytes";
+replaceArray["SPHEROCYTES"] = "Spherocytes";
+
+replaceArray["MICROCYTOSIS"] = "Microcytosis";
+replaceArray["MACROCYTOSIS"] = "Macrocytosis";
+
+replaceArray["BLASTS"] = "Blasts";
+replaceArray["BANDS"] = "Bands";
+		
+// =========================
+// BLOOD GAS (POC)
+// =========================
+replaceArray["pH(POC)"] = "PH";
+replaceArray["pCO2(POC)"] = "PCO2";
+replaceArray["pO2(POC)"] = "PO2";
+replaceArray["BICARBONATE"] = "HCO3";
+replaceArray["HCO3(POC)"] = "HCO3";
+
+replaceArray["Na(POC)"] = "Na POC";
+replaceArray["K(POC)"] = "K POC";
+replaceArray["Ca++(POC)"] = "Ca POC";
+
+replaceArray["BASE EXCESS(POC)"] = "Base Excess POC";
+replaceArray["ANION GAP(POC)"] = "ANION GAP";
+
+replaceArray["GLUCOSE(ISTAT POC)"] = "Glucose";
+replaceArray["CREATININE(POC)"] = "CREATININE,SERUM";
+replaceArray["BUN(POC)"] = "UREA NITROGEN";
+
+// =========================
+// OTHER / MISC
+// =========================
+replaceArray["COLOR"] = "Color";
+replaceArray["APPEARANCE"] = "Appearance";
+
+replaceArray["PROTEIN,CSF"] = "CSF Protein";
+replaceArray["CSF OLIGOCLONAL BANDS"] = "Oligoclonal Bands";
+replaceArray["SERUM ALBUMIN"] = "Serum Albumin";
+replaceArray["CSF ALBUMIN"] = "CSF Albumin";
+		
 		var smearList = ["PLT (Estm)", "Anisocytosis", "Poikilocytosis", "Ovalocytes", "Acanthocytes", "Teardrops", "Target cells", "Smudge cells", "Polychromasia", "Hypochromia", "Normochromic", "Basophilic stippling", "Toxic granulation", "Schistocytes", "Spherocytes", "Stomatocytes", "Microcytosis", "Macrocytosis", "Normocytic", "Atypical Lymphs", "Atypical Monocytes", "Metamyelocytes", "Myelocytes", "Promyelocytes", "Blasts", "Other"];
 
-		//Other
-		replaceArray["OCCULT BLOOD(X1)(WARD)"] = "FOBTx1";
-		replaceArray["GLUCOSE,RANDOM"] = "Glucose";
-		replaceArray["APPEARANCE"] = "Appearance";
-		replaceArray["PH,FLUID"] = "pH";
-		replaceArray["PROTEIN,TOTAL"] = "Protein";
-		replaceArray["COLOR"] = "Color";
-		replaceArray["NUCLEATED CELLS"] = "Nucleated cells";
-		replaceArray["MACROPHAGES"] = "Macrophages";
-		replaceArray["MESOTHELIAL CELLS"] = "Mesothelial cells";
-		replaceArray["OCCULT BLOOD #1"] = "FOBT #1";
-		replaceArray["OCCULT BLOOD #2"] = "FOBT #2";
-		replaceArray["OCCULT BLOOD #3"] = "FOBT #3";
-		replaceArray["TISSUE CELLS"] = "Tissue Cells";
-		replaceArray["PROTEIN,CSF"] = "CSF Protein";
-		replaceArray["WBC-BODY FLUID (WBC-BF)"] = "WBC";
-		replaceArray["RBC-BODY FLUID (RBC-BF)"] = "RBC";
-		replaceArray["MONONUCLEATED CELLS(MN)"] = "MN";
-		replaceArray["PMN-BF"] = "PMN";
-		replaceArray["TNC-BF"] = "Nucleated cells";
-		replaceArray["FECAL WBC'S (DC'D 9-28-11)"] = "Fecal WBC";
-		replaceArray["FAT,STOOL(QUAL)"] = "Fecal fat";
-		replaceArray["CSF OLIGOCLONAL BANDS"] = "Oligoclonal bands";
-		replaceArray["SERUM ALBUMIN"] = "Serum Albumin";
-		replaceArray["CSF ALBUMIN"] = "CSF Albumin";
-		replaceArray["SERUM IgG"] = "Serum IgG";
-		replaceArray["ACHRbin"] = "AChR Binding Ab";
-		replaceArray["PLAVIX RESISTANCE TEST"] = "Plavix Resistance";
-		replaceArray["MARKERS ASSAYED"] = "Markers Assayed";
-		replaceArray["GATE CORRECTED"] = "Gate Corrected";
-		replaceArray["OTHER CELLS"] = "Other cells";
-		replaceArray["ALPHA-1-ANTITRYPSIN,FECES"] = "A1-Antitrypsin";
-		replaceArray["NOROVIRUS PCR (YALE)"] = "Norovirus PCR";
-		replaceArray["FENTANYL SCREEN,URINE"] = "FENTANYL SCREEN";
-		replaceArray["FENTANYL"] = "FENTANYL SCREEN";
-		//Blood gas:
-		replaceArray["pH(POC)"] = "PH";
-		replaceArray["pCO2(POC)"] = "PCO2";
-		replaceArray["pO2(POC)"] = "PO2";
-		replaceArray["BICARBONATE"] = "HCO3";
-		replaceArray["HCO3(POC)"] = "HCO3";
-		replaceArray["HGB(POC)"] = "HGB POC";
-		replaceArray["Na(POC)"] = "Na POC";
-		replaceArray["K(POC)"] = "K POC";
-		replaceArray["Ca++(POC)"] = "Ca++ POC";
-		replaceArray["BASE EXCESS(POC)"] = "Base Excess POC";
-		replaceArray["CL(POC)"] = "CHLORIDE";
-		replaceArray["CREATININE(POC)"] = "CREATININE,SERUM";
-		replaceArray["BUN(POC)"] = "UREA NITROGEN";
-		replaceArray["GLUCOSE(ISTAT POC)"] = "Glucose";
-		replaceArray["ANION GAP(POC)"] = "ANION GAP";
-
-
-
-
-		var listTrends = ["CBC", "Diff", "Smear", "Chem", "Cardiac", "Iron", "Liver", "Coags", "Lipid-a1c", "Glucose", "UA", "UDS", "ABG", "GI"];
-		var listElements = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["PMN", "Lymph", "Mono", "Eos", "Baso", "Bands", "Promyelocytes", "Myelocytes", "Metamyelocytes", "Blasts"], ["SMEAR"], ["SODIUM", "POTASSIUM", "CHLORIDE", "CO2", "ANION GAP", "UREA NITROGEN", "Creatinine", "Calcium", "Mag", "Phos"], ["Trop I", "CK-MB", "CK", "BNP"], ["Iron", "TIBC", "Iron sat", "Ferritin"], ["AST", "ALT", "ALK", "TBil", "DBil", "Albumin", "Protein", "Ammonia"], ["PT", "INR", "PTT", "Fibrinogen", "D-dimer"], ["A1c", "Spot Albumin/Cr ratio", "CHOL", "LDL", "LDL,DIRECT", "HDL", "TG", "VLDL"], ["Glucose"], ["SPECIFIC GRAVITY", "URINE pH", "URINE BLOOD", "LEUKOCYTE ESTERASE", "NITRITE, URINE", "URINE PROTEIN", "URINE GLUCOSE", "URINE KETONES", "URINE BILIRUBIN", "UROBILINOGEN"], ["AMPHETAMINES SCREEN", "BARBITURATES SCREEN", "BENZODIAZEPI SCREEN", "CANNABINOIDS SCREEN", "COCAINE SCREEN", "OPIATES SCREEN", "METHADONE SCREEN", "OXYCODONE SCREEN", "BUPRENORPHINE SCREEN", "FENTANYL SCREEN", "Ethyl Glucuronide"], ["ABG"], ["Giardia Ag", "Cryptosporidium Ag", "O&P Concentrate Exam", "O&P Trichrome Exam", "Microsporidia Spore Stain", "Fecal Leukocytes", "C. diff Tox A/B", "C Diff Tox B PCR", "C. diff PCR", "H. Pylori Ag"]];
-		var listNames = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["PMN", "Lymph", "Mono", "Eos", "Baso", "Bands", "Promy", "Myelo", "Metam", "Blast"], ["SMEAR"], ["Na", "K", "Cl", "CO2", "AG", "BUN", "Cr", "Ca", "Mg", "PO4"], ["Troponin I", "CK-MB", "CPK", "BNP"], ["Iron", "TIBC", "TSat", "Ferritin"], ["AST", "ALT", "AlkP", "TBil", "DBil", "Alb", "Prtn", "NH4"], ["PT", "INR", "PTT", "Fibrinogen", "D-dimer"], ["A1c", "Alb/Cr", "Chol", "LDL    ", "LDL Direct", "HDL", "TG", "VLDL"], ["Glucose"], ["SG", "pH", "Blood", "LE", "Nitr", "Prtn", "Gluc", "Keto", "Bili", "Urobi"], ["AMP", "BAR", "BZD", "CBD", "COC", "OPI", "MTD", "OXY", "BUP", "FEN", "ETG"], ["ABG"], ["Giardia", "Crypto", "O&P-Conc", "O&P-Tri", "Micro-Spore", "Fecal-WBC", "C.diff-Tox", "C.diff-PCR(B)", "C.diff-PCR", "H.pylori"]];
-		var listTrendSpecimens = ["||BLOOD||", "||BLOOD||", "||BLOOD||", "||SERUM||PLASMA||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||URINE||", "||SERUM||PLASMA||BLOOD||", "||URINE||", "||URINE||", "||ARTERIAL BLOOD||", "||FECES||STOOL||"];
+		var listTrends = ["CBC", "Chem", "Iron", "Liver", "Coags"];
+		var listElements = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["SODIUM", "POTASSIUM", "CHLORIDE", "CO2", "UREA NITROGEN", "Creatinine", "Calcium", "Mag", "Phos"], ["Iron", "TIBC", "Tsat", "Ferritin"], ["Protein", "Albumin", "TBil", "DBil", "AST", "ALT", "ALK"], ["PT", "INR", "PTT"]];
+		var listNames = [["WBC", "HGB", "HCT", "PLT", "MCV"], ["Na", "K", "Cl", "CO2", "BUN", "Cr", "Ca", "Mg", "PO4"], ["Iron", "TIBC", "Tsat", "Ferritin"], ["Prtn", "Alb", "TBil", "DBil", "AST", "ALT", "ALK"], ["PT", "INR", "PTT"]];
+		var listTrendSpecimens = ["||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||", "||SERUM||PLASMA||BLOOD||"];
 
 		var listMedID = new Array();
 
@@ -4069,14 +3740,7 @@
 		</div>
 		<br>Review the <a href="https://www.va.gov/TRM/ToolPage.asp?tid=9660">VA TRM listing</a> for this application
 		before use.<br><br>
-		v1.0.1 - fixed bug with ABG calculations, correct Na for glucose,
-		display degree of hemolysis for K, calculate albumin corrected AG,
-		calculate SAAG. <br>
-
-		v1.0.2 - fixed bug with Micro data display, fixed bug with AG calculations.<br>
-		v1.0.3 - added fentanyl to UDS.<br>
-		v1.0.4 - updated to fit with new display name for oxycodone UDS. Added Ethyl Glucuronide to UDS trend.<br>
-		Please contact fhoward@gmail.com with issues/questions.
+		Please contact Kay Chen with issues / questions.
 	</div>
 
 

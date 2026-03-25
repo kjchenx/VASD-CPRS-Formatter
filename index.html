@@ -1186,27 +1186,12 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 					return this.replace(/^\s+|\s+$/g, '');
 				}
 			}
-			var str1 = clipb.value;
-
-			// var str1 = clipb.value;
-
-			// Debug: show whether \r exists and where
-			console.log("Has CR (\\r)?", str1.indexOf("\r") !== -1);
-			console.log("Count of CR (\\r):", (str1.match(/\r/g) || []).length);
-
-			// Show first few lines with CR made visible
-			var preview = str1.split(/\n/).slice(0, 20).map((line, idx) => {
-				return (idx + 1) + ": " + line.replace(/\r/g, "[CR]");
-			}).join("\n");
-			console.log("Preview with [CR]:\n" + preview);
-
-
-
-
-			// var str1 = clipb.value.replace(/\r\n?/g, "\n");
+			// Normalize CRLF and bare CR to LF so that specimen/time strings
+			// stored in listSpecimen/listTime never carry stray \r characters,
+			// which would silently break the exact-equality checks in getIndex().
+			var str1 = clipb.value.replace(/\r\n?/g, "\n");
 			edtData.innerText = "";
 			vals = str1.split("\n");
-			// vals = str1.split(/\r?\n|\r/);
 
 			listVals = {};
 			listCrit = {};
@@ -1452,7 +1437,12 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 					}
 
 				} else if (vals[i].indexOf("Specimen:") != -1) {
-					curSpec = vals[i].split(": ")[1].split(". ")[0].trim();
+					// CPRS specimen lines vary in spacing after the period, e.g.:
+					//   "Specimen: URINE. <one space>..."
+					//   "Specimen: URINE.            UA 0209 78"
+					// Split on ":" first, then on the first "." to reliably
+					// extract just the specimen token (URINE, SERUM, PLASMA, etc.).
+					curSpec = vals[i].split(":")[1].trim().split(".")[0].trim();
 					var newI = i + 1;
 					curComment = "";
 					var gettingComment = false;

@@ -1,0 +1,67 @@
+Report Released Date/Time: Dec 13, 2023@07:11
+Provider: FIX,SARA ELIZABETH
+  Specimen: SERUM.            NIC 1201 443
+    Specimen Collection Date: Dec 01, 2023@14:41
+      Test name                Result    units      Ref.   range   Site Code
+tTG Ab, IgA                    <1.0     U/mL                        [73367]
+IGA TOTAL                       228     mg/dL      70 - 320         [73367]
+Comment: No serological evidence for celiac disease is present. tTg
+        may normalize in individuals with celiac disease who
+        maintain a gluten free diet. If high suspicion of celiac
+        disease, consider HLA DQ2 and DQ8 testing to rule out celiac
+        disease.
+        TEST PERFORMED AT:
+        Quest Diagnostics Nichols Institute
+        33608 Ortega Highway
+        San Juan Capistrano, CA 92675-2042
+        Director: I Maramica MD, PhD, MBA
+         
+         
+        Units Value      Interpretation
+        -----------      --------------
+        <15.0            Antibody not detected
+        > or = 15.0      Antibody detected
+        TEST PERFORMED AT:
+        Quest Diagnostics Nichols Institute
+        33608 Ortega Highway
+        San Juan Capistrano, CA 92675-2042
+        Director: I Maramica MD, PhD, MBA
+        Test not performed. Reflex testing not required since
+        established criteria was not met.
+        TEST PERFORMED AT:
+        Quest Diagnostics Nichols Institute
+        33608 Ortega Highway
+        San Juan Capistrano, CA 92675-2042
+        Director: I Maramica MD, PhD, MBA
+        Test not performed. Reflex testing not required since
+        established criteria was not met.
+        TEST PERFORMED AT:
+        Quest Diagnostics Nichols Institute
+        33608 Ortega Highway
+        San Juan Capistrano, CA 92675-2042
+        Director: I Maramica MD, PhD, MBA
+        TEST PERFORMED AT:
+        Quest Diagnostics Nichols Institute
+        33608 Ortega Highway
+        San Juan Capistrano, CA 92675-2042
+        Director: I Maramica MD, PhD, MBA
+        Test not performed. Reflex testing not required since
+        established criteria was not met.
+         
+         
+        Units Value      Interpretation
+        -----------      --------------
+        <15.0            Antibody not detected
+        > or = 15.0      Antibody detected
+        TEST PERFORMED AT:
+        Quest Diagnostics Nichols Institute
+        33608 Ortega Highway
+        San Juan Capistrano, CA 92675-2042
+        Director: I Maramica MD, PhD, MBA
+        Test not performed. Reflex testing not required since
+        established criteria was not met.
+         
+         
+        Units Value      Interpretation
+        -----------      --------------
+        <15.0            Antibody not detected

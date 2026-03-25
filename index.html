@@ -1039,7 +1039,7 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			}
 		}
 		function replaceTags(s) {
-			return s.replace(/\<[^>]*\>/g, "").replace(/&#060;/g, " ").replace(/&#062;/g, " ");
+			return s.replace(/\<[^>]*\>/g, "");
 			//return s.replace(/\<ss\>/g,"").replace(/\<\/span\>/g,"");
 		}
 
@@ -1218,7 +1218,7 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 							includeList = true;
 					}
 				}
-				if (includeList && vals[i].indexOf("Test Not Performed") != -1)
+				if (includeList && vals[i].toLowerCase().indexOf("test not performed") != -1)
 					includeList = false;
 				var numCode = /([0-9]{1,2})\)/;
 				if (numCode.exec(vals[i].substr(0, 3)) != null) {

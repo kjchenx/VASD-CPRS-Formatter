@@ -1,0 +1,9 @@
+{
+  "name": "vasd-cprs-formatter",
+  "version": "1.0.0",
+  "description": "CPRS Lab Formatter",
+  "scripts": {
+    "test": "node test/regression.js"
+  },
+  "license": "MIT"
+}

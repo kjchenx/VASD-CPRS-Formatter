@@ -2467,16 +2467,16 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 					cexclude += "SODIUM||POTASSIUM||UREA NITROGEN||CHLORIDE||CO2||Creatinine||Glucose||GLU POC||eGFR(IDMS)||eGFR(DC'D 4-16-10)||ANION GAP||ANION GAP(POC)||";
 				}
 			}
-			if ("URINE COLOR" in listVals)	//UA
+			if ("Urine Color" in listVals)	//UA
 			{
-				var valList = ["URINE COLOR", "Appearance", "SPECIFIC GRAVITY", "URINE pH", "URINE BLOOD", "LEUKOCYTE ESTERASE", "NITRITE, URINE", "URINE PROTEIN", "URINE GLUCOSE", "URINE KETONES", "URINE BILIRUBIN", "UROBILINOGEN", "URINE ASCORBIC ACID"];
+				var valList = ["Urine Color", "Appearance", "SPECIFIC GRAVITY", "pH", "Blood", "Leukocyte Esterase", "Nitrite", "Protein", "Glucose", "Ketones", "Bilirubin", "Urobilinogen", "URINE ASCORBIC ACID"];
 				var t1 = getNTime(valList, "URINE", 0);
 				var inList = getIndex(valList, t1, "URINE");
 				urineData += "UA: ";
 				var bland = true;
-				if (getValListT(listVals, "URINE COLOR", inList, "", "", "") != "Yellow" && getValListT(listVals, "URINE COLOR", inList, "", "", "") != "Colorless") {
+				if (getValListT(listVals, "Urine Color", inList, "", "", "") != "Yellow" && getValListT(listVals, "Urine Color", inList, "", "", "") != "Colorless") {
 					bland = false;
-					urineData += getValListT(listVals, "URINE COLOR", inList, "", "", "");
+					urineData += getValListT(listVals, "Urine Color", inList, "", "", "");
 					if (getValListT(listVals, "Appearance", inList, "", "", "") != "Clear") {
 						urineData += "/" + getValListT(listVals, "Appearance", inList, "", "", "  ");
 					} else {
@@ -2493,12 +2493,12 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 					urineData += getValListT(listVals, "SPECIFIC GRAVITY", inList, "", "SG: ", "  ");
 					bland = false;
 				}
-				var uph = parseFloat(getValListT(listVals, "URINE pH", inList, "", "", ""));
+				var uph = parseFloat(getValListT(listVals, "pH", inList, "", "", ""));
 				if (uph != NaN && (uph < 5.0 || uph > 8.0)) {
-					urineData += getValListT(listVals, "URINE pH", inList, "", "pH: ", "");
+					urineData += getValListT(listVals, "pH", inList, "", "pH: ", "");
 					bland = false;
 				}
-				//urineData += "UA: " + getValListT(listVals, "URINE COLOR", inList, "", "", "/") + getValListT(listVals, "Appearance", inList, "", "", "  ") + getValListT(listVals, "SPECIFIC GRAVITY", inList, "", "SG: ", "  ") + getValListT(listVals, "URINE pH", inList, "", "pH: ", "");
+				//urineData += "UA: " + getValListT(listVals, "Urine Color", inList, "", "", "/") + getValListT(listVals, "Appearance", inList, "", "", "  ") + getValListT(listVals, "SPECIFIC GRAVITY", inList, "", "SG: ", "  ") + getValListT(listVals, "URINE pH", inList, "", "pH: ", "");
 
 				var negList = "";
 

@@ -1039,8 +1039,9 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			}
 		}
 		function replaceTags(s) {
-  return s.replace(/\<[^\>]*\>/g, "");
-}
+			return s.replace(/\<[^>]*\>/g, "").replace(/&#060;/g, " ").replace(/&#062;/g, " ");
+			//return s.replace(/\<ss\>/g,"").replace(/\<\/span\>/g,"");
+		}
 
 		function generateText(name, prop, specimen, id) {
 			var trendText = "";
@@ -3535,7 +3536,7 @@ replaceArray["CSF ALBUMIN"] = "CSF Albumin";
 			<section id="intro">
 				<header
 					style="border-radius: 5px 5px 0px 0px; border-width: 0px 0px 1px 0px; border-style: solid; border-color: white; margin: 0px 0px 5px; width: 861px; height: 21px; color: black; padding-left: 10px; line-height: 20px; font-family: Segoe UI; background-color: rgb(19, 47, 121); border-image: none;  background: linear-gradient(rgb(152,180,208),rgb(185,209,234)); font-weight: bold; font-size: 11px;"
-					class="row">CPRS Lab Formatter v1.0.4</header><!-- Header End -->
+					class="row">CPRS Lab Formatter</header><!-- Header End -->
 				<div
 					style="float:left; font-family: Segoe UI; font-size: 11px; height:400px; width: 140px; margin-left: 5px; ">
 					<table id="trendTable" style="font-family: Segoe UI; font-size: 11px; ">

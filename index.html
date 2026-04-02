@@ -2044,7 +2044,7 @@ replaceArray["CREATINE KINASE"] = "CK";
 					cbcExtras += "\n";
 				}
 
-				// Always show RBC indices (MCV/RDW/MCHC/MCH/RBC) when available
+				// Always show RBC indices (MCV/RDW/MCHC/MCH/RBC/MPV) when available
 				var indicesText = "";
 				valList = ["RBC", "MCV", "RDW", "MCHC", "MCH"];
 				var tIndices = getNTime(valList, "BLOOD", 0);
@@ -2055,10 +2055,11 @@ replaceArray["CREATINE KINASE"] = "CK";
 				
 				indicesText +=
 				  getValListT(listUH, "MCV",  idxList, "MCV: ***", "MCV: ",  " ") +
+				  getValListT(listUH, "RBC",  idxList, "",        "RBC: ",  " ") +
 				  getValListT(listUH, "RDW",  idxList, "",        "RDW: ",  " ") +
 				  getValListT(listUH, "MCHC", idxList, "",        "MCHC: ", " ") +
 				  getValListT(listUH, "MCH",  idxList, "",        "MCH: ",  " ") +
-				  getValListT(listUH, "RBC",  idxList, "",        "RBC: ",  " ");
+				  getValListT(listUH, "MPV",  idxList, "",        "MPV: ",  " ");				  
 				
 				  if (tIndices != t1) indicesText += " @ " + tIndices;
 				  indicesText += "\n";
@@ -2111,7 +2112,7 @@ replaceArray["CREATINE KINASE"] = "CK";
 						pltText = "Platelet drop of " + Math.round(percPlt) + "% (" + listVals["PLT"][pltmax] + " -> " + plt + ") over " + Math.round((timeToDate(t1) - timeToDate(listTime["PLT"][pltmax])) / msDay) + " days\n";
 					}
 				}
-				cbcData += cbc0 + "\n" + cbc1 + "\n" + cbc2 + "\n" + cbc3 + "\n\n" + indicesText + "\n" + cbcDiff + cbcExtras + anemiaText + wbcText + hgbText + pltText;
+				cbcData += cbc0 + "\n" + cbc1 + "\n" + cbc2 + "\n" + cbc3 + "\n\n" + indicesText + cbcDiff + cbcExtras + anemiaText + wbcText + hgbText + pltText;
 				cexclude += "RBC||MCV||RDW||MCHC||MCH||MPV||";
 			}
 			if ("Creatinine" in listVals) {

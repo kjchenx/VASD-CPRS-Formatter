@@ -302,8 +302,6 @@ replaceArray["T-4"] = "T-4";
 // =========================
 // GI
 // =========================
-replaceArray["FECAL WBC"] = "Fecal WBC";
-replaceArray["FECAL WBC'S"] = "Fecal WBC";
 replaceArray["LACTOFERRIN,FECAL"] = "Fecal Lactoferrin";
 replaceArray["C DIFF TOX B GENE PCR"] = "C.diff Tox B Gene PCR";
 replaceArray["C.DIFFICILE TOX A/B"] = "C.diff Tox A/B";
@@ -313,6 +311,8 @@ replaceArray["GIARDIA AG"] = "Giardia Ag";
 replaceArray["GIARDIA ANTIGEN,STOOL"] = "Giardia Ag";
 replaceArray["CRYPTOSPORIDIUM AG"] = "Cryptosporidium Ag";
 replaceArray["CRYPTOSPORIDIUM ANTIGEN,STOOL"] = "Cryptosporidium Ag";
+replaceArray["H.pyStl"] = "H.pylori Stool Ag";
+replaceArray["H. PYLORI ANTIBODIES"] = "H.pylori Ab";
 
 replaceArray["CALPROTECTIN,FECAL"] = "Fecal Calprotectin";
 replaceArray["FECAL CALPROTECTIN"] = "Fecal Calprotectin";
@@ -1363,7 +1363,7 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 					}
 					listMicroSpec.push(cs + " @ " + timeFormat(curTime));
 				} else if (vals[i].indexOf("BACTERIOLOGY SMEAR/PREP:") != -1) {
-					var textS = "Fecal Leukocytes: ";
+					var textS = "Leukocytes: ";
 					// capture anything on the same line after the colon
 					var sameLine = vals[i].split("BACTERIOLOGY SMEAR/PREP:")[1].trim();
 					if (sameLine) textS += sameLine;
@@ -2553,17 +2553,15 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 			// Covers parasite antigen tests, O&P, AFB stains, C. diff, etc.
 			// ---------------------------------------------------------------
 			var stoolOrderedList = [
-				"H. Pylori Ag",
+				"H.pylori Stool Ag",
 				"Giardia Ag", "Cryptosporidium Ag",
 				"O&P Concentrate Exam", "O&P Trichrome Exam",
 				"Microsporidia Spore Stain",
-				"Fecal Leukocytes", "Fecal WBC",
-				"Fecal fat", "Fecal Calprotectin", "Fecal Lactoferrin",
-				"C. diff Tox A/B", "C Diff Tox B PCR", "C. diff PCR",
+				"Fecal Fat", "Fecal Calprotectin", "Fecal Lactoferrin",
+				"C.diff Tox A/B", "C.diff Tox B PCR", "C.diff PCR",
 				"Shiga Toxin", "STEC", "E. coli O157 Ag",
 				"Rotavirus Ag", "Norovirus PCR", "GI Pathogen Panel",
-				"FOBTx1", "FOBT #1", "FOBT #2", "FOBT #3", "FIT",
-				"A1-Antitrypsin"
+				"FIT", "A1-Antitrypsin", "Fecal Elastase"
 			];
 			for (var si = 0; si < stoolOrderedList.length; si++) {
 				var sLab = stoolOrderedList[si];

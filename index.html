@@ -1152,9 +1152,10 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 					} else if (val == ">") {
 						var tempVal = temp.replace(">", " ");
 						val = "> " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));
-					} else if (val == "Not" || val == "NOT") {
-						var tempVal = temp.replace("Not ", " ").replace("NOT ", " ");
-						val = "Not " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));
+					} else if ((val + "").toLowerCase() === "not") {
+						var tempVal = temp.replace(/^.*?\bnot\s+/i, " "); // safe-ish: removes first "not " occurrence
+						var nv = valsearch.exec(tempVal.substring(tempVal.indexOf("  ")));
+						val = nv ? ("Not " + nv) : "Not";
 					} else if (val == "SEE" || val == "See") {
 						var tempVal = temp.replace("SEE ", " ").replace("See ", " ");
 						val = "SEE " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));

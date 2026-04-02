@@ -1153,9 +1153,12 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 						var tempVal = temp.replace(">", " ");
 						val = "> " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));
 					} else if ((val + "").toLowerCase() === "not") {
-						var tempVal = temp.replace(/^.*?\bnot\s+/i, " "); // safe-ish: removes first "not " occurrence
-						var nv = valsearch.exec(tempVal.substring(tempVal.indexOf("  ")));
-						val = nv ? ("Not " + nv) : "Not";
+						if (/not\s+detected/i.test(temp)) {
+							val = "Not Detected";
+						} else {
+							// fallback: keep as "Not" if we truly can't tell the second word
+							val = "Not";
+						}
 					} else if (val == "SEE" || val == "See") {
 						var tempVal = temp.replace("SEE ", " ").replace("See ", " ");
 						val = "SEE " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));
@@ -2572,13 +2575,40 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 				"EAEC", "ETEC", "Shiga-like tox Ecoli",
 				"Shig/Entero Ecoli"
 			];
-			for (var si = 0; si < stoolOrderedList.length; si++) {
-				var sLab = stoolOrderedList[si];
-				if (sLab in listVals) {
+var stoolTimes = [];
+for (var si = 0; si < stoolOrderedList.length; si++) {
+	var sLab = stoolOrderedList[si];
+	if (sLab in listVals) {
+		for (var j = 0; j < listVals[sLab].length; j++) {
+			// only consider stool-type specimens
+			if (listSpecimen[sLab][j] === "FECES" || listSpecimen[sLab][j] === "STOOL") {
+				var t = listTime[sLab][j];
+				if (stoolTimes.indexOf(t) === -1) stoolTimes.push(t);
+			}
+		}
+	}
+}
+
+// Sort newest → oldest
+stoolTimes.sort(function (a, b) { return timeToDate(b) - timeToDate(a); });
+
+// For each time, print labs in the predefined order (so output is reverse-chronological overall)
+for (var ti = 0; ti < stoolTimes.length; ti++) {
+	var t = stoolTimes[ti];
+	for (var si = 0; si < stoolOrderedList.length; si++) {
+		var sLab = stoolOrderedList[si];
+		if (sLab in listVals) {
+			// only print if this lab has a result at this exact timestamp for a stool specimen
+			for (var j = 0; j < listVals[sLab].length; j++) {
+				if ((listSpecimen[sLab][j] === "FECES" || listSpecimen[sLab][j] === "STOOL") && listTime[sLab][j] === t) {
 					stoolData += printData(sLab, "||FECES||STOOL||");
 					stoolExclude += sLab + "||";
+					break;
 				}
 			}
+		}
+	}
+}
 			if (stoolData != "")
 				stoolData = "STOOL STUDIES:\n" + stoolData + "\n";
 

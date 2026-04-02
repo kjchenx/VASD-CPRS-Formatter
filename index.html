@@ -2043,25 +2043,45 @@ replaceArray["CREATINE KINASE"] = "CK";
 						cbcExtras += " @ " + tDiff;
 					cbcExtras += "\n";
 				}
+
+				// Always show RBC indices (MCV/RDW/MCHC/MCH/RBC) when available
+				var indicesText = "";
+				valList = ["RBC", "MCV", "RDW", "MCHC", "MCH"];
+				var tIndices = getNTime(valList, "BLOOD", 0);
+				var idxList = -1;
+				
+				if (tIndices != -1) {
+				  idxList = getIndex(valList, tIndices, "BLOOD");
+				
+				  indicesText +=
+				    getValListT(listUH, "MCV",  idxList, "MCV: *** ", "MCV: ",  " ") +
+				    getValListT(listUH, "RDW",  idxList, "",          "RDW: ",  " ") +
+				    getValListT(listUH, "MCHC", idxList, "",          "MCHC: ", " ", true) +
+				    getValListT(listUH, "MCH",  idxList, "",          "MCH: ",  " ", true) +
+				    getValListT(listUH, "RBC",  idxList, "",          "RBC: ",  "",  true);
+				
+				  if (tIndices != t1) indicesText += " @ " + tIndices;
+				  indicesText += "\n";
+				}
 				var anemiaText = "";
 				if (anemiaFlag) {
-					valList = ["RBC", "MCV", "RDW", "MCHC", "MCH"];
-					var tAnemia = getNTime(valList, "BLOOD", 0);
-					inList = getIndex(valList, tAnemia, "BLOOD");
-					anemiaText += getValListT(listUH, "MCV", inList, "MCV: *** ", "MCV: ", " ") + getValListT(listUH, "RDW", inList, "", "RDW: ", " ") + getValListT(listUH, "MCHC", inList, "", "MCHC: ", " ", true) + getValListT(listUH, "MCH", inList, "", "MCH: ", " ", true) + getValListT(listUH, "RBC", inList, "", "RBC: ", "", true);
-					if (tAnemia != t1)
-						anemiaText += " @ " + tAnemia;
-					anemiaText += "\n";
-					if (listCrit["MCV"][inList["MCV"]] == "L" && inList["MCV"] != -1 && inList["RBC"] != -1) {
-						var mcv = listVals["MCV"][inList["MCV"]];
-						var rbc = listVals["RBC"][inList["RBC"]];
-						var mentI = mcv / rbc;
-						if (mentI > 13)
-							anemiaText += "Mentzer index of " + mentI.toFixed(2) + " (> 13, predictive of IDA)"
-						if (mentI < 13)
-							anemiaText += "Mentzer index of " + mentI.toFixed(2) + " (< 13, predictive of B-thal)"
-						anemiaText += "\n";
-					}
+				  // Mentzer only if anemic AND microcytic (MCV low)
+				  if (
+				    tIndices != -1 &&
+				    idxList != -1 &&
+				    idxList["MCV"] != -1 &&
+				    idxList["RBC"] != -1 &&
+				    listCrit["MCV"][idxList["MCV"]] == "L"
+				  ) {
+				    var mcv = listVals["MCV"][idxList["MCV"]];
+				    var rbc = listVals["RBC"][idxList["RBC"]];
+				    var mentI = mcv / rbc;
+				
+				    if (mentI > 13) anemiaText += "Mentzer index of " + mentI.toFixed(2) + " (> 13, predictive of IDA)";
+				    if (mentI < 13) anemiaText += "Mentzer index of " + mentI.toFixed(2) + " (< 13, predictive of B-thal)";
+				    anemiaText += "\n";
+				  }
+				}
 				}
 				// WBC RISE
 				var wbcmin = getMinima("WBC", Date.now(), 10);
@@ -2092,7 +2112,7 @@ replaceArray["CREATINE KINASE"] = "CK";
 						pltText = "Platelet drop of " + Math.round(percPlt) + "% (" + listVals["PLT"][pltmax] + " -> " + plt + ") over " + Math.round((timeToDate(t1) - timeToDate(listTime["PLT"][pltmax])) / msDay) + " days\n";
 					}
 				}
-				cbcData += cbc0 + "\n" + cbc1 + "\n" + cbc2 + "\n" + cbc3 + "\n\n" + cbcDiff + cbcExtras + anemiaText + wbcText + hgbText + pltText;
+				cbcData += cbc0 + "\n" + cbc1 + "\n" + cbc2 + "\n" + cbc3 + "\n\n" + indicesText + "\n" + cbcDiff + cbcExtras + anemiaText + wbcText + hgbText + pltText;
 				cexclude += "RBC||MCV||RDW||MCHC||MCH||MPV||";
 			}
 			if ("Creatinine" in listVals) {

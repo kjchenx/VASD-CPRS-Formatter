@@ -2046,7 +2046,7 @@ replaceArray["CREATINE KINASE"] = "CK";
 
 				// Always show MCV indices when available
 				var indicesText = "";
-				valList = ["MCV"];
+				valList = ["MCV", "RDW-SD", "RDW-CV", "MCHC", "MCH", "MPV"];
 				var tIndices = getNTime(valList, "BLOOD", 0);
 				var idxList = -1;
 				
@@ -2054,7 +2054,13 @@ replaceArray["CREATINE KINASE"] = "CK";
 				  idxList = getIndex(valList, tIndices, "BLOOD");
 				
 				indicesText +=
-				  getValListT(listUH, "MCV",  idxList, "",        "MCV: ",  " ");				  
+				  getValListT(listUH, "MCV",  idxList, "",        "MCV: ",  " ") +
+				  getValListT(listUH, "RBC",  idxList, "",        "RBC: ",  " ") +
+				  getValListT(listUH, "RDW-SD",  idxList, "",        "RDW: ",  " ") +
+				  getValListT(listUH, "RDW-CV",  idxList, "",        "RDW: ",  " ") +
+				  getValListT(listUH, "MCHC", idxList, "",        "MCHC: ", " ") +
+				  getValListT(listUH, "MCH",  idxList, "",        "MCH: ",  " ") +
+				  getValListT(listUH, "MPV",  idxList, "",        "MPV: ",  " ");					  
 				
 				  if (tIndices != t1) indicesText += " @ " + tIndices;
 				  indicesText += "\n";
@@ -2108,7 +2114,7 @@ replaceArray["CREATINE KINASE"] = "CK";
 					}
 				}
 				cbcData += cbc0 + "\n" + cbc1 + "\n" + cbc2 + "\n" + cbc3 + "\n\n" + indicesText + cbcDiff + cbcExtras + anemiaText + wbcText + hgbText + pltText;
-				cexclude += "RBC||MCV||RDW||MCHC||MCH||MPV||";
+				cexclude += "RBC||MCV||RDW||RDW-SD||RDW-CV||MCHC||MCH||MPV||";
 			}
 			if ("Creatinine" in listVals) {
 				var valList = ["SODIUM", "POTASSIUM", "CHLORIDE", "CO2", "UREA NITROGEN", "Creatinine", "Glucose"];

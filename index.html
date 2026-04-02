@@ -2407,9 +2407,9 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 				urineData += " @ " + t1 + "\n";
 				uexclude += valList.join("||") + "||";
 			}
-			if ("URINE WBC/HPF" in listVals) //urine micro
+			if ("WBC/HPF" in listVals) //urine micro
 			{
-				var valList = ["URINE WBC/HPF", "URINE BACTERIA", "URINE RBC/HPF", "SQUAM EPITH CELLS", "URINE MUCUS", "HYALINE CASTS", "URINE WBC CASTS", "URINE RBC CASTS", "GRANULAR CASTS", "TRI PHOSPHATE CRYSTALS", "CA++ OXALATE CRYSTALS", "URIC ACID CRYSTALS", "URINE WBC CLUMPS", "RENAL EPITH CELLS", "TRANSITIONAL CELLS", "URINE SPERM", "BUDDING YEAST", "YEAST HYPHAE", "URINE EPITH CELLS", "URINE CASTS", "AMORPHOUS CRYSTALS", "URINE CRYSTALS"];
+				var valList = ["WBC/HPF", "Urine Bacteria", "Urine RBC", "Urine epis", "Urine Mucus", "Hyaline casts", "WBC casts", "RBC casts", "Granular casts", "Triphosphate crystals", "Ca oxalate crystals", "Uric acid crystals", "WBC clumps", "Renal epis", "Transitional cells", "Sperm", "Yeast", "Hyphae", "Urine epis", "Casts", "Amorphous crystals", "Crystals"];
 				var t1 = getNTime(valList, "URINE", 0);
 				var inList = getIndex(valList, t1, "URINE");
 				var listNames = ["WBCs", "Bacteria", "RBCs", "Squamous cells", "Mucus", "Hyaline casts", "WBC Casts", "RBC Casts", "Granular casts", "Triphosphate crystals", "Ca++ oxalate crystals", "Uric acid crystals", "WBC clumps", "Renal epi cells", "Transitional cells", "Sperm", "Budding yeast", "Hyphae", "Epi cells", "Casts", "Amorphous crystals", "Crystals"]
@@ -2430,7 +2430,7 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 							negList += "-" + listNames[j];
 						}
 					}
-					/*if(tmp == "" && valList[j] == "URINE BACTERIA")
+					/*if(tmp == "" && valList[j] == "Urine Bacteria")
 					{
 						if(ds == 1)
 							urineData += ",  ";

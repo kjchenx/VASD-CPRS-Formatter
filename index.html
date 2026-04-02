@@ -371,6 +371,18 @@ replaceArray["CHOLESTEROL TOTAL"] = "Total Cholesterol";
 replaceArray["TRIGLYCERIDES"] = "TAG";
 
 replaceArray["CREATINE KINASE"] = "CK";
+
+replaceArray["URINE COLOR"] = "COLOR";
+replaceArray["SPECIFIC GRAVITY"] = "SpGr";
+replaceArray["LEUKOCYTE ESTERASE, URINE"] = "LE";
+replaceArray["NITRITE, URINE"] = "NITRITE";
+replaceArray["URINE PH"] = "pH";
+replaceArray["URINE BLOOD"] = "BLOOD";
+replaceArray["URINE GLUCOSE"] = "GLUCOSE";
+replaceArray["UR PROTEIN"] = "PROTEIN";
+replaceArray["URINE KETONES"] = "KETONES";
+replaceArray["URINE BILIRUBIN"] = "BILIRUBIN";
+replaceArray["UROBILINOGEN,URINE"] = "UROBILINOGEN";
 		
 		var smearList = ["PLT (Estm)", "Anisocytosis", "Poikilocytosis", "Ovalocytes", "Acanthocytes", "Teardrops", "Target cells", "Smudge cells", "Polychromasia", "Hypochromia", "Normochromic", "Basophilic stippling", "Toxic granulation", "Schistocytes", "Spherocytes", "Stomatocytes", "Microcytosis", "Macrocytosis", "Normocytic", "Atypical Lymphs", "Atypical Monocytes", "Metamyelocytes", "Myelocytes", "Promyelocytes", "Blasts", "Other"];
 
@@ -2311,30 +2323,30 @@ replaceArray["CREATINE KINASE"] = "CK";
 					cexclude += "SODIUM||POTASSIUM||UREA NITROGEN||CHLORIDE||CO2||Creatinine||Glucose||";
 				}
 			}
-			if ("Urine Color" in listVals)	//UA
+			if ("COLOR" in listVals)	//UA
 			{
-				var valList = ["Urine Color", "Appearance", "SPECIFIC GRAVITY", "pH", "Blood", "Leukocyte Esterase", "Nitrite", "Protein", "Glucose", "Ketones", "Bilirubin", "Urobilinogen", "URINE ASCORBIC ACID"];
+				var valList = ["COLOR", "APPEARANCE", "SpGr", "pH", "BLOOD", "LE", "NITRITE", "PROTEIN", "GLUCOSE", "KETONES", "BILIRUBIN", "UROBILINOGEN", "URINE ASCORBIC ACID"];
 				var t1 = getNTime(valList, "URINE", 0);
 				var inList = getIndex(valList, t1, "URINE");
 				urineData += "UA: ";
 				var bland = true;
-				if (getValListT(listVals, "Urine Color", inList, "", "", "") != "Yellow" && getValListT(listVals, "Urine Color", inList, "", "", "") != "Colorless") {
+				if (getValListT(listVals, "COLOR", inList, "", "", "") != "Yellow" && getValListT(listVals, "COLOR", inList, "", "", "") != "Colorless") {
 					bland = false;
-					urineData += getValListT(listVals, "Urine Color", inList, "", "", "");
-					if (getValListT(listVals, "Appearance", inList, "", "", "") != "Clear") {
-						urineData += "/" + getValListT(listVals, "Appearance", inList, "", "", "  ");
+					urineData += getValListT(listVals, "COLOR", inList, "", "", "");
+					if (getValListT(listVals, "APPEARANCE", inList, "", "", "") != "Clear") {
+						urineData += "/" + getValListT(listVals, "APPEARANCE", inList, "", "", "  ");
 					} else {
 						urineData += " ";
 					}
 				} else {
-					if (getValListT(listVals, "Appearance", inList, "", "", "") != "Clear") {
+					if (getValListT(listVals, "APPEARANCE", inList, "", "", "") != "Clear") {
 						bland = false;
-						urineData += getValListT(listVals, "Appearance", inList, "", "", "  ");
+						urineData += getValListT(listVals, "APPEARANCE", inList, "", "", "  ");
 					}
 				}
-				var sg = parseFloat(getValListT(listVals, "SPECIFIC GRAVITY", inList, "", "", ""));
+				var sg = parseFloat(getValListT(listVals, "SpGr", inList, "", "", ""));
 				if (sg != NaN && (sg <= 1.003 || sg >= 1.030)) {
-					urineData += getValListT(listVals, "SPECIFIC GRAVITY", inList, "", "SG: ", "  ");
+					urineData += getValListT(listVals, "SpGr", inList, "", "SG: ", "  ");
 					bland = false;
 				}
 				var uph = parseFloat(getValListT(listVals, "pH", inList, "", "", ""));
@@ -2342,11 +2354,11 @@ replaceArray["CREATINE KINASE"] = "CK";
 					urineData += getValListT(listVals, "pH", inList, "", "pH: ", "");
 					bland = false;
 				}
-				//urineData += "UA: " + getValListT(listVals, "Urine Color", inList, "", "", "/") + getValListT(listVals, "Appearance", inList, "", "", "  ") + getValListT(listVals, "SPECIFIC GRAVITY", inList, "", "SG: ", "  ") + getValListT(listVals, "URINE pH", inList, "", "pH: ", "");
+				//urineData += "UA: " + getValListT(listVals, "COLOR", inList, "", "", "/") + getValListT(listVals, "APPEARANCE", inList, "", "", "  ") + getValListT(listVals, "SpGr", inList, "", "", "  ") + getValListT(listVals, "pH", inList, "", "", "  ");
 
 				var negList = "";
 
-				var listNames = ["Blood", "LE", "Nitrite", "Protein", "Glucose", "Ketones", "Bili", "Urobili", "Vit C"];
+				var listNames = ["BLOOD", "LE", "NITRITE", "PROTEIN", "GLUCOSE", "KETONES", "BILIRUBIN", "UROBILINOGEN", "Vit C"];
 				for (var j = 4; j < valList.length; j++) {
 					var tmp = getValListT(listVals, valList[j], inList, "n/a", "", "");
 					if (tmp == "NEGATIVE" || tmp == "Neg." || tmp == "none" || tmp == "Neg") {

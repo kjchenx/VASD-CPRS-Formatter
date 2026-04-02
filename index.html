@@ -2054,11 +2054,11 @@ replaceArray["CREATINE KINASE"] = "CK";
 				  idxList = getIndex(valList, tIndices, "BLOOD");
 				
 				indicesText +=
-				  getValList(listVals, "MCV",  idxList, "MCV: ***", "MCV: ",  " ") +
-				  getValList(listVals, "RDW",  idxList, "",        "RDW: ",  " ") +
-				  getValList(listVals, "MCHC", idxList, "",        "MCHC: ", " ", true) +
-				  getValList(listVals, "MCH",  idxList, "",        "MCH: ",  " ", true) +
-				  getValList(listVals, "RBC",  idxList, "",        "RBC: ",  "",  true);
+				  replaceTags(getValListT(listUH, "MCV",  idxList, "MCV: ***", "MCV: ",  " ")) +
+				  replaceTags(getValListT(listUH, "RDW",  idxList, "",        "RDW: ",  " ")) +
+				  replaceTags(getValListT(listUH, "MCHC", idxList, "",        "MCHC: ", " ", true)) +
+				  replaceTags(getValListT(listUH, "MCH",  idxList, "",        "MCH: ",  " ", true)) +
+				  replaceTags(getValListT(listUH, "RBC",  idxList, "",        "RBC: ",  "",  true));
 				
 				  if (tIndices != t1) indicesText += " @ " + tIndices;
 				  indicesText += "\n";

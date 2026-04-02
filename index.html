@@ -985,7 +985,7 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 					j = listVals[prop].length;
 				}
 			}
-
+		}
 		function printDataAtTime(prop, specimenList, targetTime, tagLine) {
 	if (!(prop in listVals)) return "";
 
@@ -2600,7 +2600,6 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 				"EAEC", "ETEC", "Shiga-like tox Ecoli",
 				"Shig/Entero Ecoli"
 			];
-// Collect unique stool times (FECES/STOOL) across the stoolOrderedList
 var stoolTimes = [];
 for (var si = 0; si < stoolOrderedList.length; si++) {
 	var sLab = stoolOrderedList[si];
@@ -2614,10 +2613,8 @@ for (var si = 0; si < stoolOrderedList.length; si++) {
 	}
 }
 
-// Sort newest → oldest
 stoolTimes.sort(function (a, b) { return timeToDate(b) - timeToDate(a); });
 
-// Print in reverse-chronological order, but keep lab ordering within each timestamp
 for (var ti = 0; ti < stoolTimes.length; ti++) {
 	var t = stoolTimes[ti];
 

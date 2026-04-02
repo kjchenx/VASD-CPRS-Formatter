@@ -302,8 +302,6 @@ replaceArray["T-4"] = "T-4";
 // =========================
 // GI
 // =========================
-replaceArray["FECAL LEUKOCYTES"] = "Fecal Leukocytes";
-replaceArray["FECAL LEUKOCYTE"] = "Fecal Leukocytes";
 replaceArray["FECAL WBC"] = "Fecal WBC";
 replaceArray["FECAL WBC'S"] = "Fecal WBC";
 replaceArray["LACTOFERRIN,FECAL"] = "Fecal Lactoferrin";
@@ -1364,6 +1362,47 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 						cs += " " + np.split("Not Performed:")[0] + " Not Performed";
 					}
 					listMicroSpec.push(cs + " @ " + timeFormat(curTime));
+				} else if (vals[i].indexOf("BACTERIOLOGY SMEAR/PREP:") != -1) {
+					var textS = "Fecal Leukocytes: ";
+					// capture anything on the same line after the colon
+					var sameLine = vals[i].split("BACTERIOLOGY SMEAR/PREP:")[1].trim();
+					if (sameLine) textS += sameLine;
+
+					var done = false;
+					while (!done) {
+						i++;
+						if (i >= vals.length) {
+							done = true;
+						} else if (vals[i].trim() == "") {
+							// Stop at double-blank or a recognized section header on the next line
+							var nextLine = (i + 1 < vals.length) ? vals[i + 1].trim() : "";
+							if (nextLine == "" ||
+								nextLine.indexOf("* ") == 0 || // next starred section, e.g. "* BACTERIOLOGY FINAL REPORT =>"
+								nextLine.indexOf("GRAM STAIN:") != -1 ||
+								nextLine.indexOf("ANTIBIOTIC SUSCEPTIBILITY TEST RESULTS:") != -1 ||
+								nextLine.indexOf("CULTURE RESULTS") != -1 ||
+								nextLine.indexOf("=--=--=--=--=--=--=--=--=--=--=-") != -1 ||
+								nextLine.indexOf("=====") != -1 ||
+								nextLine.indexOf("Collection date:") != -1 ||
+								nextLine.indexOf("Specimen Collection Date:") != -1 ||
+								nextLine.indexOf("Performing Laboratory:") != -1)
+								done = true;
+						} else if (vals[i].trim().indexOf("=====") == 0 || vals[i].trim().indexOf("=--=-") == 0) {
+							// Hit a separator line — stop without consuming it
+							i--;  // back up so the outer loop can re-process it
+							done = true;
+						} else {
+							// Append content lines (indented narrative)
+							if (textS.slice(-1) !== " " && textS.slice(-1) !== ":") textS += " ";
+							textS += vals[i].trim();
+						}
+					}
+
+					// Attach this narrative to the current microbiology entry
+					var tlm = listMicro.pop();
+					if (tlm && tlm.trim() !== "") tlm += "\n";
+					tlm += textS + "\n";
+					listMicro.push(tlm);
 				} else if (vals[i].indexOf("CULTURE RESULTS:") != -1) {
 					var textS = "Culture: \n";
 					textS += vals[i].split("CULTURE RESULTS:")[1].trim() + "\n";

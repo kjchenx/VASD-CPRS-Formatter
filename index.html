@@ -2575,40 +2575,13 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 				"EAEC", "ETEC", "Shiga-like tox Ecoli",
 				"Shig/Entero Ecoli"
 			];
-var stoolTimes = [];
-for (var si = 0; si < stoolOrderedList.length; si++) {
-	var sLab = stoolOrderedList[si];
-	if (sLab in listVals) {
-		for (var j = 0; j < listVals[sLab].length; j++) {
-			// only consider stool-type specimens
-			if (listSpecimen[sLab][j] === "FECES" || listSpecimen[sLab][j] === "STOOL") {
-				var t = listTime[sLab][j];
-				if (stoolTimes.indexOf(t) === -1) stoolTimes.push(t);
-			}
-		}
-	}
-}
-
-// Sort newest → oldest
-stoolTimes.sort(function (a, b) { return timeToDate(b) - timeToDate(a); });
-
-// For each time, print labs in the predefined order (so output is reverse-chronological overall)
-for (var ti = 0; ti < stoolTimes.length; ti++) {
-	var t = stoolTimes[ti];
-	for (var si = 0; si < stoolOrderedList.length; si++) {
-		var sLab = stoolOrderedList[si];
-		if (sLab in listVals) {
-			// only print if this lab has a result at this exact timestamp for a stool specimen
-			for (var j = 0; j < listVals[sLab].length; j++) {
-				if ((listSpecimen[sLab][j] === "FECES" || listSpecimen[sLab][j] === "STOOL") && listTime[sLab][j] === t) {
+			for (var si = 0; si < stoolOrderedList.length; si++) {
+				var sLab = stoolOrderedList[si];
+				if (sLab in listVals) {
 					stoolData += printData(sLab, "||FECES||STOOL||");
 					stoolExclude += sLab + "||";
-					break;
 				}
 			}
-		}
-	}
-}
 			if (stoolData != "")
 				stoolData = "STOOL STUDIES:\n" + stoolData + "\n";
 

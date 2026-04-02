@@ -2044,9 +2044,9 @@ replaceArray["CREATINE KINASE"] = "CK";
 					cbcExtras += "\n";
 				}
 
-				// Always show MCV indices (MCV/RDW/MCHC/MCH/RBC/MPV) when available
+				// Always show MCV indices when available
 				var indicesText = "";
-				valList = ["RBC", "MCV", "RDW", "MCHC", "MCH", "MPV"];
+				valList = ["MCV"];
 				var tIndices = getNTime(valList, "BLOOD", 0);
 				var idxList = -1;
 				
@@ -2054,12 +2054,7 @@ replaceArray["CREATINE KINASE"] = "CK";
 				  idxList = getIndex(valList, tIndices, "BLOOD");
 				
 				indicesText +=
-				  getValListT(listUH, "MCV",  idxList, "MCV: ***", "MCV: ",  " ") +
-				  getValListT(listUH, "RBC",  idxList, "",        "RBC: ",  " ") +
-				  getValListT(listUH, "RDW",  idxList, "",        "RDW: ",  " ") +
-				  getValListT(listUH, "MCHC", idxList, "",        "MCHC: ", " ") +
-				  getValListT(listUH, "MCH",  idxList, "",        "MCH: ",  " ") +
-				  getValListT(listUH, "MPV",  idxList, "",        "MPV: ",  " ");				  
+				  getValListT(listUH, "MCV",  idxList, "",        "MCV: ",  " ");				  
 				
 				  if (tIndices != t1) indicesText += " @ " + tIndices;
 				  indicesText += "\n";

@@ -985,31 +985,6 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 					j = listVals[prop].length;
 				}
 			}
-		}
-		function printDataAtTime(prop, specimenList, targetTime, tagLine) {
-	if (!(prop in listVals)) return "";
-
-	for (var j = 0; j < listVals[prop].length; j++) {
-		var specOk =
-			(specimenList.indexOf("||" + listSpecimen[prop][j] + "||") != -1) ||
-			(specimenList == "CEREBROSPINAL" && listSpecimen[prop][j].indexOf(specimenList) != -1);
-
-		if (specOk && listTime[prop][j] === targetTime) {
-			var tmpProp = (prop in replaceArray) ? replaceArray[prop] : prop;
-			if (tagLine) tmpProp = tmpProp + " (" + tagLine + ")";
-
-			var pf = "";
-			var pof = "";
-			if (listCrit[prop][j] != "N" && prop != "Corrected Calcium") {
-				pf = "<span style='color: red; font-weight: bold'>";
-				pof = "</span>";
-			}
-
-			return tmpProp + ": " + pf + listUH[prop][j] + pof + " @ " + listTime[prop][j] + " \n";
-		}
-	}
-	return "";
-}
 			if (minV != -1) {
 				var tmpProp = prop;
 				var pf = "";
@@ -1179,7 +1154,7 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 						val = "> " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));
 					} else if ((val + "").toLowerCase() === "not") {
 						if (/not\s+detected/i.test(temp)) {
-							val = "Neg";
+							val = "Not Detected";
 						} else {
 							// fallback: keep as "Not" if we truly can't tell the second word
 							val = "Not";
@@ -2603,29 +2578,34 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 var stoolTimes = [];
 for (var si = 0; si < stoolOrderedList.length; si++) {
 	var sLab = stoolOrderedList[si];
-	if (!(sLab in listVals)) continue;
-
-	for (var j = 0; j < listVals[sLab].length; j++) {
-		if (listSpecimen[sLab][j] === "FECES" || listSpecimen[sLab][j] === "STOOL") {
-			var t = listTime[sLab][j];
-			if (stoolTimes.indexOf(t) === -1) stoolTimes.push(t);
+	if (sLab in listVals) {
+		for (var j = 0; j < listVals[sLab].length; j++) {
+			// only consider stool-type specimens
+			if (listSpecimen[sLab][j] === "FECES" || listSpecimen[sLab][j] === "STOOL") {
+				var t = listTime[sLab][j];
+				if (stoolTimes.indexOf(t) === -1) stoolTimes.push(t);
+			}
 		}
 	}
 }
 
+// Sort newest → oldest
 stoolTimes.sort(function (a, b) { return timeToDate(b) - timeToDate(a); });
 
+// For each time, print labs in the predefined order (so output is reverse-chronological overall)
 for (var ti = 0; ti < stoolTimes.length; ti++) {
 	var t = stoolTimes[ti];
-
 	for (var si = 0; si < stoolOrderedList.length; si++) {
 		var sLab = stoolOrderedList[si];
-		if (!(sLab in listVals)) continue;
-
-		var line = printDataAtTime(sLab, "||FECES||STOOL||", t);
-		if (line) {
-			stoolData += line;
-			stoolExclude += sLab + "||";
+		if (sLab in listVals) {
+			// only print if this lab has a result at this exact timestamp for a stool specimen
+			for (var j = 0; j < listVals[sLab].length; j++) {
+				if ((listSpecimen[sLab][j] === "FECES" || listSpecimen[sLab][j] === "STOOL") && listTime[sLab][j] === t) {
+					stoolData += printData(sLab, "||FECES||STOOL||");
+					stoolExclude += sLab + "||";
+					break;
+				}
+			}
 		}
 	}
 }

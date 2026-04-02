@@ -1154,7 +1154,7 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 						val = "> " + valsearch.exec(tempVal.substring(temp.indexOf("  ")));
 					} else if ((val + "").toLowerCase() === "not") {
 						if (/not\s+detected/i.test(temp)) {
-							val = "Not Detected";
+							val = "Neg";
 						} else {
 							// fallback: keep as "Not" if we truly can't tell the second word
 							val = "Not";

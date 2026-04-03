@@ -5,9 +5,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
-	<script>window.RufflePlayer = window.RufflePlayer || {}; window.RufflePlayer.config = { "autoplay": "on", "unmuteOverlay": "hidden" };</script>
-	<script type="text/javascript" src="./CPRS Lab Formatter_files/ruffle.js.download"></script>
-
 	<style>
 		#clipb {
 			width: 704px;
@@ -25,13 +22,6 @@
 
 		#edtData {
 			white-space: pre-wrap;
-			/* css-3 */
-			white-space: -moz-pre-wrap;
-			/* Mozilla, since 1999 */
-			white-space: -pre-wrap;
-			/* Opera 4-6 */
-			white-space: -o-pre-wrap;
-			/* Opera 7 */
 			word-wrap: break-word;
 			text-align: left;
 			font-family: Courier;
@@ -79,11 +69,8 @@
 			margin-left: 3%;
 			margin-top: 2%;
 			border: 2px solid #ccc;
-			-moz-border-radius: 20px;
-			-webkit-border-radius: 20px;
-			-khtml-border-radius: 20px;
-			-moz-box-shadow: 0 1px 5px #333;
-			-webkit-box-shadow: 0 1px 5px #333;
+			border-radius: 20px;
+			box-shadow: 0 1px 5px #333;
 			z-index: 101;
 		}
 
@@ -111,8 +98,6 @@
 	</style>
 
 
-	<meta content="IE=11.0000" http-equiv="X-UA-Compatible">
-	<meta content="IE=11.0000" http-equiv="X-UA-Compatible">
 	<meta content="IE=11.0000" http-equiv="X-UA-Compatible"><!--- Basic Page Needs
    ================================================== -->
 	<title>CPRS Lab Formatter</title>
@@ -576,30 +561,6 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 
 
 
-		Array.prototype.remove = function (from, to) {
-			var rest = this.slice((to || from) + 1 || this.length);
-			this.length = from < 0 ? this.length + from : from;
-			return this.push.apply(this, rest);
-		};
-
-		if (!Array.prototype.filter) {
-			Array.prototype.filter = function (fun /*, thisp*/) {
-				var len = this.length;
-				if (typeof fun != "function")
-					throw new TypeError();
-				var res = new Array();
-				var thisp = arguments[1];
-				for (var i = 0; i < len; i++) {
-					if (i in this) {
-						var val = this[i]; // in case fun mutates this
-						if (fun.call(thisp, val, i, this))
-							res.push(val);
-					}
-				}
-				return res;
-			};
-		}
-
 		/**
 		 * ARCHITECTURE OVERVIEW
 		 * ======================
@@ -785,9 +746,6 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 			return -1;
 		}
 
-		function getClosestIndex() {
-		}
-
 		function pgetValList(listVals, lab, index, blank) {
 			var prefix = "";
 			var postfix = "";
@@ -871,13 +829,6 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 			}
 			return prefix + listVals[ll[ml]][rI] + postfix;
 		}
-		function getSingleValue(listVals, listTime, listSpecimen, lab, prefix) {
-			var valList = [lab];
-			var t1 = getNTime(valList, "SERUM", 0);
-			var inList = getIndex(valList, t1, "SERUM");
-			return getValList(listVals, lab, inList, prefix + "*** ", prefix) + " @ " + t1;
-		}
-
 		function getTCV(lab, t1, specimen) {
 			var minDif = -1;
 			var minLoc = -1;
@@ -925,30 +876,6 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 		}
 		function replaceTags(s) {
 			return s.replace(/\<[^>]*\>/g, "").replace(/&#060;/g, " ").replace(/&#062;/g, " ");
-			//return s.replace(/\<ss\>/g,"").replace(/\<\/span\>/g,"");
-		}
-
-		function generateText(name, prop, specimen, id) {
-			var trendText = "";
-			for (var j = 0; j < listVals[prop].length; j++) {
-				if (listSpecimen[prop][j] === specimen) {
-					var pre = "";
-					var post = "";
-					if (listCrit[prop][j] != "N") {
-						pre = "<span style='color: red; font-weight: bold'>";
-						post = "</span>";
-					}
-					trendText += name + ": " + pre + listVals[prop][j] + post + " @ " + listTime[prop][j] + "\n";
-				}
-			}
-			return "<span id = '" + id + "' style='display:none'>" + trendText + "</span>";
-		}
-		function odc(id) {
-			if (document.getElementById(id).style.display == 'none') {
-				document.getElementById(id).style.display = "block";
-			} else {
-				document.getElementById(id).style.display = "none";
-			}
 		}
 
 		function templateSpecial(lab, base) {
@@ -1014,7 +941,6 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 				else {
 					return tmpProp + ": " + pf + listUH[prop][minV] + pof + " @ " + listTime[prop][minV] + " \n";
 				}
-				//return "<span ondblclick=\"odc('" + tmpProp + "')\">" +  tmpProp + ": " + pf + listUH[prop][minV] + pof + "</span>" + " @ " + listTime[prop][minV] + " \n";							
 			}
 			return "";
 		}

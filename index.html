@@ -2505,30 +2505,47 @@ replaceArray["URINE CRYSTALS"] = "Crystals";
 			// STOOL STUDIES — labs reported on FECES/STOOL specimen
 			// Covers parasite antigen tests, O&P, AFB stains, C. diff, etc.
 			// ---------------------------------------------------------------
+			
 			var stoolOrderedList = [
 				"Fecal Fat", "Fecal Calprotectin", "Fecal Lactoferrin",
 				"H.pylori Stool Ag",
 				"Shiga Toxin", "STEC", "E. coli O157 Ag",
-				"Rotavirus Ag", "Norovirus PCR", "GI Pathogen Panel",
-				"FIT", "A1-Antitrypsin", "Fecal Elastase",
-				"Campylobacter", "Salmonella", "Vibrio",
-				"Vibrio cholera", "Yersinia enterocolitica",
-				"EPEC", "Cryptosporidium", "Cyclospora cayetanensis",
-				"Entamoeba histolytica", "Giardia lamblia", "Adenovirus F40/41",
-				"Astrovirus", "Norovirus GI/GII", "Rotavirus A",
-				"Sapovirus", "Plesiomonas shigelloides",
-				"EAEC", "ETEC", "Shiga-like tox Ecoli",
-				"Shig/Entero Ecoli",
 				"Giardia Ag", "Cryptosporidium Ag",
-				"O&P Concentrate Exam", "O&P Trichrome Exam",
-				"Microsporidia Spore Stain",
+				"AFB Culture", "AFB Smear", "O and P",
+				"Ova & Parasites", "Fungus/Yeast Culture", 
 				"C.diff Tox A/B", "C.diff Tox B PCR", "C.diff Tox B Gene PCR", "C.diff PCR"
 			];
+			
+			var stoolTimesSorted = [];
 			for (var si = 0; si < stoolOrderedList.length; si++) {
 				var sLab = stoolOrderedList[si];
 				if (sLab in listVals) {
-					stoolData += printData(sLab, "||FECES||STOOL||");
-					stoolExclude += sLab + "||";
+					for (var sj = 0; sj < listTime[sLab].length; sj++) {
+						if ((listSpecimen[sLab][sj] === "FECES" || listSpecimen[sLab][sj] === "STOOL") && 
+							stoolTimesSorted.indexOf(listTime[sLab][sj]) === -1) {
+							stoolTimesSorted.push(listTime[sLab][sj]);
+						}
+					}
+				}
+			}
+			stoolTimesSorted.sort(function(a, b) {
+				return timeToDate(b) - timeToDate(a);
+			});
+			
+			for (var stIdx = 0; stIdx < stoolTimesSorted.length; stIdx++) {
+				var curStoolTime = stoolTimesSorted[stIdx];
+				for (var si = 0; si < stoolOrderedList.length; si++) {
+					var sLab = stoolOrderedList[si];
+					if (sLab in listVals) {
+						for (var sj = 0; sj < listTime[sLab].length; sj++) {
+							if ((listSpecimen[sLab][sj] === "FECES" || listSpecimen[sLab][sj] === "STOOL") && 
+								listTime[sLab][sj] === curStoolTime) {
+								stoolData += printData(sLab, "||FECES||STOOL||");
+								stoolExclude += sLab + "||";
+								break;
+							}
+						}
+					}
 				}
 			}
 			if (stoolData != "")
